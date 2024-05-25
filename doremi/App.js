@@ -26,36 +26,30 @@ export default function App() {
   // 回答超时
   const [isTimeout, setIsTimeout] = useState(false)
   // 当前数字
-  const [note, setNote] = useState(getOneNote())
+  const [note, setNote] = useState(null)
   // 是否禁麦
   const [curfew, setCurfew] = useState(true)
 
-  const onAddNote = () => {  }
-  const onSubtract = () => { }
-  const changeNotes = () => {
-    setNoteGroup(generateGroup(noteGroup.length))
+  // 从入选音符数字中随机取一个
+  const getOneNote = () => noteGroup[Math.floor(Math.random() * noteGroup.length)]
+  // 随机生成一组不重复的音符
+  const generateGroup = (length=3) => {
+    const arr = [1,2,3,4,5,6,7]
+    let newArr = []
+    for (let i = 0; i < length; i++) {
+      // 从1~7中随机取出一个加入到新数组中
+      newArr = newArr.concat(arr.splice(Math.floor(Math.random() * (7-i)), 1))
+    }
+    return newArr
   }
+  const addNote = () => setNoteGroup(generateGroup(noteGroup.length+1))
+  const subtractNote = () => setNoteGroup(generateGroup(noteGroup.length-1))
+  const changeNotes = () => setNoteGroup(generateGroup(noteGroup.length))
   // 启动训练
   const practice = () => { 
     setNote(getOneNote())
     setExerciseLength(totalCount-1)
     setPracticeStatus('practicing') 
-  }
-
-  // 随机生成一组不重复的音符
-  function generateGroup(length=3) {
-    const arr = [1,2,3,4,5,6,7]
-    let arrNew = []
-    for (let i = 0; i < length; i++) {
-      // 从1~7中随机取出一个加入到新数组中
-      arrNew = arrNew.concat(arr.splice(Math.floor(Math.random() * (7-i)), 1))
-    }
-    return arrNew
-  }
-
-  // 从入选音符数字中随机取一个
-  function getOneNote(){
-    return noteGroup[Math.floor(Math.random() * noteGroup.length)]
   }
   
   const setNextNumber = () => {
@@ -103,9 +97,9 @@ export default function App() {
             </View>
             {/* 控制按钮 */}
             <View style={styles.controlBar}>
-              <IconButton onPress={onAddNote} name="add" label="增加" size={64} />
-              <IconButton onPress={onSubtract} name="remove" label="减少" size={64} />
-              <IconButton onPress={changeNotes} name="refresh" label="换一组" size={64} />
+              <IconButton onPress={addNote} disabled={noteGroup.length>=7} name="add" label="增加" size={64} />
+              <IconButton onPress={subtractNote} disabled={noteGroup.length<=3} name="remove" label="减少" size={64} />
+              <IconButton onPress={changeNotes} disabled={noteGroup.length==7} name="refresh" label="换一组" size={64} />
             </View>
           </View>
           {/* 启动按钮 */}
