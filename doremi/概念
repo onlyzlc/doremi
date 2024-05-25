@@ -1,0 +1,3 @@
+noteGroup: 音符组, 在唱名练习中,数字表示音符(1~7)
+numberOfNotes: 音符数量, 一次唱名练习由多少种音符组成solfeggio: 唱名, 1~7对应的发音(do,re,mi,fa,sol,la,si)
+exerciseLength: 在唱名练习中出现多少个数字卡片

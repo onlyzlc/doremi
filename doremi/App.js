@@ -7,28 +7,26 @@ import MaterialIcons  from "@expo/vector-icons/MaterialIcons";
 
 const roll = ['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']
 
-function Question({ number, showAnswer }) {
+function Question({ note, showAnswer }) {
   return <View style={styles.note}>
-    <Text style={{ fontSize: 200, fontWeight: 700, textAlign: 'center' }}>{number}</Text>
+    <Text style={{ fontSize: 200, fontWeight: 700, textAlign: 'center' }}>{note}</Text>
     {showAnswer &&
-      <Text style={{ fontSize: 48, fontWeight: 200, textAlign: 'center' }}>{roll[number - 1]}</Text>
+      <Text style={{ fontSize: 48, fontWeight: 200, textAlign: 'center' }}>{roll[note - 1]}</Text>
     }
   </View>
 }
 
 export default function App() {
   const totalCount = 10
-  // 当前训练数字组长度
-  const [numberOfNotes, setNumberOfNotes] = useState(3)
-  // 当前入选数字
-  const [numbers, setNumbers] = useState([1,  4,  7])
-  const [questionCount, setQuestionCount] = useState(totalCount-1)
+  // 当前入选音符
+  const [noteGroup, setNoteGroup] = useState([1,  4,  7])
+  const [exerciseLength, setExerciseLength] = useState(totalCount-1)
   // 启动状态
   const [practiceStatus, setPracticeStatus] = useState('setting')
   // 回答超时
   const [isTimeout, setIsTimeout] = useState(false)
   // 当前数字
-  const [number, setNumber] = useState(getOneNumber())
+  const [note, setNote] = useState(getOneNote())
   // 是否禁麦
   const [curfew, setCurfew] = useState(true)
 
@@ -37,22 +35,22 @@ export default function App() {
   const onChangeNotes = () => { }
   // 启动训练
   const practice = () => { 
-    setNumber(getOneNumber())
-    setQuestionCount(totalCount-1)
+    setNote(getOneNote())
+    setExerciseLength(totalCount-1)
     setPracticeStatus('practicing') 
   }
-
+  
   // 从入选数字中随机取一个
-  function getOneNumber(){
-    return numbers[Math.floor(Math.random() * numberOfNotes)]
+  function getOneNote(){
+    return noteGroup[Math.floor(Math.random() * noteGroup.length)]
   }
   
   const setNextNumber = () => {
     setIsTimeout(false)
-    if (questionCount > 0) {
-      // const n = getOneNumber()
-      setNumber(getOneNumber())
-      setQuestionCount(questionCount - 1)
+    if (exerciseLength > 0) {
+      // const n = getOneNote()
+      setNote(getOneNote())
+      setExerciseLength(exerciseLength - 1)
     } else{
       setPracticeStatus('done')
       setIsTimeout(false)
@@ -64,15 +62,15 @@ export default function App() {
 
   const exit = () => {
     setIsTimeout(false)
-    setQuestionCount(totalCount)
+    setExerciseLength(totalCount)
     setPracticeStatus('setting')
   }
 
   // 音符组展示JSX
-  const notesList = numbers.map(number =>
-    <View key={number} style={styles.note}>
-      <Text style={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}>{number}</Text>
-      <Text style={{ fontSize: 16, fontWeight: 200, textAlign: 'center' }}>{roll[number - 1]}</Text>
+  const notesList = noteGroup.map(note =>
+    <View key={note} style={styles.note}>
+      <Text style={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}>{note}</Text>
+      <Text style={{ fontSize: 16, fontWeight: 200, textAlign: 'center' }}>{roll[note - 1]}</Text>
     </View>)
 
   return (
@@ -105,13 +103,13 @@ export default function App() {
         <View style={styles.content}>
           {/* 顶部栏进度条、关闭按钮 */}
           <View style={styles.titleBar}>
-            <Text style={styles.title}>{totalCount - questionCount}/{totalCount}</Text>
+            <Text style={styles.title}>{totalCount - exerciseLength}/{totalCount}</Text>
             <IconButton name='close' size={64} onPress={exit} />
           </View>
 
           {/* 音符展示区 */}
           <View style={styles.topic}>
-            <Question number={number} showAnswer={isTimeout} />
+            <Question note={note} showAnswer={isTimeout} />
           </View>
 
           {/* 语音识别结果展示 */}
