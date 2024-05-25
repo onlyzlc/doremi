@@ -5,7 +5,7 @@ import IconButton from './components/IconButton'
 import Button from './components/Button'
 import MaterialIcons  from "@expo/vector-icons/MaterialIcons";
 
-const roll = ['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']
+const roll = ['do', 're', 'mi', 'fa', 'sol', 'la', 'si']
 
 function Question({ note, showAnswer }) {
   return <View style={styles.note}>
@@ -32,15 +32,28 @@ export default function App() {
 
   const onAddNote = () => {  }
   const onSubtract = () => { }
-  const onChangeNotes = () => { }
+  const changeNotes = () => {
+    setNoteGroup(generateGroup(noteGroup.length))
+  }
   // 启动训练
   const practice = () => { 
     setNote(getOneNote())
     setExerciseLength(totalCount-1)
     setPracticeStatus('practicing') 
   }
-  
-  // 从入选数字中随机取一个
+
+  // 随机生成一组不重复的音符
+  function generateGroup(length=3) {
+    const arr = [1,2,3,4,5,6,7]
+    let arrNew = []
+    for (let i = 0; i < length; i++) {
+      // 从1~7中随机取出一个加入到新数组中
+      arrNew = arrNew.concat(arr.splice(Math.floor(Math.random() * (7-i)), 1))
+    }
+    return arrNew
+  }
+
+  // 从入选音符数字中随机取一个
   function getOneNote(){
     return noteGroup[Math.floor(Math.random() * noteGroup.length)]
   }
@@ -48,15 +61,17 @@ export default function App() {
   const setNextNumber = () => {
     setIsTimeout(false)
     if (exerciseLength > 0) {
-      // const n = getOneNote()
+      // 如果没有练完,就计算下一个音符
       setNote(getOneNote())
       setExerciseLength(exerciseLength - 1)
     } else{
+      // 如果练完了,就显示完成图标,短暂停留后自动跳回设置页面
       setPracticeStatus('done')
-      setIsTimeout(false)
       setTimeout(() => {
         setPracticeStatus('setting')
       }, 800);
+      
+      changeNotes()
     }
   }
 
@@ -90,7 +105,7 @@ export default function App() {
             <View style={styles.controlBar}>
               <IconButton onPress={onAddNote} name="add" label="增加" size={64} />
               <IconButton onPress={onSubtract} name="remove" label="减少" size={64} />
-              <IconButton onPress={onChangeNotes} name="refresh" label="换一组" size={64} />
+              <IconButton onPress={changeNotes} name="refresh" label="换一组" size={64} />
             </View>
           </View>
           {/* 启动按钮 */}
