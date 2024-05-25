@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import IconButton from './components/IconButton'
 import Button from './components/Button'
 import MaterialIcons  from "@expo/vector-icons/MaterialIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const roll = ['do', 're', 'mi', 'fa', 'sol', 'la', 'si']
 
@@ -16,10 +17,29 @@ function Question({ note, showAnswer }) {
   </View>
 }
 
+const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('lastStatus', jsonValue);
+  } catch (e) {
+    // saving error
+  }
+};
+
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('lastStatus');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // todo
+  }
+};
+
 export default function App() {
   const totalCount = 10
-  // 当前入选音符
-  const [noteGroup, setNoteGroup] = useState([1,  4,  7])
+
+  // 音符组
+  const [noteGroup, setNoteGroup] = useState([1,4,7])
   const [exerciseLength, setExerciseLength] = useState(totalCount-1)
   // 启动状态
   const [practiceStatus, setPracticeStatus] = useState('setting')
@@ -30,7 +50,7 @@ export default function App() {
   // 是否禁麦
   const [curfew, setCurfew] = useState(true)
 
-  // 从入选音符数字中随机取一个
+  // 从音符组中随机取一个
   const getOneNote = () => noteGroup[Math.floor(Math.random() * noteGroup.length)]
   // 随机生成一组不重复的音符
   const generateGroup = (length=3) => {
@@ -50,6 +70,8 @@ export default function App() {
     setNote(getOneNote())
     setExerciseLength(totalCount-1)
     setPracticeStatus('practicing') 
+    // 存储
+    storeData({noteGroup: noteGroup})
   }
   
   const setNextNumber = () => {
