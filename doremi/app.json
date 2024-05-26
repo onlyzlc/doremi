@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.onlyzlc.doremi"
     },
     "android": {
       "adaptiveIcon": {
@@ -30,6 +31,7 @@
       "eas": {
         "projectId": "e1958fac-61d8-4c3a-b0f8-4501f888e40e"
       }
-    }
+    },
+    "plugins": ["@react-native-voice/voice"]
   }
 }
