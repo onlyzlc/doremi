@@ -5,9 +5,15 @@ import IconButton from './components/IconButton'
 import Button from './components/Button'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import Animated, {SlideInRight,SlideOutLeft,Easing} from 'react-native-reanimated';
+import Animated, { SlideInRight, SlideOutLeft, Easing } from 'react-native-reanimated';
+import Voice, {
+  SpeechRecognizedEvent,
+  SpeechResultsEvent,
+  SpeechErrorEvent,
+} from '@react-native-voice/voice'
 
 const roll = ['do', 're', 'mi', 'fa', 'sol', 'la', 'si']
+const zhRoll = ['朵多躲夺剁哆堕','来瑞锐蕊睿']
 
 // todo,动画
 function Question({ note, showAnswer }) {
@@ -32,7 +38,15 @@ export default function App() {
   // 练习时生成的音符序列，最后一个数字即当前音符
   const [noteString, setNoteString] = useState('')
   // 是否禁麦
-  const [curfew, setCurfew] = useState(true)
+  const [voiceEnabled, setVoiceEnabled] = useState(false)
+  // 识别结果
+  const [speechResult, setSpeechResult] = useState('请唱...')
+  const [speechResultInt, setSpeechResultInt] = useState('...')
+  
+
+  if(!voiceEnabled){
+    Voice.isAvailable().then(rl => setVoiceEnabled(rl))
+  }
 
   // 随机生成一组不重复的音符
   const generateGroup = (length = 3) => {
@@ -73,6 +87,8 @@ export default function App() {
     // 存储
     AsyncStorage.setItem('lastStatus', JSON.stringify({ noteGroup }))
       .catch(e => console.error(e))
+    setSpeechResult('请唱...')
+    Voice.start('zh-CN')
   }
 
   const showNextNote = () => {
@@ -87,7 +103,7 @@ export default function App() {
       setTimeout(() => {
         setPracticeStatus('setting')
       }, 800);
-
+      Voice.stop()
       changeNotes()
     }
   }
@@ -96,6 +112,18 @@ export default function App() {
     setIsTimeout(false)
     setExerciseLength(totalCount)
     setPracticeStatus('setting')
+    Voice.stop()
+  }
+
+  Voice.onSpeechPartialResults = e => {
+    // Voice.stop()
+    setSpeechResultInt(e.value)
+    zhRoll.forEach((words, index) => {
+      if(words.includes(e.value)){
+        setSpeechResult(roll[index])
+      }
+    })
+    
   }
 
   // 待测试的音符组 JSX
@@ -104,15 +132,6 @@ export default function App() {
       <Text style={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}>{n}</Text>
       <Text style={{ fontSize: 16, fontWeight: 200, textAlign: 'center' }}>{roll[n - 1]}</Text>
     </View>)
-
-  // 卡片切换动画
-  // const translateX = useSharedValue<number>(0)
-  // const fadeIn = useAnimatedStyle(() => ({
-  //   transform: [{translateX: withSpring(translateX.value)}] 
-  // }))
-  // const fadeOut = useAnimatedStyle(() => ({
-  //   transform: [{translateX: withSpring(translateX.value)}] 
-  // }))
 
   return (
     <View style={[styles.container, { paddingTop: 64 }]}>
@@ -149,23 +168,25 @@ export default function App() {
           </View>
 
           {/* 音符展示区 */}
-          <Animated.View 
-            style={styles.topic} 
-            key={noteString.length} 
+          {/* todo: 退出训练时，不需要动画 */}
+          <Animated.View
+            style={styles.topic}
+            key={noteString.length}
             exiting={SlideOutLeft.easing(Easing.bezier(0.19, 0.19, 0.03, 0.97))}
             entering={SlideInRight.easing(Easing.bezier(0.19, 0.19, 0.03, 0.97))}
-            >
+          >
             <Question note={noteString[noteString.length - 1]} showAnswer={isTimeout} />
           </Animated.View>
 
           {/* 语音识别结果展示 */}
-          {curfew ?
+          {voiceEnabled ?
             <View style={styles.heard}>
-              <Button label='下一个' onPress={showNextNote}></Button>
+              <Text style={{ fontSize: 48, fontWeight: 300, textAlign: 'center' }}>{speechResult }</Text>
+              <Text style={{ fontSize: 48, fontWeight: 300, textAlign: 'center' }}>{speechResultInt }</Text>
             </View>
             :
             <View style={styles.heard}>
-              <Text style={{ fontSize: 48, fontWeight: 300, textAlign: 'center' }}>请唱...</Text>
+              <Button label='下一个' onPress={showNextNote}></Button>
             </View>
           }
         </View>}
@@ -185,7 +206,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     backgroundColor: '#fff',
-    maxWidth: "600px",
+    maxWidth: 600,
   },
   content: {
     width: "100%",
@@ -215,7 +236,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: "0px",
     flex: "none",
     alignSelf: "stretch",
     flexGrow: 1,
