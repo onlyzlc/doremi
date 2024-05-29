@@ -5,9 +5,11 @@ import IconButton from './components/IconButton'
 import Button from './components/Button'
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import Animated, {SlideInRight,SlideOutLeft,Easing} from 'react-native-reanimated';
 
 const roll = ['do', 're', 'mi', 'fa', 'sol', 'la', 'si']
 
+// todo,动画
 function Question({ note, showAnswer }) {
   return <View style={styles.note}>
     <Text style={{ fontSize: 200, fontWeight: 700, textAlign: 'center' }}>{note}</Text>
@@ -27,8 +29,8 @@ export default function App() {
   const [practiceStatus, setPracticeStatus] = useState('setting')
   // 回答超时
   const [isTimeout, setIsTimeout] = useState(false)
-  // 当前数字
-  const [note, setNote] = useState(null)
+  // 练习时生成的音符序列，最后一个数字即当前音符
+  const [noteString, setNoteString] = useState('')
   // 是否禁麦
   const [curfew, setCurfew] = useState(true)
 
@@ -43,41 +45,41 @@ export default function App() {
     return newArr
   }
   // 读取存储
-  if(noteGroup.length === 0){
+  if (noteGroup.length === 0) {
     // 教训：更新状态一定要有事件或条件，否则将死循环（因为每次更新状态都会触发所在组件重新执行和渲染）
     AsyncStorage.getItem('lastStatus')
       .then((value) => {
-        if(value != null ){
+        if (value != null) {
           // 按上一次练习的音符组数量重新生成一组音符
           const l = JSON.parse(value).noteGroup.length
           setNoteGroup(generateGroup(l))
-        }else{
-          setNoteGroup([1,4,7])
+        } else {
+          setNoteGroup([1, 4, 7])
         }
       })
       .catch((e) => console.error(e))
   }
-  
+
   const addNote = () => setNoteGroup(generateGroup(noteGroup.length + 1))
   const subtractNote = () => setNoteGroup(generateGroup(noteGroup.length - 1))
   const changeNotes = () => setNoteGroup(generateGroup(noteGroup.length))
   // 从音符组中随机取一个
-  const getOneNote = () => noteGroup[Math.floor(Math.random() * noteGroup.length)]
+  const nextNote = () => noteGroup[Math.floor(Math.random() * noteGroup.length)]
   // 启动训练
   const practice = () => {
-    setNote(getOneNote())
+    setNoteString(ns => ns + nextNote())
     setExerciseLength(totalCount - 1)
     setPracticeStatus('practicing')
     // 存储
-    AsyncStorage.setItem('lastStatus', JSON.stringify({ noteGroup: noteGroup }))
+    AsyncStorage.setItem('lastStatus', JSON.stringify({ noteGroup }))
       .catch(e => console.error(e))
   }
 
-  const setNextNumber = () => {
+  const showNextNote = () => {
     setIsTimeout(false)
     if (exerciseLength > 0) {
       // 如果没有练完,就计算下一个音符
-      setNote(getOneNote())
+      setNoteString(ns => ns + nextNote())
       setExerciseLength(exerciseLength - 1)
     } else {
       // 如果练完了,就显示完成图标,短暂停留后自动跳回设置页面
@@ -96,16 +98,25 @@ export default function App() {
     setPracticeStatus('setting')
   }
 
-  // 音符组展示JSX
-  const notesList = noteGroup.map(note =>
-    <View key={note} style={styles.note}>
-      <Text style={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}>{note}</Text>
-      <Text style={{ fontSize: 16, fontWeight: 200, textAlign: 'center' }}>{roll[note - 1]}</Text>
+  // 待测试的音符组 JSX
+  const notesList = noteGroup.map(n =>
+    <View key={n} style={styles.note}>
+      <Text style={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}>{n}</Text>
+      <Text style={{ fontSize: 16, fontWeight: 200, textAlign: 'center' }}>{roll[n - 1]}</Text>
     </View>)
+
+  // 卡片切换动画
+  // const translateX = useSharedValue<number>(0)
+  // const fadeIn = useAnimatedStyle(() => ({
+  //   transform: [{translateX: withSpring(translateX.value)}] 
+  // }))
+  // const fadeOut = useAnimatedStyle(() => ({
+  //   transform: [{translateX: withSpring(translateX.value)}] 
+  // }))
 
   return (
     <View style={[styles.container, { paddingTop: 64 }]}>
-      {/* 未启动 */}
+      {/* 设置界面 */}
       {practiceStatus == 'setting' &&
         <View style={styles.content}>
           <View style={styles.titleBar}>
@@ -128,7 +139,7 @@ export default function App() {
             <Button label='练习' theme='primary' onPress={practice} />
           </View>
         </View>}
-      {/* 启动后 */}
+      {/* 练习界面 */}
       {practiceStatus == 'practicing' &&
         <View style={styles.content}>
           {/* 顶部栏进度条、关闭按钮 */}
@@ -138,14 +149,19 @@ export default function App() {
           </View>
 
           {/* 音符展示区 */}
-          <View style={styles.topic}>
-            <Question note={note} showAnswer={isTimeout} />
-          </View>
+          <Animated.View 
+            style={styles.topic} 
+            key={noteString.length} 
+            exiting={SlideOutLeft.easing(Easing.bezier(0.19, 0.19, 0.03, 0.97))}
+            entering={SlideInRight.easing(Easing.bezier(0.19, 0.19, 0.03, 0.97))}
+            >
+            <Question note={noteString[noteString.length - 1]} showAnswer={isTimeout} />
+          </Animated.View>
 
           {/* 语音识别结果展示 */}
           {curfew ?
             <View style={styles.heard}>
-              <Button label='下一个' onPress={setNextNumber}></Button>
+              <Button label='下一个' onPress={showNextNote}></Button>
             </View>
             :
             <View style={styles.heard}>
@@ -154,7 +170,7 @@ export default function App() {
           }
         </View>}
 
-      {/* 完成 */}
+      {/* 完成界面 */}
       {practiceStatus == 'done' &&
         <View style={styles.content}>
           <MaterialIcons name='check-circle-outline' size={128} style={{ color: '#44D7B6' }} />
