@@ -1,5 +1,5 @@
-import { StyleSheet,View,Pressable,Text} from "react-native";
-import FontAwesome from "@expo/vector-icons/MaterialIcons";
+/* eslint-disable react/prop-types */
+import { React, StyleSheet, View, Pressable, Text } from "react-native";
 
 export default function Button({label,theme, onPress, iconName}){
     if(theme == 'primary'){

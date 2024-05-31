@@ -1,4 +1,5 @@
-import { StyleSheet,View,Pressable, Text} from "react-native";
+/* eslint-disable react/prop-types */
+import {React, StyleSheet,View,Pressable, Text} from "react-native";
 import MaterialIcons  from "@expo/vector-icons/MaterialIcons";
 
 export default function IconButton({onPress, name, label, size, disabled=false}){

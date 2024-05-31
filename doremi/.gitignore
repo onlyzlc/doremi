@@ -34,3 +34,8 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+
+.DS_Store
+package-lock.json
+eslint.config.mjs

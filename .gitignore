@@ -1,2 +1,4 @@
 .DS_Store
 doremi/package-lock.json
+doremi/eslint.config.mjs
+.vscode/settings.json
