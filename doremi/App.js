@@ -12,14 +12,10 @@ import Animated, {
   SlideOutLeft,
   Easing,
 } from "react-native-reanimated";
-// import Voice, {
-//   SpeechRecognizedEvent,
-//   SpeechResultsEvent,
-//   SpeechErrorEvent,
-// } from "@react-native-voice/voice";
+import SpeechRecognition from "./components/SpeechRecognition";
+import VoiceTest from "./VoiceTestFuncComp";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
-const zhRoll = ["朵多躲夺剁哆堕", "来瑞锐蕊睿"];
 
 // todo,动画
 function Question({ note, showAnswer }) {
@@ -42,22 +38,14 @@ export default function App() {
 
   // 音符组
   const [noteGroup, setNoteGroup] = useState([]);
-  const [exerciseLength, setExerciseLength] = useState(totalCount - 1);
   // 启动状态
   const [practiceStatus, setPracticeStatus] = useState("setting");
   // 回答超时
   const [isTimeout, setIsTimeout] = useState(false);
   // 练习时生成的音符序列，最后一个数字即当前音符
-  const [noteString, setNoteString] = useState("");
-  // 是否禁麦
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
-  // 识别结果
-  const [speechResult, setSpeechResult] = useState("请唱...");
-  const [speechResultInt, setSpeechResultInt] = useState("...");
-
-  if (!voiceEnabled) {
-    // Voice.isAvailable().then((rl) => setVoiceEnabled(rl));
-  }
+  const [noteString, setNoteString] = useState([]);
+  let currentNote = noteString[noteString.length - 1];
+  let currentNumber = noteString.length;
 
   // 随机生成一组不重复的音符
   const generateGroup = (length = 3) => {
@@ -90,55 +78,41 @@ export default function App() {
   const addNote = () => setNoteGroup(generateGroup(noteGroup.length + 1));
   const subtractNote = () => setNoteGroup(generateGroup(noteGroup.length - 1));
   const changeNotes = () => setNoteGroup(generateGroup(noteGroup.length));
+
   // 从音符组中随机取一个
   const nextNote = () =>
     noteGroup[Math.floor(Math.random() * noteGroup.length)];
   // 启动训练
   const practice = () => {
-    setNoteString((ns) => ns + nextNote());
-    setExerciseLength(totalCount - 1);
+    setNoteString([...noteString, nextNote()]);
     setPracticeStatus("practicing");
     // 存储
     AsyncStorage.setItem("lastStatus", JSON.stringify({ noteGroup })).catch(
       (e) => console.error(e)
     );
-    setSpeechResult("请唱...");
-    // Voice.start('zh-CN')
   };
 
   const showNextNote = () => {
     setIsTimeout(false);
-    if (exerciseLength > 0) {
+    console.log(`noteString: ${noteString.join(",")}`);
+    if (currentNumber <= totalCount) {
       // 如果没有练完,就计算下一个音符
-      setNoteString((ns) => ns + nextNote());
-      setExerciseLength(exerciseLength - 1);
+      setNoteString([...noteString, nextNote()]);
     } else {
       // 如果练完了,就显示完成图标,短暂停留后自动跳回设置页面
       setPracticeStatus("done");
       setTimeout(() => {
         setPracticeStatus("setting");
       }, 800);
-      // Voice.stop()
       changeNotes();
     }
+    return false;
   };
 
   const exit = () => {
     setIsTimeout(false);
-    setExerciseLength(totalCount);
     setPracticeStatus("setting");
-    // Voice.stop()
   };
-
-  // Voice.onSpeechPartialResults = (e) => {
-  //   // Voice.stop()
-  //   setSpeechResultInt(e.value);
-  //   zhRoll.forEach((words, index) => {
-  //     if (words.includes(e.value)) {
-  //       setSpeechResult(solfa[index]);
-  //     }
-  //   });
-  // };
 
   return (
     <View style={[styles.container, { paddingTop: 64 }]}>
@@ -188,7 +162,7 @@ export default function App() {
           {/* 顶部栏进度条、关闭按钮 */}
           <View style={styles.titleBar}>
             <Text style={styles.title}>
-              {totalCount - exerciseLength}/{totalCount}
+              {currentNumber} / {totalCount}
             </Text>
             <IconButton name="close" size={64} onPress={exit} />
           </View>
@@ -202,32 +176,19 @@ export default function App() {
             entering={SlideInRight.easing(
               Easing.bezier(0.19, 0.19, 0.03, 0.97)
             )}>
-            <Question
-              note={noteString[noteString.length - 1]}
-              showAnswer={isTimeout}
-            />
+            <Question note={currentNote} showAnswer={isTimeout} />
           </Animated.View>
 
-          {/* 语音识别结果展示 */}
-          {voiceEnabled ? (
-            <View style={styles.heard}>
-              <Text
-                style={{ fontSize: 48, fontWeight: 300, textAlign: "center" }}>
-                {speechResult}
-              </Text>
-              <Text
-                style={{ fontSize: 48, fontWeight: 300, textAlign: "center" }}>
-                {speechResultInt}
-              </Text>
-            </View>
-          ) : (
-            <View style={styles.heard}>
-              <Button label="下一个" onPress={showNextNote}></Button>
-            </View>
-          )}
+          <SpeechRecognition
+            solfa={solfa}
+            note={currentNote}
+            correct={showNextNote}
+            miss={showNextNote}>
+            <Button label="下一个" onPress={showNextNote}></Button>
+          </SpeechRecognition>
+          <Text>{noteString.join(",")}</Text>
         </View>
       )}
-
       {/* 完成界面 */}
       {practiceStatus == "done" && (
         <View style={styles.content}>
@@ -238,6 +199,8 @@ export default function App() {
           />
         </View>
       )}
+      {/* 测试语音识别 */}
+      {/* {practiceStatus == "test" && <VoiceTest />} */}
       <StatusBar style="auto" hidden={false} />
     </View>
   );
@@ -297,5 +260,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  heard: {},
 });
