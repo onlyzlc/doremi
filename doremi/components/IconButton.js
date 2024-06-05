@@ -14,7 +14,7 @@ export default function IconButton({
     <View style={[{ width: size }]}>
       <Pressable onPress={onPress} style={[styles.button]} disabled={disabled}>
         <MaterialIcons name={name} size={size / 2} style={styles.icon} />
-        {label !== null ? <Text style={styles.iconLabel}>{label}</Text> : null}
+        {label && <Text style={styles.iconLabel}>{label}</Text>}
       </Pressable>
     </View>
   );
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   icon: {
     textAlign: "center",
     color: "#000",
-    marginTop: 10,
+    padding: 8,
   },
   iconLabel: {
     color: "#000",

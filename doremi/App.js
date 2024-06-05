@@ -13,7 +13,7 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import SpeechRecognition from "./components/SpeechRecognition";
-// import ProgressBarAnimated from "react-native-progress-bar-animated";
+import ProgressBarAnimated from "react-native-progress-bar-animated";
 // import VoiceTest from "./VoiceTestFuncComp";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
@@ -162,14 +162,14 @@ export default function App() {
         <View style={styles.content}>
           {/* 顶部栏进度条、关闭按钮 */}
           <View style={styles.titleBar}>
-            <Text style={styles.title}>
+            {/* <Text style={styles.title}>
               {currentNumber} / {totalCount}
-            </Text>
-            {/* <ProgressBarAnimated
-              width={200}
+            </Text> */}
+            <ProgressBarAnimated
+              width={160}
               value={(currentNumber / totalCount) * 100}
               backgroundColorOnComplete="#6CC644"
-            /> */}
+            />
             <IconButton name="close" size={64} onPress={exit} />
           </View>
 
@@ -235,6 +235,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     paddingHorizontal: 16,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   title: {
     color: "rgb(51, 51, 51)",
