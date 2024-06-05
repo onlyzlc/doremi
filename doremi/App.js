@@ -13,7 +13,7 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import SpeechRecognition from "./components/SpeechRecognition";
-import VoiceTest from "./VoiceTestFuncComp";
+// import VoiceTest from "./VoiceTestFuncComp";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
@@ -84,7 +84,7 @@ export default function App() {
     noteGroup[Math.floor(Math.random() * noteGroup.length)];
   // 启动训练
   const practice = () => {
-    setNoteString([...noteString, nextNote()]);
+    setNoteString([nextNote()]);
     setPracticeStatus("practicing");
     // 存储
     AsyncStorage.setItem("lastStatus", JSON.stringify({ noteGroup })).catch(
@@ -95,7 +95,7 @@ export default function App() {
   const showNextNote = () => {
     setIsTimeout(false);
     console.log(`noteString: ${noteString.join(",")}`);
-    if (currentNumber <= totalCount) {
+    if (currentNumber < totalCount) {
       // 如果没有练完,就计算下一个音符
       setNoteString([...noteString, nextNote()]);
     } else {
@@ -186,7 +186,7 @@ export default function App() {
             miss={showNextNote}>
             <Button label="下一个" onPress={showNextNote}></Button>
           </SpeechRecognition>
-          <Text>{noteString.join(",")}</Text>
+          {/* <Text>{noteString.join(",")}</Text> */}
         </View>
       )}
       {/* 完成界面 */}

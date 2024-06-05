@@ -22,15 +22,17 @@ export default function SpeechRecognition({
   ];
   const [isAvailable, setIsAvailable] = useState(false);
 
-  // 识别结果, 保存索引号
+  // 识别结果, 记0~6索引号
   const [speechResult, setSpeechResult] = useState(null);
   const [speechResultInt, setSpeechResultInt] = useState("请唱...");
 
   const handleSpeechResult = (e) => {
+    Voice.stop();
+    // 取识别结果里最后一组的最后一个字
     let lastWord = e.value[e.value.length - 1];
     lastWord = lastWord[lastWord.length - 1];
     console.log("识别结果:" + lastWord);
-    // 显示识别的中文发音
+    // 【触发渲染】显示识别的中文发音
     setSpeechResultInt(lastWord);
     // 根据语音识别结果, 去匹配中文发音, 得出用户可能说的唱名, 以索引号记录, 可识别的记索引号, 不识别的记-1
     const matched = zhRoll
@@ -49,6 +51,7 @@ export default function SpeechRecognition({
       // 有多个或0个匹配发音的可能
       console.log("匹配到:" + matched[0]);
       console.log(matched);
+      Voice.start();
       setSpeechResult(null);
       setSpeechResultInt("没听清...");
     }
@@ -67,25 +70,40 @@ export default function SpeechRecognition({
   };
 
   const close = () => {
-    Voice.destroy().then(Voice.removeAllListeners);
-    console.log("已关闭语音");
+    if (isAvailable) {
+      Voice.destroy().then(Voice.removeAllListeners);
+      console.log("已关闭语音");
+    }
   };
 
+  // note 变化时，重新绑定事件
   useEffect(() => {
-    console.log("已挂载语音识别模块");
-    const check = async () => await Voice.isAvailable();
-    const rsl = check();
-    setIsAvailable(rsl);
-    if (rsl) {
-      console.log("准备开始");
-      Voice.onSpeechStart = onSpeechStart;
-      Voice.onSpeechResults = handleSpeechResult;
-      Voice.onSpeechEnd = onSpeechEnd;
-      Voice.onSpeechVolumeChanged = onVolumeChanged;
-      Voice.start(lang);
-    }
+    Voice.isAvailable()
+      .then((rsl) => {
+        setIsAvailable(rsl);
+        if (rsl) {
+          console.log("语音识别模块可用");
+          return Voice.removeAllListeners();
+        } else {
+          throw new Error("VoiceDisabled");
+        }
+      })
+      .then(() => {
+        Voice.onSpeechStart = onSpeechStart;
+        Voice.onSpeechResults = handleSpeechResult;
+        Voice.onSpeechEnd = onSpeechEnd;
+        Voice.onSpeechVolumeChanged = onVolumeChanged;
+        return Voice.start(lang);
+      })
+      .catch((err) => {
+        if (err === "VoiceDisabled") {
+          // todo:
+        }
+        console.log(err);
+        setIsAvailable(false);
+      });
     return close;
-  }, []);
+  }, [note]);
 
   const heard = (
     <>
