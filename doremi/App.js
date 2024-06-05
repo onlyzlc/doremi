@@ -57,7 +57,7 @@ export default function App() {
         arr.splice(Math.floor(Math.random() * (7 - i)), 1)
       );
     }
-    return newArr;
+    return newArr.sort((a, b) => a - b);
   };
   // 读取存储
   if (noteGroup.length === 0) {
