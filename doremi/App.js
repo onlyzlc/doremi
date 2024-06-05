@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import IconButton from "./components/IconButton";
-import Button from "./components/Button";
+// import Button from "./components/Button";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoteList from "./components/NoteList";
@@ -13,6 +13,7 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import SpeechRecognition from "./components/SpeechRecognition";
+// import ProgressBarAnimated from "react-native-progress-bar-animated";
 // import VoiceTest from "./VoiceTestFuncComp";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
@@ -151,8 +152,8 @@ export default function App() {
             </View>
           </View>
           {/* 启动按钮 */}
-          <View style={styles.entrance}>
-            <Button label="练习" theme="primary" onPress={practice} />
+          <View style={styles.buttonBar}>
+            <Button title="练习" onPress={practice} />
           </View>
         </View>
       )}
@@ -164,6 +165,11 @@ export default function App() {
             <Text style={styles.title}>
               {currentNumber} / {totalCount}
             </Text>
+            {/* <ProgressBarAnimated
+              width={200}
+              value={(currentNumber / totalCount) * 100}
+              backgroundColorOnComplete="#6CC644"
+            /> */}
             <IconButton name="close" size={64} onPress={exit} />
           </View>
 
@@ -184,7 +190,9 @@ export default function App() {
             note={currentNote}
             correct={showNextNote}
             miss={showNextNote}>
-            <Button label="下一个" onPress={showNextNote}></Button>
+            <View style={styles.buttonBar}>
+              <Button title="下一个" onPress={showNextNote}></Button>
+            </View>
           </SpeechRecognition>
           {/* <Text>{noteString.join(",")}</Text> */}
         </View>
@@ -217,7 +225,7 @@ const styles = StyleSheet.create({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    justifyContent: "center",
     paddingTop: 16,
     paddingBottom: 48,
     flex: 1,
@@ -254,10 +262,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 32,
   },
-  entrance: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+  buttonBar: {
+    padding: 16,
   },
 });
