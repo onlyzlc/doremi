@@ -12,6 +12,11 @@ import Animated, {
   SlideOutLeft,
   BounceIn,
   Easing,
+  useSharedValue,
+  useAnimatedStyle,
+  withSequence,
+  withTiming,
+  withRepeat,
 } from "react-native-reanimated";
 import SpeechRecognition from "./components/SpeechRecognition";
 import ProgressBarAnimated from "react-native-progress-bar-animated";
@@ -47,6 +52,7 @@ export default function App() {
   const [isTimeout, setIsTimeout] = useState(false);
   // 练习时生成的音符序列，最后一个数字即当前音符
   const [noteString, setNoteString] = useState([]);
+
   let currentNote = noteString[noteString.length - 1];
   let currentNumber = noteString.length;
 
@@ -112,6 +118,33 @@ export default function App() {
     return false;
   };
 
+  const handleCorrect = () => {
+    setTimeout(showNextNote, 500);
+  };
+
+  // 音符动画(缓入缓出除外)
+  const offset = useSharedValue(0);
+  const noteAnimStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }],
+  }));
+  // 摇摆动画
+  const handleMiss = () => {
+    const time = 40,
+      x = 50;
+    offset.value = withSequence(
+      withTiming(-x, { duration: time, easing: Easing.out(Easing.quad) }),
+      withRepeat(
+        withTiming(x, {
+          duration: time * 2,
+          easing: Easing.inOut(Easing.quad),
+        }),
+        3,
+        true
+      ),
+      withTiming(0, { duration: time, easing: Easing.out(Easing.quad) })
+    );
+  };
+
   const exit = () => {
     setIsTimeout(false);
     setPracticeStatus("setting");
@@ -175,7 +208,7 @@ export default function App() {
           {/* 音符展示区 */}
           {/* todo: 退出训练时，不需要动画 */}
           <Animated.View
-            style={styles.topic}
+            style={[styles.topic, noteAnimStyle]}
             key={noteString.length}
             exiting={SlideOutLeft.easing(Easing.bezier(0.19, 0.19, 0.03, 0.97))}
             entering={SlideInRight.easing(
@@ -187,10 +220,11 @@ export default function App() {
           <SpeechRecognition
             solfa={solfa}
             note={currentNote}
-            correct={showNextNote}
-            miss={showNextNote}>
+            correct={handleCorrect}
+            miss={handleMiss}>
             <View style={styles.buttonBar}>
-              <Button title="下一个" onPress={showNextNote}></Button>
+              <Button title="下一个" onPress={handleCorrect}></Button>
+              <Button title="错误" onPress={handleMiss}></Button>
             </View>
           </SpeechRecognition>
           {/* <Text>{noteString.join(",")}</Text> */}
@@ -201,11 +235,6 @@ export default function App() {
         <View style={styles.centerBox}>
           <Animated.View entering={BounceIn}>
             <Svg_Complete />
-            {/* <MaterialIcons
-              name="check-circle-outline"
-              size={128}
-              style={{ color: "#44D7B6", textAlign: "center" }}
-            /> */}
           </Animated.View>
         </View>
       )}

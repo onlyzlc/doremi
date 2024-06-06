@@ -41,12 +41,11 @@ export default function SpeechRecognition({
     if (matched.length == 1) {
       // 仅有唯一匹配发音, 判断是否匹配当前测试唱名
       setSpeechResult(matched[0]);
-      // 暂留展示回答后, 向父组件上报结果
-      setTimeout(() => {
-        matched[0] == note - 1 ? correct() : miss();
-        setSpeechResult(null);
-        setSpeechResultInt("请唱...");
-      }, 800);
+      if (matched[0] == note - 1) {
+        correct();
+      } else {
+        miss();
+      }
     } else {
       // 有多个或0个匹配发音的可能
       console.log("匹配到:" + matched[0]);
@@ -78,6 +77,8 @@ export default function SpeechRecognition({
 
   // note 变化时，重新绑定事件
   useEffect(() => {
+    setSpeechResult(null);
+    setSpeechResultInt("请唱...");
     Voice.isAvailable()
       .then((rsl) => {
         setIsAvailable(rsl);
