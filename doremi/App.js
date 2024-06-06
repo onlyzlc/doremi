@@ -135,21 +135,18 @@ export default function App() {
                 disabled={noteGroup.length >= 7}
                 name="add"
                 label="增加"
-                size={64}
               />
               <IconButton
                 onPress={subtractNote}
                 disabled={noteGroup.length <= 3}
                 name="remove"
                 label="减少"
-                size={64}
               />
               <IconButton
                 onPress={changeNotes}
                 disabled={noteGroup.length == 7}
                 name="refresh"
                 label="换一组"
-                size={64}
               />
             </View>
           </View>

@@ -7,12 +7,15 @@ export default function IconButton({
   onPress,
   name,
   label,
-  size,
+  size = 64,
   disabled = false,
 }) {
   return (
     <View style={[{ width: size }]}>
-      <Pressable onPress={onPress} style={[styles.button]} disabled={disabled}>
+      <Pressable
+        onPress={onPress}
+        style={[styles.button, disabled && styles.disabled]}
+        disabled={disabled}>
         <MaterialIcons name={name} size={size / 2} style={styles.icon} />
         {label && <Text style={styles.iconLabel}>{label}</Text>}
       </Pressable>
@@ -23,6 +26,9 @@ export default function IconButton({
 const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
+  },
+  disabled: {
+    opacity: 0.3,
   },
   icon: {
     textAlign: "center",
