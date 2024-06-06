@@ -4,17 +4,19 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import IconButton from "./components/IconButton";
 // import Button from "./components/Button";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+// import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoteList from "./components/NoteList";
 import Animated, {
   SlideInRight,
   SlideOutLeft,
+  BounceIn,
   Easing,
 } from "react-native-reanimated";
 import SpeechRecognition from "./components/SpeechRecognition";
 import ProgressBarAnimated from "react-native-progress-bar-animated";
 // import VoiceTest from "./VoiceTestFuncComp";
+import { Svg_Complete } from "./components/SvgIcons";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
@@ -166,7 +168,7 @@ export default function App() {
               {currentNumber} / {totalCount}
             </Text> */}
             <ProgressBarAnimated
-              width={160}
+              width={200}
               value={(currentNumber / totalCount) * 100}
               backgroundColorOnComplete="#6CC644"
             />
@@ -199,12 +201,15 @@ export default function App() {
       )}
       {/* 完成界面 */}
       {practiceStatus == "done" && (
-        <View style={styles.content}>
-          <MaterialIcons
-            name="check-circle-outline"
-            size={128}
-            style={{ color: "#44D7B6" }}
-          />
+        <View style={styles.centerBox}>
+          <Animated.View entering={BounceIn}>
+            <Svg_Complete />
+            {/* <MaterialIcons
+              name="check-circle-outline"
+              size={128}
+              style={{ color: "#44D7B6", textAlign: "center" }}
+            /> */}
+          </Animated.View>
         </View>
       )}
       {/* 测试语音识别 */}
@@ -226,6 +231,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    paddingTop: 16,
+    paddingBottom: 48,
+    flex: 1,
+  },
+  centerBox: {
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: 16,
     paddingBottom: 48,
     flex: 1,
