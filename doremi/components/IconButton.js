@@ -2,6 +2,7 @@
 import { React } from "react";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { Colors } from "./ComStyle";
 
 export default function IconButton({
   onPress,
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     textAlign: "center",
-    color: "#000",
+    color: Colors.main,
     padding: 8,
   },
   iconLabel: {
-    color: "#000",
+    color: Colors.main,
     textAlign: "center",
   },
 });

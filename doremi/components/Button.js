@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
 import { React } from "react";
 import { StyleSheet, View, Pressable, Text } from "react-native";
+import { Colors } from "./ComStyle";
 
-export default function Button({ label, theme, onPress }) {
+export default function Button({ title, theme, onPress }) {
   if (theme == "primary") {
     return (
       <View style={[styles.buttonContainer]}>
         <Pressable
           style={[styles.button, { backgroundColor: "#0A59F7" }]}
           onPress={onPress}>
-          <Text style={[styles.buttonLabel, { color: "#fff" }]}> {label}</Text>
+          <Text style={[styles.buttonLabel, { color: "#fff" }]}> {title}</Text>
         </Pressable>
       </View>
     );
@@ -17,7 +18,7 @@ export default function Button({ label, theme, onPress }) {
   return (
     <View style={styles.buttonContainer}>
       <Pressable style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonLabel}>{label}</Text>
+        <Text style={styles.buttonLabel}>{title}</Text>
       </Pressable>
     </View>
   );
@@ -39,10 +40,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: "#0000000C",
+    backgroundColor: Colors.cantrol,
   },
   buttonLabel: {
-    color: "#0A59F7",
+    color: Colors.foreground,
     fontSize: 16,
   },
   buttonIcon: {

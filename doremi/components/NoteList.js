@@ -1,16 +1,13 @@
 /* eslint-disable react/prop-types */
 import { React } from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { Colors } from "./ComStyle";
 
 export default function NoteList({ notes, solfa }) {
   const noteList = notes.map((n) => (
-    <View key={n} style={styles.note}>
-      <Text style={{ fontSize: 32, fontWeight: 700, textAlign: "center" }}>
-        {n}
-      </Text>
-      <Text style={{ fontSize: 16, fontWeight: 200, textAlign: "center" }}>
-        {solfa[n - 1]}
-      </Text>
+    <View key={n}>
+      <Text style={styles.note}>{n}</Text>
+      <Text style={styles.solfa}>{solfa[n - 1]}</Text>
     </View>
   ));
   return <View style={styles.notesList}>{noteList}</View>;
@@ -18,9 +15,16 @@ export default function NoteList({ notes, solfa }) {
 
 const styles = StyleSheet.create({
   note: {
-    // width: 60,
-    // height: 80,
-    flex: "auto",
+    fontSize: 32,
+    fontWeight: 500,
+    textAlign: "center",
+    color: Colors.main,
+  },
+  solfa: {
+    fontSize: 24,
+    fontWeight: 300,
+    textAlign: "center",
+    color: Colors.main,
   },
   notesList: {
     width: "100%",
@@ -33,11 +37,7 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     // marginVertical: 50,
     paddingHorizontal: 16,
-    paddingVertical: 32,
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderBottomColor: "rgb(168, 227, 215)",
-    borderTopColor: "rgb(168, 227, 215)",
-    backgroundColor: "rgb(229, 249, 245)",
+    paddingVertical: 48,
+    backgroundColor: Colors.light,
   },
 });

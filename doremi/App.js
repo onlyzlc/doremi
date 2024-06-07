@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { H1 } from "./components/Header";
 import IconButton from "./components/IconButton";
-// import Button from "./components/Button";
+import Button from "./components/Button";
 // import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoteList from "./components/NoteList";
@@ -22,6 +23,7 @@ import SpeechRecognition from "./components/SpeechRecognition";
 import ProgressBarAnimated from "react-native-progress-bar-animated";
 // import VoiceTest from "./VoiceTestFuncComp";
 import { Svg_Complete } from "./components/SvgIcons";
+import { Colors } from "./components/ComStyle";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
@@ -29,7 +31,13 @@ const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 function Question({ note, showAnswer }) {
   return (
     <View style={styles.note}>
-      <Text style={{ fontSize: 200, fontWeight: 700, textAlign: "center" }}>
+      <Text
+        style={{
+          color: Colors.main,
+          fontSize: 200,
+          fontWeight: 50,
+          textAlign: "center",
+        }}>
         {note}
       </Text>
       {showAnswer && (
@@ -151,12 +159,19 @@ export default function App() {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: 64 }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: 64,
+          backgroundColor: practiceStatus != "setting" && Colors.light,
+        },
+      ]}>
       {/* 设置界面 */}
       {practiceStatus == "setting" && (
         <View style={styles.content}>
           <View style={styles.titleBar}>
-            <Text style={styles.title}>唱名训练</Text>
+            <H1 title="唱名训练" />
           </View>
           {/* 音符展示区 */}
           <View style={styles.topic}>
@@ -194,13 +209,14 @@ export default function App() {
         <View style={styles.content}>
           {/* 顶部栏进度条、关闭按钮 */}
           <View style={styles.titleBar}>
-            {/* <Text style={styles.title}>
-              {currentNumber} / {totalCount}
-            </Text> */}
             <ProgressBarAnimated
               width={200}
               value={(currentNumber / totalCount) * 100}
               backgroundColorOnComplete="#6CC644"
+              backgroundColor={Colors.secondary}
+              underlyingColor={Colors.foreground}
+              // borderWidth={0}
+              borderRadius={10}
             />
             <IconButton name="close" size={64} onPress={exit} />
           </View>
@@ -276,13 +292,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  title: {
-    color: "rgb(51, 51, 51)",
-    fontSize: 32,
-    fontWeight: 700,
-    textAlign: "left",
-    flex: 1,
-  },
   topic: {
     width: "100%",
     display: "flex",
@@ -298,7 +307,7 @@ const styles = StyleSheet.create({
   controlBar: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 32,
   },
