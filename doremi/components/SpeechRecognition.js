@@ -5,16 +5,17 @@ import Voice from "@react-native-voice/voice";
 
 export default function SpeechRecognition({
   solfa,
-  note = "",
+  noteString = "",
   correct,
   miss,
   children,
 }) {
   const lang = "zh-CN";
+  const note = parseInt(noteString[noteString.length - 1]);
   const zhRoll = [
     "Do朵多躲夺剁哆堕都兜",
-    "Re来瑞锐蕊睿",
-    "M咪蜜米迷密米秘",
+    "Re来瑞锐蕊睿锐",
+    "M咪蜜米迷密秘",
     "Fa发法罚伐乏阀珐",
     "Sol搜说手首艘受收瘦",
     "La啦拉辣喇蜡垃剌",
@@ -38,19 +39,18 @@ export default function SpeechRecognition({
     const matched = zhRoll
       .map((words, i) => (words.includes(lastWord) ? i : -1))
       .filter((item) => item != -1);
+    console.log("match:", matched[0] + 1);
+    console.log("note:", note);
     if (matched.length == 1) {
       // 仅有唯一匹配发音, 判断是否匹配当前测试唱名
       setSpeechResult(matched[0]);
-      if (matched[0] == note - 1) {
+      if (note - 1 == matched[0]) {
         correct();
       } else {
         miss();
       }
     } else {
-      // 有多个或0个匹配发音的可能
-      console.log("匹配到:" + matched[0]);
-      console.log(matched);
-      Voice.start();
+      Voice.start(lang);
       setSpeechResult(null);
       setSpeechResultInt("没听清...");
     }
@@ -69,10 +69,9 @@ export default function SpeechRecognition({
   };
 
   const close = () => {
-    if (isAvailable) {
-      Voice.destroy().then(Voice.removeAllListeners);
-      console.log("已关闭语音");
-    }
+    Voice.destroy()
+      .then(Voice.removeAllListeners)
+      .then(() => console.log("已关闭语音"));
   };
 
   // note 变化时，重新绑定事件
@@ -90,6 +89,7 @@ export default function SpeechRecognition({
         }
       })
       .then(() => {
+        console.log("绑定一次");
         Voice.onSpeechStart = onSpeechStart;
         Voice.onSpeechResults = handleSpeechResult;
         Voice.onSpeechEnd = onSpeechEnd;
@@ -104,7 +104,7 @@ export default function SpeechRecognition({
         setIsAvailable(false);
       });
     return close;
-  }, [note]);
+  }, [noteString]);
 
   const heard = (
     <>

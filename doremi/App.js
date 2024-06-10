@@ -20,8 +20,9 @@ import Animated, {
   withRepeat,
 } from "react-native-reanimated";
 import SpeechRecognition from "./components/SpeechRecognition";
-import ProgressBarAnimated from "react-native-progress-bar-animated";
+// import ProgressBarAnimated from "react-native-progress-bar-animated";
 // import VoiceTest from "./VoiceTestFuncComp";
+import * as Progress from "react-native-progress";
 import { Svg_Complete } from "./components/SvgIcons";
 import { Colors } from "./components/ComStyle";
 
@@ -50,7 +51,7 @@ function Question({ note, showAnswer }) {
 }
 
 export default function App() {
-  const totalCount = 10;
+  const totalCount = 3;
 
   // 音符组
   const [noteGroup, setNoteGroup] = useState([]);
@@ -209,7 +210,8 @@ export default function App() {
         <View style={styles.content}>
           {/* 顶部栏进度条、关闭按钮 */}
           <View style={styles.titleBar}>
-            <ProgressBarAnimated
+            <Progress.Bar progress={currentNumber / totalCount} width={200} />
+            {/* <ProgressBarAnimated
               width={200}
               value={(currentNumber / totalCount) * 100}
               backgroundColorOnComplete="#6CC644"
@@ -217,7 +219,8 @@ export default function App() {
               underlyingColor={Colors.foreground}
               // borderWidth={0}
               borderRadius={10}
-            />
+            /> */}
+
             <IconButton name="close" size={64} onPress={exit} />
           </View>
 
@@ -235,7 +238,7 @@ export default function App() {
 
           <SpeechRecognition
             solfa={solfa}
-            note={currentNote}
+            noteString={noteString}
             correct={handleCorrect}
             miss={handleMiss}>
             <View style={styles.buttonBar}>
