@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { H1 } from "./components/Header";
 import IconButton from "./components/IconButton";
 import Button from "./components/Button";
@@ -35,8 +35,8 @@ function Question({ note, showAnswer }) {
       <Text
         style={{
           color: Colors.main,
-          fontSize: 200,
-          fontWeight: 50,
+          fontSize: 320,
+          fontWeight: 500,
           textAlign: "center",
         }}>
         {note}
@@ -210,7 +210,15 @@ export default function App() {
         <View style={styles.content}>
           {/* 顶部栏进度条、关闭按钮 */}
           <View style={styles.titleBar}>
-            <Progress.Bar progress={currentNumber / totalCount} width={200} />
+            <Progress.Bar
+              width={200}
+              height={16}
+              borderRadius={8}
+              borderWidth={0}
+              color={Colors.secondary}
+              unfilledColor={Colors.foreground}
+              progress={currentNumber / totalCount}
+            />
             {/* <ProgressBarAnimated
               width={200}
               value={(currentNumber / totalCount) * 100}
@@ -235,7 +243,6 @@ export default function App() {
             )}>
             <Question note={currentNote} showAnswer={isTimeout} />
           </Animated.View>
-
           <SpeechRecognition
             solfa={solfa}
             noteString={noteString}
