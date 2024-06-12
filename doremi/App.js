@@ -343,5 +343,7 @@ const styles = StyleSheet.create({
   },
   buttonBar: {
     padding: 16,
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });
