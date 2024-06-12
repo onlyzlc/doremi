@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { H1 } from "./components/Header";
 import IconButton from "./components/IconButton";
 import Button from "./components/Button";
-// import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoteList from "./components/NoteList";
 import Animated, {
@@ -18,17 +17,16 @@ import Animated, {
   withSequence,
   withTiming,
   withRepeat,
+  FadeInDown,
+  FadeOutUp,
 } from "react-native-reanimated";
 import SpeechRecognition from "./components/SpeechRecognition";
-// import ProgressBarAnimated from "react-native-progress-bar-animated";
-// import VoiceTest from "./VoiceTestFuncComp";
 import * as Progress from "react-native-progress";
 import { Svg_Complete } from "./components/SvgIcons";
 import { Colors } from "./components/ComStyle";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
-// todo,动画
 function Question({ note, showAnswer }) {
   return (
     <View style={styles.note}>
@@ -41,11 +39,11 @@ function Question({ note, showAnswer }) {
         }}>
         {note}
       </Text>
-      {showAnswer && (
+      {/* {showAnswer && (
         <Text style={{ fontSize: 48, fontWeight: 200, textAlign: "center" }}>
           {solfa[note - 1]}
         </Text>
-      )}
+      )} */}
     </View>
   );
 }
@@ -58,7 +56,9 @@ export default function App() {
   // 启动状态
   const [practiceStatus, setPracticeStatus] = useState("setting");
   // 回答超时
-  const [isTimeout, setIsTimeout] = useState(false);
+  // const [isTimeout, setIsTimeout] = useState(false);
+  // 答错次数，练习过程中连续答错3次后答案
+  const [wrongTimes, setWrongTimes] = useState(0);
   // 练习时生成的音符序列，最后一个数字即当前音符
   const [noteString, setNoteString] = useState([]);
 
@@ -111,7 +111,7 @@ export default function App() {
   };
 
   const showNextNote = () => {
-    setIsTimeout(false);
+    setWrongTimes(0);
     console.log(`noteString: ${noteString.join(",")}`);
     if (currentNumber < totalCount) {
       // 如果没有练完,就计算下一个音符
@@ -119,9 +119,9 @@ export default function App() {
     } else {
       // 如果练完了,就显示完成图标,短暂停留后自动跳回设置页面
       setPracticeStatus("done");
-      setTimeout(() => {
-        setPracticeStatus("setting");
-      }, 800);
+      // setTimeout(() => {
+      //   setPracticeStatus("setting");
+      // }, 2000);
       changeNotes();
     }
     return false;
@@ -138,6 +138,7 @@ export default function App() {
   }));
   // 摇摆动画
   const handleMiss = () => {
+    setWrongTimes(wrongTimes + 1);
     const time = 40,
       x = 50;
     offset.value = withSequence(
@@ -155,7 +156,7 @@ export default function App() {
   };
 
   const exit = () => {
-    setIsTimeout(false);
+    setWrongTimes(0);
     setPracticeStatus("setting");
   };
 
@@ -219,50 +220,63 @@ export default function App() {
               unfilledColor={Colors.foreground}
               progress={currentNumber / totalCount}
             />
-            {/* <ProgressBarAnimated
-              width={200}
-              value={(currentNumber / totalCount) * 100}
-              backgroundColorOnComplete="#6CC644"
-              backgroundColor={Colors.secondary}
-              underlyingColor={Colors.foreground}
-              // borderWidth={0}
-              borderRadius={10}
-            /> */}
 
             <IconButton name="close" size={64} onPress={exit} />
           </View>
 
           {/* 音符展示区 */}
-          {/* todo: 退出训练时，不需要动画 */}
-          <Animated.View
-            style={[styles.topic, noteAnimStyle]}
-            key={noteString.length}
-            exiting={SlideOutLeft.easing(Easing.bezier(0.19, 0.19, 0.03, 0.97))}
-            entering={SlideInRight.easing(
-              Easing.bezier(0.19, 0.19, 0.03, 0.97)
-            )}>
-            <Question note={currentNote} showAnswer={isTimeout} />
-          </Animated.View>
+          <View style={styles.topic}>
+            {/* todo: 退出训练时，不需要动画 */}
+            <Animated.View
+              style={[noteAnimStyle]}
+              key={noteString.length}
+              exiting={SlideOutLeft.easing(
+                Easing.bezier(0.19, 0.19, 0.03, 0.97)
+              )}
+              entering={SlideInRight.easing(
+                Easing.bezier(0.19, 0.19, 0.03, 0.97)
+              )}>
+              <Question note={currentNote} />
+            </Animated.View>
+            {/* 答案提示 */}
+            <View style={styles.answer}>
+              {wrongTimes >= 3 && (
+                <Animated.View entering={FadeInDown} exiting={FadeOutUp}>
+                  <Text
+                    style={{
+                      fontSize: 48,
+                      fontWeight: 200,
+                      textAlign: "center",
+                    }}>
+                    {solfa[currentNote - 1]}
+                  </Text>
+                </Animated.View>
+              )}
+            </View>
+          </View>
           <SpeechRecognition
             solfa={solfa}
             noteString={noteString}
             correct={handleCorrect}
             miss={handleMiss}>
             <View style={styles.buttonBar}>
-              <Button title="下一个" onPress={handleCorrect}></Button>
+              <Button title="下一个" onPress={showNextNote}></Button>
               <Button title="错误" onPress={handleMiss}></Button>
             </View>
           </SpeechRecognition>
-          {/* <Text>{noteString.join(",")}</Text> */}
         </View>
       )}
       {/* 完成界面 */}
       {practiceStatus == "done" && (
-        <View style={styles.centerBox}>
-          <Animated.View entering={BounceIn}>
-            <Svg_Complete />
-          </Animated.View>
-        </View>
+        <Animated.View
+          style={styles.centerBox}
+          entering={BounceIn.delay(100)
+            .duration(500)
+            .withCallback(() => {
+              setTimeout(() => setPracticeStatus("setting"), 500);
+            })}>
+          <Svg_Complete />
+        </Animated.View>
       )}
       {/* 测试语音识别 */}
       {/* {practiceStatus == "test" && <VoiceTest />} */}
@@ -305,6 +319,7 @@ const styles = StyleSheet.create({
   topic: {
     width: "100%",
     display: "flex",
+    position: "relative",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -313,7 +328,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     marginVertical: 16,
   },
-
+  answer: {
+    // position: "absolute",
+    // right: 40,
+    // top: 40,
+    height: 40,
+  },
   controlBar: {
     display: "flex",
     flexDirection: "row",
