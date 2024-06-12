@@ -275,7 +275,7 @@ export default function App() {
             .withCallback(() => {
               setTimeout(() => setPracticeStatus("setting"), 500);
             })}>
-          <Svg_Complete />
+          <Svg_Complete fill={Colors.secondary} />
         </Animated.View>
       )}
       {/* 测试语音识别 */}
