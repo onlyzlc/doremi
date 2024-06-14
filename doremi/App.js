@@ -271,11 +271,11 @@ export default function App() {
         <Animated.View
           style={styles.centerBox}
           entering={BounceIn.delay(100)
-            .duration(500)
+            .duration(400)
             .withCallback(() => {
-              setTimeout(() => setPracticeStatus("setting"), 500);
+              setTimeout(() => setPracticeStatus("setting"), 600);
             })}>
-          <Svg_Complete fill={Colors.secondary} />
+          <Svg_Complete fill={Colors.secondary} size={200} />
         </Animated.View>
       )}
       {/* 测试语音识别 */}

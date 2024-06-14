@@ -3,7 +3,7 @@ import { React } from "react";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import { Colors } from "./ComStyle";
 
-export default function Button({ title, theme, onPress }) {
+export default function Button({ title, theme, onPress, ...props }) {
   if (theme == "primary") {
     return (
       <View style={[styles.buttonContainer]}>
@@ -17,7 +17,7 @@ export default function Button({ title, theme, onPress }) {
   }
   return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={onPress}>
+      <Pressable style={styles.button} onPress={onPress} {...props}>
         <Text style={styles.buttonLabel}>{title}</Text>
       </Pressable>
     </View>

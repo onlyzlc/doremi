@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { React, useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
 import Voice from "@react-native-voice/voice";
+import VoiceIndicator from "./VoiceIndicator";
+import Button from "./Button";
 
 export default function SpeechRecognition({
   solfa,
@@ -25,8 +26,11 @@ export default function SpeechRecognition({
   const [isAvailable, setIsAvailable] = useState(false);
 
   // 识别结果, 记0~6索引号
-  const [speechResult, setSpeechResult] = useState(null);
-  const [speechResultInt, setSpeechResultInt] = useState("请唱...");
+  const [speechResult, setSpeechResult] = useState(4);
+  // const [speechResultInt, setSpeechResultInt] = useState("请唱...");
+  const [volume, setVolume] = useState(0);
+
+  const [testTimer, setTestTimer] = useState(null);
 
   const handleSpeechResult = (e) => {
     Voice.stop();
@@ -36,9 +40,6 @@ export default function SpeechRecognition({
     // lastWords = lastWords[lastWords.length - 1];
     console.log("识别结果:" + lastWords);
 
-    // 显示识别的中文发音【触发渲染】
-    setSpeechResultInt(lastWords);
-
     // 匹配doremi同音汉字, 得出用户可能说的唱名, 以索引号记录, 可识别的记索引号, 不识别的记-1
     const matched = homophone.findIndex((words) =>
       new RegExp(`[${words}]`).test(lastWords)
@@ -47,17 +48,18 @@ export default function SpeechRecognition({
     if (matched != -1) {
       // 能识别发音，判断是否匹配当前测试唱名
       setSpeechResult(matched);
+      setVolume(0);
       matched + 1 == note ? correct() : miss();
     } else {
       // 不能识别发音
       Voice.start(lang);
       setSpeechResult(null);
-      setSpeechResultInt("没听清...");
     }
     return false;
   };
 
   const onVolumeChanged = (e) => {
+    setVolume(e.value);
     return null;
   };
 
@@ -79,10 +81,25 @@ export default function SpeechRecognition({
   // todo: 引导开启语音识别服务
   const handleServiceDisabled = () => {};
 
+  function testVolumeChange() {
+    if (testTimer) {
+      clearInterval(testTimer);
+      setTestTimer(null);
+      setSpeechResult(1);
+      setVolume(0);
+      correct();
+      return null;
+    }
+    setTestTimer(
+      setInterval(() => {
+        setVolume(Math.random() * 60 + 20);
+      }, 100)
+    );
+  }
+
   // noteString 变化时，重新绑定事件
   useEffect(() => {
     setSpeechResult(null);
-    setSpeechResultInt("请唱...");
     Voice.isAvailable()
       .then((rsl) => {
         setIsAvailable(rsl);
@@ -103,7 +120,7 @@ export default function SpeechRecognition({
         return Voice.start(lang);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         if (err.cause && err.cause === "ServiceDisabled") {
           handleServiceDisabled();
         }
@@ -114,20 +131,13 @@ export default function SpeechRecognition({
 
   const feedback = (
     <>
-      <Text style={{ fontSize: 48, fontWeight: 300, textAlign: "center" }}>
-        {speechResult != null && solfa[speechResult]}
-      </Text>
-      <Text style={{ fontSize: 24, fontWeight: 300, textAlign: "center" }}>
-        {speechResultInt}
-      </Text>
+      <VoiceIndicator
+        volume={volume}
+        heard={speechResult && solfa[speechResult]}
+      />
+      {/* <Button onPress={testVolumeChange} title="测试" /> */}
     </>
   );
 
-  return (
-    <View style={styles.feedback}>{isAvailable ? feedback : children}</View>
-  );
+  return isAvailable ? feedback : children;
 }
-
-const styles = StyleSheet.create({
-  feedback: {},
-});
