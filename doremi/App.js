@@ -24,6 +24,7 @@ import SpeechRecognition from "./components/SpeechRecognition";
 import * as Progress from "react-native-progress";
 import { Svg_Complete } from "./components/SvgIcons";
 import { Colors } from "./components/ComStyle";
+import TestVoice from "./components/TestVoice";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
@@ -33,7 +34,7 @@ function Question({ note, showAnswer }) {
       <Text
         style={{
           color: Colors.main,
-          fontSize: 320,
+          fontSize: 280,
           fontWeight: 500,
           textAlign: "center",
         }}>
@@ -54,7 +55,7 @@ export default function App() {
   // 音符组
   const [noteGroup, setNoteGroup] = useState([]);
   // 启动状态
-  const [practiceStatus, setPracticeStatus] = useState("setting");
+  const [practiceStatus, setPracticeStatus] = useState("test");
   // 回答超时
   // const [isTimeout, setIsTimeout] = useState(false);
   // 答错次数，练习过程中连续答错3次后答案
@@ -112,16 +113,16 @@ export default function App() {
 
   const showNextNote = () => {
     setWrongTimes(0);
-    console.log(`noteString: ${noteString.join(",")}`);
+    console.log(`已完成音符: ${noteString.join(",")}`);
     if (currentNumber < totalCount) {
       // 如果没有练完,就计算下一个音符
       setNoteString([...noteString, nextNote()]);
     } else {
       // 如果练完了,就显示完成图标,短暂停留后自动跳回设置页面
       setPracticeStatus("done");
-      // setTimeout(() => {
-      //   setPracticeStatus("setting");
-      // }, 2000);
+      setTimeout(() => {
+        setPracticeStatus("setting");
+      }, 1000);
       changeNotes();
     }
     return false;
@@ -254,32 +255,32 @@ export default function App() {
               )}
             </View>
           </View>
-          <SpeechRecognition
-            solfa={solfa}
-            noteString={noteString}
-            correct={handleCorrect}
-            miss={handleMiss}>
-            <View style={styles.buttonBar}>
-              <Button title="下一个" onPress={showNextNote}></Button>
-              <Button title="错误" onPress={handleMiss}></Button>
-            </View>
-          </SpeechRecognition>
+          <View style={styles.speech}>
+            <SpeechRecognition
+              solfa={solfa}
+              noteString={noteString}
+              correct={handleCorrect}
+              miss={handleMiss}>
+              <View style={styles.buttonBar}>
+                <Button title="下一个" onPress={showNextNote}></Button>
+                <Button title="错误" onPress={handleMiss}></Button>
+              </View>
+            </SpeechRecognition>
+          </View>
         </View>
       )}
       {/* 完成界面 */}
       {practiceStatus == "done" && (
         <Animated.View
           style={styles.centerBox}
-          entering={BounceIn.delay(100)
-            .duration(400)
-            .withCallback(() => {
-              setTimeout(() => setPracticeStatus("setting"), 600);
-            })}>
+          entering={BounceIn.delay(100).duration(400)}>
           <Svg_Complete fill={Colors.secondary} size={200} />
         </Animated.View>
       )}
       {/* 测试语音识别 */}
-      {/* {practiceStatus == "test" && <VoiceTest />} */}
+      {practiceStatus == "test" && (
+        <TestVoice noteString={noteString} correct={showNextNote} />
+      )}
       <StatusBar style="auto" hidden={false} />
     </View>
   );
@@ -323,16 +324,19 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    flex: "none",
+    flex: 3,
     alignSelf: "stretch",
-    flexGrow: 1,
     marginVertical: 16,
   },
   answer: {
     // position: "absolute",
     // right: 40,
     // top: 40,
-    height: 40,
+    height: 30,
+  },
+  speech: {
+    justifyContent: "center",
+    flex: 2,
   },
   controlBar: {
     display: "flex",

@@ -33,28 +33,31 @@ export default function SpeechRecognition({
   const [testTimer, setTestTimer] = useState(null);
 
   const handleSpeechResult = (e) => {
-    Voice.stop();
+    Voice.stop().then(() => {
+      // 取最后一句识别结果
+      let lastWords = e.value[e.value.length - 1];
+      // lastWords = lastWords[lastWords.length - 1];
+      console.log("识别结果:" + lastWords);
 
-    // 取最后一句识别结果
-    let lastWords = e.value[e.value.length - 1];
-    // lastWords = lastWords[lastWords.length - 1];
-    console.log("识别结果:" + lastWords);
+      // 匹配doremi同音汉字, 得出用户可能说的唱名, 以索引号记录, 可识别的记索引号, 不识别的记-1
+      const matched = homophone.findIndex((words) =>
+        new RegExp(`[${words}]`).test(lastWords)
+      );
 
-    // 匹配doremi同音汉字, 得出用户可能说的唱名, 以索引号记录, 可识别的记索引号, 不识别的记-1
-    const matched = homophone.findIndex((words) =>
-      new RegExp(`[${words}]`).test(lastWords)
-    );
+      if (matched != -1) {
+        // 能识别发音，判断是否匹配当前测试唱名
+        setSpeechResult(matched);
+        setVolume(0);
+        console.log("能匹配");
+        matched + 1 == note ? correct() : miss();
+      } else {
+        console.log("不能匹配");
+        // 不能识别发音
+        Voice.start(lang);
+        setSpeechResult(null);
+      }
+    });
 
-    if (matched != -1) {
-      // 能识别发音，判断是否匹配当前测试唱名
-      setSpeechResult(matched);
-      setVolume(0);
-      matched + 1 == note ? correct() : miss();
-    } else {
-      // 不能识别发音
-      Voice.start(lang);
-      setSpeechResult(null);
-    }
     return false;
   };
 
@@ -109,7 +112,6 @@ export default function SpeechRecognition({
           throw new Error("语音识别服务禁用", { cause: "ServiceDisabled" });
         }
       })
-      .then(Voice.stop)
       .then(Voice.removeAllListeners)
       .then(() => {
         console.log("重新绑定");
@@ -120,7 +122,7 @@ export default function SpeechRecognition({
         return Voice.start(lang);
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
         if (err.cause && err.cause === "ServiceDisabled") {
           handleServiceDisabled();
         }

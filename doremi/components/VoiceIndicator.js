@@ -20,7 +20,7 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 export default function VoiceIndicator({ volume, heard = null }) {
   const minSize = 60;
   const r = useSharedValue(minSize);
-  r.value = volume + minSize;
+  r.value = volume * 4 + minSize;
   const animatedProps = useAnimatedProps(() => ({
     r: withTiming(r.value, { duration: 100 }),
   }));
@@ -58,7 +58,8 @@ export default function VoiceIndicator({ volume, heard = null }) {
 
 const styles = StyleSheet.create({
   feedback: {
-    height: 320,
+    // height: 480,
+    flex: 2,
     position: "relative",
   },
   circleContainer: {
