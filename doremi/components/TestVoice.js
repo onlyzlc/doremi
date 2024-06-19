@@ -2,22 +2,18 @@
 import { React, useEffect, useState } from "react";
 import Voice from "@react-native-voice/voice";
 import { View, Text } from "react-native";
-import Button from "./Button";
-import { err } from "react-native-svg";
 
 export default function TestVoice({ noteString = "", correct }) {
   const lang = "zh-CN";
 
-  const _clear = () => {
+  const _clear = async () => {
     Voice.removeAllListeners();
-
-    Voice.destroy()
-      .then(() => {
-        console.log("已关闭语音");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    try {
+      await Voice.destroy();
+      console.log("已关闭语音");
+    } catch (error) {
+      console.error(error);
+    }
   };
   const _isRecognizing = async () => {
     try {
@@ -29,12 +25,13 @@ export default function TestVoice({ noteString = "", correct }) {
     }
   };
   const handleSpeechResult = (e) => {
-    Voice.stop().then(() => {
-      let lastWords = e.value[e.value.length - 1];
-      console.log("识别结果:" + lastWords);
-
-      Voice.start(lang);
-    });
+    Voice.stop()
+      .then(() => {
+        let lastWords = e.value[e.value.length - 1];
+        console.log("识别结果:" + lastWords);
+        correct();
+      })
+      .catch((err) => console.error(err));
   };
   const onSpeechStart = (e) => {
     console.log("开始识别");
@@ -46,30 +43,29 @@ export default function TestVoice({ noteString = "", correct }) {
 
   // todo: 引导开启语音识别服务
 
-  // noteString 变化时，重新绑定事件
   useEffect(() => {
     console.log("挂载");
     Voice.onSpeechStart = onSpeechStart;
-    if (Voice.onSpeechResults == undefined)
-      Voice.onSpeechResults = handleSpeechResult;
+    Voice.onSpeechResults = handleSpeechResult;
     Voice.onSpeechEnd = onSpeechEnd;
     Voice.onSpeechVolumeChanged = onVolumeChanged;
-    Voice.start(lang);
 
     return _clear;
   }, []);
 
+  // noteString 变化时，启动语音
+  useEffect(() => {
+    Voice.start(lang).catch((err) => console.error(err));
+    return () => {
+      Voice.stop().catch();
+    };
+  }, [noteString]);
+
+  const note = noteString[noteString.langth - 1];
+
   return (
-    <>
-      <Button onPress={correct} title="测试"></Button>
-    </>
+    <View>
+      <Text>{note}</Text>
+    </View>
   );
 }
-
-// export default function TestVoice({ correct }) {
-//   return (
-//     <View>
-//       <Text>你好</Text>
-//     </View>
-//   );
-// }

@@ -64,7 +64,7 @@ export default function App() {
   const [noteString, setNoteString] = useState([]);
 
   let currentNote = noteString[noteString.length - 1];
-  let currentNumber = noteString.length;
+  let completed = noteString.length;
 
   // 随机生成一组不重复的音符
   const generateGroup = (length = 3) => {
@@ -114,7 +114,7 @@ export default function App() {
   const showNextNote = () => {
     setWrongTimes(0);
     console.log(`已完成音符: ${noteString.join(",")}`);
-    if (currentNumber < totalCount) {
+    if (completed < totalCount) {
       // 如果没有练完,就计算下一个音符
       setNoteString([...noteString, nextNote()]);
     } else {
@@ -219,7 +219,7 @@ export default function App() {
               borderWidth={0}
               color={Colors.secondary}
               unfilledColor={Colors.foreground}
-              progress={currentNumber / totalCount}
+              progress={completed / totalCount}
             />
 
             <IconButton name="close" size={64} onPress={exit} />
