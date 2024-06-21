@@ -1,51 +1,99 @@
-<mxfile host="app.diagrams.net" modified="2024-06-21T01:53:54.329Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0" etag="yfJQn4M3nrvgY4w6v8Q_" version="24.5.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-21T08:12:09.731Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0" etag="KGKGUzUhchOOPI4SyjYu" version="24.5.5" type="github" pages="2">
   <diagram name="第 1 页" id="X51wo3Abu3hV9EdEsKo-">
-    <mxGraphModel dx="983" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1188" dy="633" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="6rSXI31hcBvgAGytpiJd-12" value="App:Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="140" y="40" width="100" height="300" as="geometry" />
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-12">
-          <mxGeometry x="45" y="185" width="10" height="150" as="geometry" />
+          <mxGeometry x="140" y="40" width="100" height="560" as="geometry" />
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-49" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-12">
           <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-14" value="SpeechRecognition: Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="280" y="40" width="100" height="300" as="geometry" />
+          <mxGeometry x="470" y="40" width="100" height="560" as="geometry" />
         </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-46" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-14">
-          <mxGeometry x="45" y="220" width="10" height="80" as="geometry" />
+        <mxCell id="6rSXI31hcBvgAGytpiJd-55" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-14">
+          <mxGeometry x="45" y="180" width="10" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-48" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="6rSXI31hcBvgAGytpiJd-46" parent="6rSXI31hcBvgAGytpiJd-14">
+        <mxCell id="6rSXI31hcBvgAGytpiJd-15" value="Voice: Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};whiteSpace=wrap;snapToPoint=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="40" width="100" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-78" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-15">
+          <mxGeometry x="45" y="215" width="10" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-85" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=block;endFill=1;snapToPoint=0;" edge="1" parent="1" target="6rSXI31hcBvgAGytpiJd-15">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-25" y="295" as="targetPoint" />
+            <mxPoint x="59.666666666666515" y="410" as="sourcePoint" />
+            <mxPoint x="671.2" y="410.24" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-47" value="更新音符组" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="6rSXI31hcBvgAGytpiJd-46" parent="6rSXI31hcBvgAGytpiJd-14">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-85" y="225" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-15" value="Voice: Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="430" y="40" width="100" height="300" as="geometry" />
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-16" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" vertex="1" parent="1">
-          <mxGeometry x="80" y="40" width="20" height="300" as="geometry" />
+          <mxGeometry x="50" y="40" width="20" height="560" as="geometry" />
         </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-16">
-          <mxGeometry x="5" y="60" width="10" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-25" value="进入app" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-20" target="6rSXI31hcBvgAGytpiJd-49">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="6rSXI31hcBvgAGytpiJd-25" value="点击开始训练" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-16" target="6rSXI31hcBvgAGytpiJd-49">
+          <mxGeometry x="0.0454" y="2" relative="1" as="geometry">
+            <mxPoint x="80" y="120" as="sourcePoint" />
             <mxPoint x="185" y="140" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="100" y="115" />
+              <mxPoint x="100" y="115" />
+            </Array>
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-36" value="AsyncStorage: Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="570" y="40" width="100" height="300" as="geometry" />
+        <mxCell id="6rSXI31hcBvgAGytpiJd-56" value="更新题目" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;" edge="1" target="6rSXI31hcBvgAGytpiJd-65" parent="1" source="6rSXI31hcBvgAGytpiJd-49">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="115" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-64" value="练习界面" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="300" y="40" width="100" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-65" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-64">
+          <mxGeometry x="45" y="110" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;exitX=1;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;endArrow=block;endFill=1;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-65" target="6rSXI31hcBvgAGytpiJd-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-69" value="更新题目" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6rSXI31hcBvgAGytpiJd-68">
+          <mxGeometry x="-0.0479" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;endArrow=open;endFill=0;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-55" target="6rSXI31hcBvgAGytpiJd-78">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="260" />
+              <mxPoint x="570" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-80" value="启动语音识别" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6rSXI31hcBvgAGytpiJd-79">
+          <mxGeometry x="-0.1381" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-83" value="成功" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-78" target="6rSXI31hcBvgAGytpiJd-55">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="540" y="295" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="560" y="295" />
+              <mxPoint x="560" y="295" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-86" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=block;endFill=1;exitX=0;exitY=1;exitDx=0;exitDy=-5;exitPerimeter=0;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-65" target="6rSXI31hcBvgAGytpiJd-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="iBE34GNz012ETYBvrs9M" name="第 2 页">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
