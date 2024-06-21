@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-06-19T09:04:13.566Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0" etag="GhIHCTeO2_Mee_PBms4f" version="24.5.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-21T01:53:54.329Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0" etag="yfJQn4M3nrvgY4w6v8Q_" version="24.5.5" type="github">
   <diagram name="第 1 页" id="X51wo3Abu3hV9EdEsKo-">
-    <mxGraphModel dx="815" dy="434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="983" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -8,17 +8,25 @@
           <mxGeometry x="140" y="40" width="100" height="300" as="geometry" />
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-12">
-          <mxGeometry x="45" y="100" width="10" height="180" as="geometry" />
+          <mxGeometry x="45" y="185" width="10" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-49" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-12">
+          <mxGeometry x="45" y="70" width="10" height="80" as="geometry" />
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-14" value="SpeechRecognition: Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="280" y="40" width="100" height="300" as="geometry" />
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-46" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-14">
-          <mxGeometry x="45" y="170" width="10" height="80" as="geometry" />
+          <mxGeometry x="45" y="220" width="10" height="80" as="geometry" />
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-48" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="6rSXI31hcBvgAGytpiJd-46" parent="6rSXI31hcBvgAGytpiJd-14">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-25" y="245" as="targetPoint" />
+            <mxPoint x="-25" y="295" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6rSXI31hcBvgAGytpiJd-47" value="更新音符组" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="6rSXI31hcBvgAGytpiJd-46" parent="6rSXI31hcBvgAGytpiJd-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-85" y="225" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-15" value="Voice: Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};whiteSpace=wrap;" vertex="1" parent="1">
@@ -30,31 +38,13 @@
         <mxCell id="6rSXI31hcBvgAGytpiJd-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-16">
           <mxGeometry x="5" y="60" width="10" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-25" value="开始练习" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;entryX=0;entryY=0;entryDx=0;entryDy=5;entryPerimeter=0;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-20" target="6rSXI31hcBvgAGytpiJd-26">
+        <mxCell id="6rSXI31hcBvgAGytpiJd-25" value="进入app" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" edge="1" parent="1" source="6rSXI31hcBvgAGytpiJd-20" target="6rSXI31hcBvgAGytpiJd-49">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="185" y="140" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="6rSXI31hcBvgAGytpiJd-36" value="AsyncStorage: Component" style="shape=umlLifeline;perimeter=lifelinePerimeter;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="570" y="40" width="100" height="300" as="geometry" />
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-39" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="6rSXI31hcBvgAGytpiJd-36">
-          <mxGeometry x="45" y="110" width="10" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-40" value="存储当前音符组" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="6rSXI31hcBvgAGytpiJd-39" parent="6rSXI31hcBvgAGytpiJd-36">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-375" y="115" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-41" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" source="6rSXI31hcBvgAGytpiJd-39" parent="1" target="6rSXI31hcBvgAGytpiJd-26">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="195" y="225" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="6rSXI31hcBvgAGytpiJd-47" value="更新音符组" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="6rSXI31hcBvgAGytpiJd-46" parent="1" source="6rSXI31hcBvgAGytpiJd-26">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="255" y="215" as="sourcePoint" />
-          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
