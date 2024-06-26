@@ -33,30 +33,36 @@ export default function SpeechRecognition({
   const [testTimer, setTestTimer] = useState(null);
 
   const handleSpeechResult = (e) => {
-    Voice.stop().then(() => {
-      // 取最后一句识别结果
-      let lastWords = e.value[e.value.length - 1];
-      // lastWords = lastWords[lastWords.length - 1];
-      console.log("识别结果:" + lastWords);
+    Voice.stop()
+      .then(() => {
+        // 取最后一句识别结果
+        let lastWords = e.value[e.value.length - 1];
+        // lastWords = lastWords[lastWords.length - 1];
+        console.log("识别结果:" + lastWords);
 
-      // 匹配doremi同音汉字, 得出用户可能说的唱名, 以索引号记录, 可识别的记索引号, 不识别的记-1
-      const matched = homophone.findIndex((words) =>
-        new RegExp(`[${words}]`).test(lastWords)
-      );
+        // 匹配doremi同音汉字, 得出用户可能说的唱名, 以索引号记录, 可识别的记索引号, 不识别的记-1
+        const matched = homophone.findIndex((words) =>
+          new RegExp(`[${words}]`).test(lastWords)
+        );
 
-      if (matched != -1) {
-        // 能识别发音，判断是否匹配当前测试唱名
-        setSpeechResult(matched);
-        setVolume(0);
-        console.log("能匹配");
-        matched + 1 == note ? correct() : miss();
-      } else {
-        console.log("不能匹配");
-        // 不能识别发音
-        Voice.start(lang);
-        setSpeechResult(null);
-      }
-    });
+        if (matched != -1) {
+          // 能识别发音，判断是否匹配当前测试唱名
+          setSpeechResult(matched);
+          setVolume(0);
+          console.log("能匹配");
+          if (matched + 1 == note) {
+            Voice.destroy().then(correct);
+          } else {
+            miss();
+            return Voice.start(lang);
+          }
+        } else {
+          console.log("不能匹配");
+          // 不能识别发音
+          return Voice.start(lang);
+        }
+      })
+      .catch();
 
     return false;
   };
@@ -73,32 +79,19 @@ export default function SpeechRecognition({
     console.log("停止识别");
   };
 
+  function start() {
+    Voice.start(lang).then(() => setSpeechResult(null));
+  }
+
   const close = () => {
     if (isAvailable) {
-      Voice.destroy()
-        .then(Voice.removeAllListeners)
-        .then(() => console.log("已关闭语音"));
+      Voice.removeAllListeners();
+      Voice.destroy().then(() => console.log("已关闭语音"));
     }
   };
 
   // todo: 引导开启语音识别服务
   const handleServiceDisabled = () => {};
-
-  function testVolumeChange() {
-    if (testTimer) {
-      clearInterval(testTimer);
-      setTestTimer(null);
-      setSpeechResult(1);
-      setVolume(0);
-      correct();
-      return null;
-    }
-    setTestTimer(
-      setInterval(() => {
-        setVolume(Math.random() * 60 + 20);
-      }, 100)
-    );
-  }
 
   // noteString 变化时，重新绑定事件
   useEffect(() => {
@@ -112,12 +105,11 @@ export default function SpeechRecognition({
           throw new Error("语音识别服务禁用", { cause: "ServiceDisabled" });
         }
       })
-      .then(Voice.removeAllListeners)
       .then(() => {
-        console.log("重新绑定");
+        console.log("绑定");
         Voice.onSpeechStart = onSpeechStart;
-        Voice.onSpeechResults = handleSpeechResult;
         Voice.onSpeechEnd = onSpeechEnd;
+        Voice.onSpeechResults = handleSpeechResult;
         Voice.onSpeechVolumeChanged = onVolumeChanged;
         return Voice.start(lang);
       })

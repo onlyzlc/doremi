@@ -1,19 +1,18 @@
 /* eslint-disable react/prop-types */
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useMemo, useState } from "react";
 import Voice from "@react-native-voice/voice";
 import { View, Text } from "react-native";
 
-export default function TestVoice({ noteString = "", correct }) {
+export default function TestVoice({ noteString = [], correct }) {
   const lang = "zh-CN";
+  // const [tirg, setTrig] = useState(false);
+  const [timer, setTimer] = useState();
+  const [n, setN] = useState(1);
 
-  const _clear = async () => {
+  const _clear = () => {
     Voice.removeAllListeners();
-    try {
-      await Voice.destroy();
-      console.log("已关闭语音");
-    } catch (error) {
-      console.error(error);
-    }
+    console.log("已清理事件绑定");
+    Voice.stop().catch();
   };
   const _isRecognizing = async () => {
     try {
@@ -24,14 +23,13 @@ export default function TestVoice({ noteString = "", correct }) {
       console.error(error);
     }
   };
+
   const handleSpeechResult = (e) => {
-    Voice.stop()
-      .then(() => {
-        let lastWords = e.value[e.value.length - 1];
-        console.log("识别结果:" + lastWords);
-        correct();
-      })
-      .catch((err) => console.error(err));
+    Voice.destroy().then(() => {
+      let lastWords = e.value[e.value.length - 1];
+      console.log("识别结果:" + lastWords);
+      correct();
+    });
   };
   const onSpeechStart = (e) => {
     console.log("开始识别");
@@ -44,28 +42,15 @@ export default function TestVoice({ noteString = "", correct }) {
   // todo: 引导开启语音识别服务
 
   useEffect(() => {
-    console.log("挂载");
+    console.log("传入:" + noteString);
     Voice.onSpeechStart = onSpeechStart;
     Voice.onSpeechResults = handleSpeechResult;
     Voice.onSpeechEnd = onSpeechEnd;
     Voice.onSpeechVolumeChanged = onVolumeChanged;
+    Voice.start(lang).catch((err) => console.error(err));
 
     return _clear;
-  }, []);
-
-  // noteString 变化时，启动语音
-  useEffect(() => {
-    Voice.start(lang).catch((err) => console.error(err));
-    return () => {
-      Voice.stop().catch();
-    };
   }, [noteString]);
 
-  const note = noteString[noteString.langth - 1];
-
-  return (
-    <View>
-      <Text>{note}</Text>
-    </View>
-  );
+  return <View></View>;
 }

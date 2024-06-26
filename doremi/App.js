@@ -55,13 +55,13 @@ export default function App() {
   // 音符组
   const [noteGroup, setNoteGroup] = useState([]);
   // 启动状态
-  const [practiceStatus, setPracticeStatus] = useState("test");
+  const [practiceStatus, setPracticeStatus] = useState("setting");
   // 回答超时
   // const [isTimeout, setIsTimeout] = useState(false);
   // 答错次数，练习过程中连续答错3次后答案
   const [wrongTimes, setWrongTimes] = useState(0);
   // 练习时生成的音符序列，最后一个数字即当前音符
-  const [noteString, setNoteString] = useState([]);
+  const [noteString, setNoteString] = useState([1]);
 
   let currentNote = noteString[noteString.length - 1];
   let completed = noteString.length;
@@ -99,11 +99,12 @@ export default function App() {
   const changeNotes = () => setNoteGroup(generateGroup(noteGroup.length));
 
   // 从音符组中随机取一个
-  const nextNote = () =>
-    noteGroup[Math.floor(Math.random() * noteGroup.length)];
+  const nextNote = (group) => group[Math.floor(Math.random() * group.length)];
   // 启动训练
   const practice = () => {
-    setNoteString([nextNote()]);
+    const next = nextNote(noteGroup);
+    console.log("next:" + next);
+    setNoteString([next]);
     setPracticeStatus("practicing");
     // 存储
     AsyncStorage.setItem("lastStatus", JSON.stringify({ noteGroup })).catch(
@@ -113,10 +114,11 @@ export default function App() {
 
   const showNextNote = () => {
     setWrongTimes(0);
-    console.log(`已完成音符: ${noteString.join(",")}`);
+    console.log(`*已完成音符:` + noteString);
     if (completed < totalCount) {
       // 如果没有练完,就计算下一个音符
-      setNoteString([...noteString, nextNote()]);
+      const next = nextNote(noteGroup);
+      setNoteString([...noteString, next]);
     } else {
       // 如果练完了,就显示完成图标,短暂停留后自动跳回设置页面
       setPracticeStatus("done");
@@ -255,6 +257,7 @@ export default function App() {
               )}
             </View>
           </View>
+          {/* 语音识别和反馈 */}
           <View style={styles.speech}>
             <SpeechRecognition
               solfa={solfa}
@@ -279,7 +282,9 @@ export default function App() {
       )}
       {/* 测试语音识别 */}
       {practiceStatus == "test" && (
-        <TestVoice noteString={noteString} correct={showNextNote} />
+        <View style={styles.content}>
+          <TestVoice noteString={noteString} correct={showNextNote} />
+        </View>
       )}
       <StatusBar style="auto" hidden={false} />
     </View>
