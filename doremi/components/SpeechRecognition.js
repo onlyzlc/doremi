@@ -68,12 +68,15 @@ export default function SpeechRecognition({
     Voice.onSpeechError = onSpeechError;
   };
 
-  const close = () => {
-    console.log("清理");
+  const reload = () => {
+    console.log("reload");
     if (isAvailable) {
       Voice.removeAllListeners();
-      Voice.destroy().then(() => console.log("已关闭语音"));
     }
+  };
+  const cleanup = () => {
+    console.log("cleanup");
+    Voice.destroy().then(() => console.log("已关闭语音"));
   };
 
   // todo: 引导开启语音识别服务
@@ -102,12 +105,9 @@ export default function SpeechRecognition({
       } else {
         console.log("唱错");
         miss();
-        // return Voice.start(lang);
       }
     } else {
       console.log("不能匹配");
-      // 不能识别发音
-      // return Voice.start(lang);
     }
   };
   // noteString 变化时，重新绑定事件
@@ -132,8 +132,12 @@ export default function SpeechRecognition({
         }
         setIsAvailable(false);
       });
-    return close;
+    return reload;
   }, [noteString]);
+
+  useEffect(() => {
+    return cleanup;
+  }, []);
 
   const feedback = (
     <>
