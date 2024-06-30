@@ -118,6 +118,7 @@ export default function App() {
     if (completed < totalCount) {
       // 如果没有练完,就计算下一个音符
       const next = nextNote(noteGroup);
+      console.log("next:" + next);
       setNoteString([...noteString, next]);
     } else {
       // 如果练完了,就显示完成图标,短暂停留后自动跳回设置页面
