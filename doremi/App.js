@@ -51,20 +51,18 @@ function Question({ note, showAnswer }) {
 
 export default function App() {
   const totalCount = 3;
-
+  // 完成数量
+  const [completed, setCompleted] = useState(0);
   // 音符组
   const [noteGroup, setNoteGroup] = useState([]);
   // 启动状态
   const [practiceStatus, setPracticeStatus] = useState("setting");
-  // 回答超时
-  // const [isTimeout, setIsTimeout] = useState(false);
   // 答错次数，练习过程中连续答错3次后答案
   const [wrongTimes, setWrongTimes] = useState(0);
   // 练习时生成的音符序列，最后一个数字即当前音符
   const [noteString, setNoteString] = useState([1]);
 
   let currentNote = noteString[noteString.length - 1];
-  let completed = noteString.length;
 
   // 随机生成一组不重复的音符
   const generateGroup = (length = 3) => {
@@ -115,7 +113,7 @@ export default function App() {
   const showNextNote = () => {
     setWrongTimes(0);
     console.log(`*已完成音符:` + noteString);
-    if (completed < totalCount) {
+    if (completed < totalCount - 1) {
       // 如果没有练完,就计算下一个音符
       const next = nextNote(noteGroup);
       console.log("*next:" + next);
@@ -125,6 +123,7 @@ export default function App() {
       setPracticeStatus("done");
       setTimeout(() => {
         setPracticeStatus("setting");
+        setCompleted(0);
       }, 1000);
       changeNotes();
     }
@@ -132,6 +131,7 @@ export default function App() {
   };
 
   const handleCorrect = () => {
+    setCompleted(completed + 1);
     setTimeout(showNextNote, 500);
   };
 
@@ -161,6 +161,7 @@ export default function App() {
 
   const exit = () => {
     setWrongTimes(0);
+    setCompleted(0);
     setPracticeStatus("setting");
   };
 
@@ -170,7 +171,6 @@ export default function App() {
         styles.container,
         {
           paddingTop: 64,
-          backgroundColor: practiceStatus != "setting" && Colors.light,
         },
       ]}>
       {/* 设置界面 */}
@@ -221,7 +221,7 @@ export default function App() {
               borderRadius={8}
               borderWidth={0}
               color={Colors.secondary}
-              unfilledColor={Colors.foreground}
+              unfilledColor={Colors.light}
               progress={completed / totalCount}
             />
 

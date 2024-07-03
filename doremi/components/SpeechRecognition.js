@@ -2,7 +2,6 @@
 import { React, useEffect, useState } from "react";
 import Voice from "@react-native-voice/voice";
 import VoiceIndicator from "./VoiceIndicator";
-import Button from "./Button";
 
 export default function SpeechRecognition({
   solfa,
@@ -27,10 +26,7 @@ export default function SpeechRecognition({
 
   // 识别结果, 记0~6索引号
   const [speechResult, setSpeechResult] = useState(4);
-  // const [speechResultInt, setSpeechResultInt] = useState("请唱...");
   const [volume, setVolume] = useState(0);
-
-  const [testTimer, setTestTimer] = useState(null);
 
   const onVolumeChanged = (e) => {
     setVolume(e.value);
@@ -53,9 +49,6 @@ export default function SpeechRecognition({
   };
   const onSpeechError = (e) => {
     console.error("语音服务错误", e.error);
-    // Voice.destroy()
-    //   .then(start())
-    //   .catch((err) => console.error(err));
   };
 
   const bind = () => {
@@ -140,13 +133,10 @@ export default function SpeechRecognition({
   }, []);
 
   const feedback = (
-    <>
-      <VoiceIndicator
-        volume={volume}
-        heard={speechResult && solfa[speechResult]}
-      />
-      {/* <Button onPress={testVolumeChange} title="测试" /> */}
-    </>
+    <VoiceIndicator
+      volume={volume}
+      heard={speechResult && solfa[speechResult]}
+    />
   );
 
   return isAvailable ? feedback : children;
