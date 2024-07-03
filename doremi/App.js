@@ -28,7 +28,7 @@ import TestVoice from "./components/TestVoice";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
-function Question({ note, showAnswer }) {
+function Question({ note }) {
   return (
     <View style={styles.note}>
       <Text
@@ -40,11 +40,6 @@ function Question({ note, showAnswer }) {
         }}>
         {note}
       </Text>
-      {/* {showAnswer && (
-        <Text style={{ fontSize: 48, fontWeight: 200, textAlign: "center" }}>
-          {solfa[note - 1]}
-        </Text>
-      )} */}
     </View>
   );
 }
@@ -142,7 +137,7 @@ export default function App() {
   }));
   // 摇摆动画
   const handleMiss = () => {
-    setWrongTimes(wrongTimes + 1);
+    setWrongTimes((n) => n + 1);
     const time = 40,
       x = 50;
     offset.value = withSequence(
@@ -338,11 +333,12 @@ const styles = StyleSheet.create({
     // position: "absolute",
     // right: 40,
     // top: 40,
-    height: 30,
+    height: 80,
   },
   speech: {
     justifyContent: "center",
-    flex: 2,
+    // flex: 2,
+    height: 200,
   },
   controlBar: {
     display: "flex",
