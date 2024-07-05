@@ -4,6 +4,7 @@
     "slug": "doremi",
     "version": "1.0.0",
     "orientation": "portrait",
+    "scheme": "doremi",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -11,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.onlyzlc.doremi"
@@ -25,6 +24,7 @@
       }
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
     "extra": {
@@ -32,6 +32,6 @@
         "projectId": "e1958fac-61d8-4c3a-b0f8-4501f888e40e"
       }
     },
-    "plugins": ["@react-native-voice/voice"]
+    "plugins": ["@react-native-voice/voice", "expo-router"]
   }
 }
