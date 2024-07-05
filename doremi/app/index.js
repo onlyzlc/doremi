@@ -2,11 +2,11 @@
 import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { H1 } from "./components/Header";
-import IconButton from "./components/IconButton";
-import Button from "./components/Button";
+import { H1 } from "../components/Header";
+import IconButton from "../components/IconButton";
+import Button from "../components/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import NoteList from "./components/NoteList";
+import NoteList from "../components/NoteList";
 import Animated, {
   SlideInRight,
   SlideOutLeft,
@@ -20,11 +20,11 @@ import Animated, {
   FadeInDown,
   FadeOutUp,
 } from "react-native-reanimated";
-import SpeechRecognition from "./components/SpeechRecognition";
+import SpeechRecognition from "../components/SpeechRecognition";
 import * as Progress from "react-native-progress";
-import { Svg_Complete } from "./components/SvgIcons";
-import { Colors } from "./components/ComStyle";
-import TestVoice from "./components/TestVoice";
+import { Svg_Complete } from "../components/SvgIcons";
+import { Colors } from "../components/ComStyle";
+import TestVoice from "../components/TestVoice";
 
 const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
