@@ -18,7 +18,7 @@ export default function StartPage() {
         justifyContent: "center",
       }}>
       <H1 title="提示" />
-      <Text>在屏幕显示数字时立即念出它的唱名</Text>
+      <Text>跟随节拍念出数字的唱名</Text>
       <View
         style={{
           flexDirection: "row",
@@ -36,7 +36,7 @@ export default function StartPage() {
           </View>
         ))}
       </View>
-      <Button title="开始" onPress={() => router.replace("basic/playing")} />
+      {/* <Button title="开始" onPress={() => router.replace("exams/song?")} /> */}
     </View>
   );
 }

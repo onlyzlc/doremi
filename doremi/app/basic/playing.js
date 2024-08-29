@@ -23,7 +23,7 @@ import Animated, {
 import SpeechRecognition from "../../components/SpeechRecognition";
 import * as Progress from "react-native-progress";
 import { Svg_Complete } from "../../components/SvgIcons";
-import { Colors } from "../../components/ComStyle";
+import { Colors, Styles } from "../../components/ComStyle";
 import TestVoice from "../../components/TestVoice";
 import { router } from "expo-router";
 
@@ -89,7 +89,7 @@ export default function App() {
           const l = JSON.parse(value).noteGroup.length;
           setNoteGroup(generateGroup(l));
         } else {
-          setNoteGroup([1, 4, 7]);
+          setNoteGroup([1, 2, 3, 4, 5, 6, 7]);
         }
         const next = nextNote(noteGroup);
         console.log("*next:" + next);
@@ -162,7 +162,7 @@ export default function App() {
       {practiceStatus == "practicing" && (
         <View style={styles.content}>
           {/* 顶部栏进度条、关闭按钮 */}
-          <View style={styles.titleBar}>
+          <View style={Styles.titleBar}>
             <Progress.Bar
               width={200}
               height={16}
@@ -242,7 +242,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
-    backgroundColor: "#fff",
     maxWidth: 600,
   },
   content: {
@@ -260,14 +259,6 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 48,
     flex: 1,
-  },
-  titleBar: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    paddingHorizontal: 16,
-    justifyContent: "space-between",
-    alignItems: "center",
   },
   topic: {
     width: "100%",
