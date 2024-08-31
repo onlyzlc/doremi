@@ -8,6 +8,7 @@ export const Colors = {
   secondary: "rgb(255, 192, 60)",
   secondText: "#8B668E",
   secBackground: "#B1C4EC",
+  red: "rgb(255, 37, 36)",
 };
 
 export const Fonts = {

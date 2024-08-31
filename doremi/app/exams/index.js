@@ -18,7 +18,7 @@ export default function StartPage() {
         justifyContent: "center",
       }}>
       <H1 title="提示" />
-      <Text>跟随节拍念出数字的唱名</Text>
+      <Text>跟随指示框念出唱名</Text>
       <View
         style={{
           flexDirection: "row",
