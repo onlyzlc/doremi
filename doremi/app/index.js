@@ -20,11 +20,13 @@ export default function Solfege() {
           <MenuCard
             title="唱名基础练习"
             onPress={() => router.navigate("/basic")}>
-            ⭐⭐⭐
+            <Text>⭐⭐⭐</Text>
           </MenuCard>
           <Text style={[Fonts.secondary, Styles.sectionTitle]}>简谱测试</Text>
-          <MenuCard title="未知歌曲1" onPress={() => router.navigate("/exams")}>
-            ⭐
+          <MenuCard
+            title="未知歌曲1"
+            onPress={() => router.navigate("/exams/song1")}>
+            <Text>⭐</Text>
           </MenuCard>
         </View>
       </SafeAreaView>
