@@ -1,96 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
 import { React } from "react";
 import { Colors } from "./ComStyle";
-// N: ||: 3 1 (33) 1 | (33) (56) 5 - | (66) (65) (44) 4 | (23) (21) 2 - |
-// P: 1=C 4/4
-// ---
-// N: 1 1 5 5 | 6 6 5 - | 4 4 3 3 | 2 2 1 - |
-// ---
-// N: 5 5 4 4 | 3 3 2 - | 5 5 4 4 | 3 3 2 - |
-// N: 5 5 4 4 | 3 3 2 - | 5 5 4 4 | 3 3 2 - |
-// ---
-// N: 1 1 5 5 | 6 6 5 - | 4 4 3 3 | 2 2 1 - |
-const rowData = [
-  // 层1：乐句
-  [
-    // 2层：小节
-    [
-      [
-        // 3层：半拍
-        x,
-        xx,
-      ],
-      xx,
-      x,
-      x,
-    ],
-    xxxx,
-  ],
-  [x, x, x, x],
-];
+import { parse } from "./Parse";
 
-// 解析小节
-const bar = ["1", "2", "(", "3", "4", ")", "5"];
-
-function parseBar(strArr = []) {
-  console.log("输入:", strArr);
-  // 输入的数组在下面的操作中会逐步缩短, 故需先记录其长度用于循环判断
-  const l = strArr.length;
-  // 每层输出
-  const beat = [];
-  for (let i = 0; i < l; i++) {
-    if (strArr.length === 0) break;
-    console.log("处理:", strArr[0]);
-    if (strArr[0] === "(") {
-      strArr.shift();
-      const subBeat = parseNote(strArr);
-      beat.push(subBeat);
-    } else if (strArr[0] === ")") {
-      strArr.shift();
-      // 结束循环
-      break;
-    } else if (strArr[0] !== undefined) {
-      beat.push(strArr.shift());
-    }
-  }
-  console.log("输出:", beat);
-  return beat;
-}
-
-// 解析单行(以N:开头)
-function parseNoteline(lineString = "") {
-  if (!lineString.startsWith("N:")) return [];
-  // " N: 1e. (2) (34) (5 (67)) | 1 2 3 - |||  "
-  let l = lineString.substring(2).trim();
-  // "1e. (2) (34) (5 (67)) | 1 2 3 - |||"
-  if (l.endsWith("||")) {
-    l = lineString.slice(0, -2);
-    // "1e. (2) (34) (5 (67)) | 1 2 3 - |"
-  }
-  const barStrArr = l.split("|");
-  // ["1e. (2) (34) (5 (67)) " , "1 2 3 - " ]
-  const noteLine = barStrArr.map((barStr) => {
-    // 正则表达式: 匹配部分常规音符
-    const _barArr = barStr.match(/[\(\)\-\~]|([0-9]|[XYZ_])[ed]?\.?/g);
-    // "1e. (2) (34) (5 (67)) " => ["1e.","(","2",")","(","3","4",")","(","5","(","6","7",")",")",]
-  });
-}
-
-function parse(rowData = "") {
-  // 结构
-  // 重复段
-  // -行*
-  // --小节*
-  // ---连拍
-  // ----连音
-  if (typeof rowData != "string") return false;
-  const sections = rowData.split(/^\-+/gm);
-  const chips = sections.map((sec) => {
-    noteLine: sec.match(/^N:.+/gm);
-  });
-}
-
-function Note({ note = 0, status = "" }) {
+// duration: 时值, 1=1拍, 0.5=半拍...
+export function Note({ note = 0, status = "", duration = 1 }) {
   const noteStyles = StyleSheet.create({
     default: {
       fontSize: 16,
@@ -106,9 +20,9 @@ function Note({ note = 0, status = "" }) {
 
   const noteBoxStyles = StyleSheet.create({
     default: {
-      borderRadius: 4,
-      width: 30,
+      // width: 30,
       height: 40,
+      borderRadius: 4,
     },
     zoom: {
       borderStyle: "2px solid rgb(255, 192, 60)",
@@ -119,12 +33,60 @@ function Note({ note = 0, status = "" }) {
   });
 
   return (
-    <View style={[noteBoxStyles.default, noteBoxStyles[status]]}>
+    <View
+      style={[
+        noteBoxStyles.default,
+        noteBoxStyles[status],
+        { width: duration * 20 },
+      ]}>
       <Text style={[noteStyles.default, noteStyles[status]]}>{note}</Text>
     </View>
   );
 }
+// {
+//   properties: "",
+//   body: [
+//     { //chip
+//       N: [[小节],[x,x,x,[半拍]]],
+//       lc1: [],
+//       lc2: [],
+//     },
+//   ],
+// };
+// b1:1拍  b2:半拍  b4:四分之一拍  b8:八分之一拍
+{
+  /* <b1>
+  {" "}
+  n{" "}
+  <b2>
+    {" "}
+    n <b4>nn</b4>{" "}
+  </b2>{" "}
+</b1>; */
+}
 
-export default function MusicalStave({ name, artist, key, speed, notes }) {
-  return notes.map;
+export function B1({ children }) {
+  return <View>{children}</View>;
+}
+
+// 输入一个小节,一个元素一拍, [x,x,x,[x,x]]
+export function Beat({ barData, times = 1 }) {
+  const list = barData.map((beat, index) => {
+    if (typeof beat === "string") {
+      return <Note key={index} note={beat} duration={times} />;
+    } else if (typeof beat === "object") {
+      return <Beat key={index} barData={beat} times={times * 0.5} />;
+      // renderBar(beat, times * 0.5);
+    }
+  });
+  return <View>{list}</View>;
+}
+
+export function Chip(chipData) {
+  // chipData.N.map(item=>)
+}
+export default function MusicalStave({ staveDoc }) {
+  const stave = parse(staveDoc);
+  stave.body.map((item, index) => <Chip key={index} chipData={item} />);
+  return <></>;
 }
