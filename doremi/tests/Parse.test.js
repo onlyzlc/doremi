@@ -13,20 +13,22 @@ Lw: Do, a deer, a fe-male deer. Re, a drop of gol-den sun.
 ---
 N: 1 2 3 4 | 1 2 3 4 | 
 Lw: Mi, a name I call my-self. Fa, a long long way to run.`;
-const ex = [
-  {
-    N: [
-      ["1", "2", "3", "4"],
-      ["1", "2", "3", "4"],
-    ],
-  },
-  {
-    N: [
-      ["1", "2", "3", "4"],
-      ["1", "2", "3", "4"],
-    ],
-  },
-];
+const ex = {
+  body: [
+    {
+      N: [
+        ["1", "2", "3", "4"],
+        ["1", "2", "3", "4"],
+      ],
+    },
+    {
+      N: [
+        ["1", "2", "3", "4"],
+        ["1", "2", "3", "4"],
+      ],
+    },
+  ],
+};
 test("测试解析函数", () => {
   expect(parse(data)).toStrictEqual(ex);
 });

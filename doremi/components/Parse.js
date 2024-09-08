@@ -58,22 +58,33 @@ function parse(rowData = "") {
   if (typeof rowData != "string") return false;
   // 正则表达式:匹配以横线-开头的行
   // 按横线分割为片段
-  const sections = rowData.split(/^-+/gm);
+  const sections = rowData.split("---");
   // 将字符串数组形式的简谱转换为结构化的简谱,每个item一个对象
+  console.log("sections:", sections);
+
   // 旋律部分解析
   const body = sections.map((sec) => {
-    // 仅支持单声部
-    const noteLine = sec.match(/^N:.+/m);
+    // 仅支持单声部(添加修饰符g后,将匹配多行,否则仅匹配第一个)
+    const noteLine = sec.trim().match(/^N:.+/m);
+    console.log("noteLine:", noteLine);
+
     if (noteLine) {
       return {
         N: parseNoteline(noteLine[0]),
       };
     }
   });
-  console.log("parse输出:", body);
+
+  const stave = {
+    // 调号
+    // 拍号
+    // 作者
+    body: body,
+  };
+  console.log("parse输出:", stave);
   console.log("============================================");
 
-  return body;
+  return stave;
 }
 
 export { parse, parseNoteline, parseBar };

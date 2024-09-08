@@ -1,0 +1,514 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`渲染简谱 1`] = `
+<View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          1
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          2
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          3
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          4
+        </Text>
+      </View>
+      <Text>
+        |
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          5
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          6
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          7
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          8
+        </Text>
+      </View>
+      <Text>
+        |
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          4
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          3
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          2
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          1
+        </Text>
+      </View>
+      <Text>
+        |
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          1
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          2
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          3
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "width": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 16,
+              },
+              "",
+            ]
+          }
+        >
+          4
+        </Text>
+      </View>
+      <Text>
+        |
+      </Text>
+    </View>
+  </View>
+</View>
+`;

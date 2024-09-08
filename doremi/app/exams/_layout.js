@@ -4,13 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import IconButton from "../../components/IconButton";
 import { View } from "react-native";
 import { Colors, Styles } from "../../components/ComStyle";
-import { LinearGradient } from "expo-linear-gradient";
+// import { LinearGradient } from "expo-linear-gradient";
 
 export default function BasicRoot() {
   return (
-    <LinearGradient
-      colors={["#FFFFFF", "#E7EEFC"]}
-      style={Styles.screenBackground}>
+    <View colors={["#FFFFFF", "#E7EEFC"]} style={Styles.screenBackground}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ position: "absolute", right: 0, zIndex: 100 }}>
           <IconButton
@@ -19,6 +17,6 @@ export default function BasicRoot() {
         </View>
         <Slot></Slot>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
