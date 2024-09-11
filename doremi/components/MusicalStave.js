@@ -2,14 +2,35 @@ import { StyleSheet, View, Text } from "react-native";
 import { React } from "react";
 import { Colors } from "./ComStyle";
 import { parse } from "./Parse";
-import { type } from "@testing-library/react-native/build/user-event/type";
+
+// 减时线，
+function UnderLine({ times }) {
+  const line = (
+    <View
+      style={{ height: 2, backgroundColor: "rgba(0,0,0,40)", marginBottom: 2 }}
+    />
+  );
+  const underLine = [];
+  for (let i = 1; i < 1 / times; i = i * 2) {
+    underLine.push(line);
+  }
+  return <>{underLine}</>;
+}
+// 点
+function Dot() {
+  return <Text style={{ height: 4 }}>·</Text>;
+}
 
 // times:  1=1拍, 0.5=半拍...
-export function Note({ note = 0, status = "", times = 1 }) {
+export function Note({ noteObject = {}, status = "", times = 1 }) {
+  // 音符数字
   const noteStyles = StyleSheet.create({
     default: {
-      fontSize: 16,
+      fontSize: 18,
       color: Colors.main,
+      fontWeight: 600,
+      textAlign: "left",
+      // paddingHorizontal: 8,
     },
     zoom: {
       fontSize: 24,
@@ -17,32 +38,53 @@ export function Note({ note = 0, status = "", times = 1 }) {
     wrong: {
       color: Colors.foreground,
     },
+    hf1: {
+      borderBottomColor: "black",
+      borderBottomWidth: 1,
+    },
   });
-
+  // 音符外框
   const noteBoxStyles = StyleSheet.create({
     default: {
-      // width: 30,
       height: 40,
       borderRadius: 4,
     },
     zoom: {
-      borderStyle: "2px solid rgb(255, 192, 60)",
+      borderColor: "rgb(255, 192, 60)",
+      borderWidth: 2,
     },
     wrong: {
       color: Colors.red,
     },
   });
 
+  // 高音点
+  const highDot = [];
+  if (noteObject.octave > 0) {
+    for (let i = 0; i < noteObject.octave; i++) {
+      highDot.push(<Dot />);
+    }
+  }
+  // 低音点
+  const lowDot = [];
+  if (noteObject.octave < 0) {
+    for (let i = 0; i < -noteObject.octave; i) {
+      lowDot.push(<Dot />);
+    }
+  }
   return (
     <View
       style={[
         noteBoxStyles.default,
         status && noteBoxStyles[status],
-        { width: times * 20 },
+        { flexGrow: times, flexBasis: 14 },
       ]}>
+      {highDot.length && highDot}
       <Text style={[noteStyles.default, status && noteStyles[status]]}>
-        {note}
+        {noteObject.note}
       </Text>
+      <UnderLine times={times} />
+      {lowDot.length && lowDot}
     </View>
   );
 }
@@ -62,9 +104,9 @@ let noteIndex = 0;
 export function BarNotes({ barData, times = 1 }) {
   if (typeof barData !== "object") return;
   const listItems = barData.map((beat) => {
-    if (typeof beat === "string") {
-      return <Note key={"n" + noteIndex++} note={beat} duration={times} />;
-    } else if (typeof beat === "object") {
+    if (Object.hasOwn(beat, "note")) {
+      return <Note key={"n" + noteIndex++} noteObject={beat} times={times} />;
+    } else if (typeof beat === "object" && beat.length > 0) {
       return (
         <BarNotes
           key={"n" + noteIndex + "." + times}
@@ -82,7 +124,7 @@ function BarLine() {
 }
 
 let barIndex = 0;
-// 输入: [ [ '1', '2', '3', '4' ], [ '1', '2', '3', '4' ] ]
+// 输入: [ [ {}, {}, {}, {} ], [ ... ] ]
 export function Chip({ chipData }) {
   console.log("Chip输入:", chipData);
   if (typeof chipData !== "object") return;
@@ -108,6 +150,7 @@ export default function MusicalStave({ staveDoc }) {
 const styles = StyleSheet.create({
   bar: {
     flexDirection: "row",
+    flex: 0.25, //4节一行
   },
   noteLine: {
     flexDirection: "row",
