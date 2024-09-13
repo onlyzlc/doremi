@@ -28,6 +28,11 @@ export default function Solfege() {
             onPress={() => router.navigate("/exams/song1")}>
             <Text>⭐</Text>
           </MenuCard>
+          <MenuCard
+            title="未知歌曲2"
+            onPress={() => router.navigate("/exams/song2")}>
+            <Text>⭐</Text>
+          </MenuCard>
         </View>
       </SafeAreaView>
     </View>

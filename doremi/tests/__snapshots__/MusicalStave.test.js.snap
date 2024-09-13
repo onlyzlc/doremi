@@ -1,45 +1,159 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`渲染音符 1`] = `
-<View
-  style={
-    [
-      {
-        "borderRadius": 4,
-        "height": 40,
-      },
-      "",
-      {
-        "flexBasis": 14,
-        "flexGrow": 1,
-      },
-    ]
-  }
->
-  <Text
+exports[`渲染简谱 1`] = `
+<View>
+  <View
     style={
       {
-        "height": 4,
+        "flexDirection": "row",
       }
     }
   >
-    ·
-  </Text>
-  <Text
-    style={
-      [
+    <View
+      style={
         {
-          "color": "rgb(65, 35, 68)",
-          "fontSize": 18,
-          "fontWeight": 600,
-          "textAlign": "left",
-        },
-        "",
-      ]
-    }
-  >
-    1
-  </Text>
-  0
+          "flex": 0.25,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "flexBasis": 14,
+              "flexGrow": 1,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            {
+              "height": 4,
+            }
+          }
+        >
+          ·
+        </Text>
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 18,
+                "fontWeight": 600,
+                "textAlign": "left",
+              },
+              "",
+            ]
+          }
+        >
+          1
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "flexBasis": 14,
+              "flexGrow": 1,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 18,
+                "fontWeight": 600,
+                "textAlign": "left",
+              },
+              "",
+            ]
+          }
+        >
+          2
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "flexBasis": 14,
+              "flexGrow": 1,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 18,
+                "fontWeight": 600,
+                "textAlign": "left",
+              },
+              "",
+            ]
+          }
+        >
+          3
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "borderRadius": 4,
+              "height": 40,
+            },
+            "",
+            {
+              "flexBasis": 14,
+              "flexGrow": 1,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "rgb(65, 35, 68)",
+                "fontSize": 18,
+                "fontWeight": 600,
+                "textAlign": "left",
+              },
+              "",
+            ]
+          }
+        >
+          4
+        </Text>
+      </View>
+      <Text>
+        |
+      </Text>
+    </View>
+  </View>
 </View>
 `;
