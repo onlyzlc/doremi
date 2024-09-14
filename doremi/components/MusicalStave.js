@@ -35,6 +35,7 @@ function UnderLine({ times, width = "auto" }) {
   }
   return underLine;
 }
+
 // 点组合
 function Dots({ number = 0 }) {
   const dots = [];
@@ -140,8 +141,8 @@ let barIndex = 0;
 // }
 
 // let chipIndex = 0;
-export default function MusicalStave({ staveDoc }) {
-  const stave = parse(staveDoc);
+export default function MusicalStave({ stave }) {
+  // const stave = parse(staveDoc);
   if (typeof stave !== "object") return;
   const listItems = stave.body.map((item) => {
     // return item.N && <Chip key={"c" + chipIndex++} chipData={item.N} />;

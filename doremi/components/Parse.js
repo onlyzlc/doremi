@@ -30,12 +30,9 @@ function parse(rowData = "") {
   // 解析小节,将切分好的小节字符转换为嵌套形式的数组
   function parseBar(strArr = []) {
     // console.log("parseBar输入:", strArr);
-    // 输入的数组在下面的操作中会逐步缩短, 故需先记录其长度用于循环判断
-    const l = strArr.length;
     // 每层输出
     const bar = [];
-    for (let i = 0; i < l; i++) {
-      if (strArr.length === 0) break;
+    while (strArr.length > 0) {
       // console.log("处理:", strArr[0]);
       if (strArr[0] === "(") {
         strArr.shift();
