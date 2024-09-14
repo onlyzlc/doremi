@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { render } from "@testing-library/react-native";
 import MusicalStave, { Note, Chip, BarNotes } from "../components/MusicalStave";
-import { song1 } from "../components/Data";
+import { songs } from "../components/Data";
 
 const nx = {
   presign: "",
@@ -27,6 +27,6 @@ const cx = [bx, bx];
 //   expect(tree).toMatchSnapshot();
 // });
 test("渲染简谱", () => {
-  const tree = render(<MusicalStave staveDoc={song1} />).toJSON();
+  const tree = render(<MusicalStave staveDoc={songs.song1} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -1,7 +1,7 @@
 export const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
 export const homophone = ["哆", "来", "咪", "发", "所", "啦", "西"];
 export const songs = {
-  song1: `N: #1e, (2d,(b3,4)), 5, 6.|`,
+  song1: `N: 1, (2,(3,4)), 5, 6.|`,
   song2: `N: X X (XX) X | (XX) (XX) X 0 | (XX) (XX) (XX) X | (XX) (XX) X 0 |
   Lc[1.]: 门前大桥下，游过一群鸭。快来快来数一数，二四六七八。
   ---

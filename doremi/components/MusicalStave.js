@@ -127,26 +127,32 @@ function BarLine() {
 
 let barIndex = 0;
 // 输入: [ [ {}, {}, {}, {} ], [ ... ] ]
-export function Chip({ chipData }) {
-  // console.log("Chip输入:", chipData);
-  if (typeof chipData !== "object") return;
-  const listItems = chipData.map((bar) => (
-    <View style={styles.bar} key={"b" + barIndex++}>
-      <BarNotes barData={bar} />
-      <BarLine />
-    </View>
-  ));
-  return <View style={styles.noteLine}>{listItems}</View>;
-}
+// export function Chip({ chipData }) {
+//   // console.log("Chip输入:", chipData);
+//   if (typeof chipData !== "object") return;
+//   const listItems = chipData.map((bar) => (
+//     <View style={styles.bar} key={"b" + barIndex++}>
+//       <BarNotes barData={bar} />
+//       <BarLine />
+//     </View>
+//   ));
+//   return <View style={styles.noteLine}>{listItems}</View>;
+// }
 
-let chipIndex = 0;
+// let chipIndex = 0;
 export default function MusicalStave({ staveDoc }) {
   const stave = parse(staveDoc);
   if (typeof stave !== "object") return;
   const listItems = stave.body.map((item) => {
-    return item.N && <Chip key={"c" + chipIndex++} chipData={item.N} />;
+    // return item.N && <Chip key={"c" + chipIndex++} chipData={item.N} />;
+    return (
+      <View style={styles.bar} key={"b" + barIndex++}>
+        <BarNotes barData={item} />
+        <BarLine />
+      </View>
+    );
   });
-  return <View>{listItems}</View>;
+  return <View style={styles.stave}>{listItems}</View>;
 }
 
 /** 样式 **/
@@ -182,9 +188,14 @@ const beatBlock = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
+  stave: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
   bar: {
     flexDirection: "row",
-    flex: 0.25, //4节一行
+    flexBasis: "50%",
+    marginVertical: 16,
   },
   noteLine: {
     flexDirection: "row",

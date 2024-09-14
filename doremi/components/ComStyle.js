@@ -75,5 +75,6 @@ export const Styles = StyleSheet.create({
     padding: spacing1,
     gap: 8,
     backgroundColor: Colors.foreground,
+    marginBottom: 16,
   },
 });

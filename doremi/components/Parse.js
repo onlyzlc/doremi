@@ -1,5 +1,6 @@
 // 解析整个简谱
 function parse(rowData = "") {
+  if (typeof rowData != "string") return false;
   // 解析音符
   let noteIndex = 0;
   function parseNote(noteString = "") {
@@ -29,7 +30,6 @@ function parse(rowData = "") {
   // 解析小节,将切分好的小节字符转换为嵌套形式的数组
   function parseBar(strArr = []) {
     // console.log("parseBar输入:", strArr);
-
     // 输入的数组在下面的操作中会逐步缩短, 故需先记录其长度用于循环判断
     const l = strArr.length;
     // 每层输出
@@ -57,7 +57,6 @@ function parse(rowData = "") {
   // 解析单行(以N:开头)
   function parseNoteline(lineString = "") {
     // console.log("parseNoteline 输入:", lineString);
-
     if (!lineString.startsWith("N:")) return [];
     // " N: 1e. (2) (34) (5 (67)) | 1 2 3 - |||  "
     let l = lineString.substring(2).trim();
@@ -83,26 +82,29 @@ function parse(rowData = "") {
     return noteLine;
   }
 
-  if (typeof rowData != "string") return false;
-
   // 正则表达式:匹配以横线-开头的行
   // 按横线分割为片段
   const sections = rowData.split("---");
   // 将字符串数组形式的简谱转换为结构化的简谱,每个item一个对象
-  // console.log("sections:", sections);
+  console.log("sections:", sections);
 
   // 旋律部分解析
-  const body = sections.map((sec) => {
-    // 仅支持单声部(添加修饰符g后,将匹配多行,否则仅匹配第一个)
+  let body = [];
+  sections.forEach((sec) => {
     const noteLine = sec.trim().match(/^N:.+/m);
-    // console.log("noteLine:", noteLine);
-
     if (noteLine) {
-      return {
-        N: parseNoteline(noteLine[0]),
-      };
+      body = body.concat(parseNoteline(noteLine[0]));
     }
   });
+  // const body = sections.reduce((list, sec) => {
+  //   // 仅支持单声部(添加修饰符g后,将匹配多行,否则仅匹配第一个)
+  //   const noteLine = sec.trim().match(/^N:.+/m);
+  //   console.log("noteLine:", noteLine);
+  //   if (noteLine) {
+  //     return list.concat(parseNoteline(noteLine[0]));
+
+  //   }
+  // });
 
   const stave = {
     // 调号
