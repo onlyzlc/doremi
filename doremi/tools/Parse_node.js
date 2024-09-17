@@ -126,6 +126,7 @@ function parse(rowData = "") {
     // 调号
     // 拍号
     // 作者
+    length: noteIndex - 1,
     body: body,
   };
   // console.log("parse输出:", stave);

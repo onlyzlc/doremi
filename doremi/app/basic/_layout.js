@@ -9,14 +9,14 @@ import { Colors, Styles } from "../../components/ComStyle";
 export default function BasicRoot() {
   return (
     <View colors={["#FFFFFF", "#E7EEFC"]} style={Styles.screenBackground}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <View style={{ position: "absolute", right: 0, zIndex: 100 }}>
           <IconButton
             name="close"
             onPress={() => router.replace("/")}></IconButton>
         </View>
         <Slot></Slot>
-      </SafeAreaView>
+      </View>
     </View>
   );
 }

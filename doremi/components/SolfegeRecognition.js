@@ -2,38 +2,29 @@
 import { React, useEffect, useState } from "react";
 import Voice from "@react-native-voice/voice";
 import VoiceIndicator from "./VoiceIndicator";
-import { solfa } from "./Data";
+import { solfa, homophone } from "./Data";
+import { Text } from "react-native";
 
 // @param {}
-export default function SpeechRecognition({
-  number=0,
-  noteString = [],
+export default function SolfegeRecognition({
+  number = 0,
+  note = 0,
   correct,
   miss,
 }) {
   const lang = "zh-CN";
-  const note = parseInt(noteString[noteString.length - 1]);
-  // doremi同音汉字
-  const homophone = [
-    "Do朵多躲夺剁哆堕都兜",
-    "Re来瑞锐蕊睿锐",
-    "M咪蜜米迷密秘谜眯弥觅幂泌",
-    "Fa发法罚伐乏阀珐",
-    "Sol搜说手首艘受收瘦",
-    "La啦拉辣喇蜡垃剌",
-    "Cc嘻戏洗系西喜细嘻夕袭溪吸熙",
-  ];
-  const [isAvailable, setIsAvailable] = useState(false);
+  // const note = parseInt(noteString[number]);
 
+  const [isAvailable, setIsAvailable] = useState(false);
+  const [isStarted, setIsStarted] = useState(false);
   // 识别结果, 记0~6索引号
   const [speechResult, setSpeechResult] = useState(4);
+  // 音量变化使得组件频繁执行
   const [volume, setVolume] = useState(0);
-
   const onVolumeChanged = (e) => {
     setVolume(e.value);
     return null;
   };
-  
 
   const onSpeechStart = (e) => {
     if (e) {
@@ -98,14 +89,14 @@ export default function SpeechRecognition({
           .catch((err) => console.error(err));
         return;
       } else {
-        console.log("唱错");
-        miss();
+        console.log("唱错第%d个音符", number);
+        miss(number);
       }
     } else {
       console.log("不能匹配");
     }
   };
-  // noteString 变化时，重新绑定事件
+  // number 变化时，重新绑定事件
   useEffect(() => {
     console.log("********************重载********************");
     setSpeechResult(null);
@@ -119,7 +110,10 @@ export default function SpeechRecognition({
         }
         bind();
       })
-      .then(() => Voice.start(lang))
+      .then(() => {
+        if (!isStarted) return Voice.start(lang);
+      })
+      .then(() => setIsStarted(true))
       .catch((err) => {
         console.log(err);
         if (err.cause && err.cause === "ServiceDisabled") {
@@ -134,15 +128,14 @@ export default function SpeechRecognition({
     return cleanup;
   }, []);
 
-  if(isAvailable){
+  if (isAvailable) {
     return (
-    <VoiceIndicator
-      volume={volume}
-      heard={speechResult && solfa[speechResult]}
-    />)
+      <VoiceIndicator
+        volume={volume}
+        heard={speechResult && solfa[speechResult]}
+      />
+    );
+  } else {
+    return <Text>语音识别服务不可用</Text>;
   }
-  const feedback = (
-  );
-
-  return isAvailable ? feedback : ;
 }

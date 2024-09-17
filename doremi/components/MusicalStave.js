@@ -101,7 +101,7 @@ export function Note({
 }
 
 let lineIndex = 0;
-export function BarNotes({ barData, times = 1 }) {
+export function BarNotes({ barData, times = 1, pointer = 0 }) {
   if (typeof barData !== "object") return;
   const listItems = barData.map((beat, index, curArr) => {
     if (Object.hasOwn(beat, "note")) {
@@ -111,11 +111,17 @@ export function BarNotes({ barData, times = 1 }) {
           noteObject={beat}
           times={times}
           isLastBeat={index == curArr.length - 1}
+          status={pointer == beat.index ? "pointing" : ""}
         />
       );
     } else if (typeof beat === "object" && beat.length > 0) {
       return (
-        <BarNotes key={"l" + lineIndex++} barData={beat} times={times * 0.5} />
+        <BarNotes
+          key={"l" + lineIndex++}
+          barData={beat}
+          times={times * 0.5}
+          pointer={pointer}
+        />
       );
     }
   });
@@ -141,14 +147,14 @@ let barIndex = 0;
 // }
 
 // let chipIndex = 0;
-export default function MusicalStave({ stave }) {
-  // const stave = parse(staveDoc);
+export default function MusicalStave({ stave, pointer = 0 }) {
+  // console.log("渲染输入:", stave);
   if (typeof stave !== "object") return;
   const listItems = stave.body.map((item) => {
     // return item.N && <Chip key={"c" + chipIndex++} chipData={item.N} />;
     return (
       <View style={styles.bar} key={"b" + barIndex++}>
-        <BarNotes barData={item} />
+        <BarNotes barData={item} pointer={pointer} />
         <BarLine />
       </View>
     );
@@ -166,8 +172,8 @@ const noteStyles = StyleSheet.create({
     fontWeight: 600,
     textAlign: "center",
   },
-  zoom: {
-    fontSize: 24,
+  pointing: {
+    // fontSize: 24,
   },
   wrong: {
     color: Colors.foreground,
@@ -179,9 +185,9 @@ const beatBlock = StyleSheet.create({
     borderRadius: 4,
     // paddingHorizontal: 8,
   },
-  zoom: {
-    borderColor: "rgb(255, 192, 60)",
-    borderWidth: 2,
+  pointing: {
+    backgroundColor: "rgb(255, 192, 60)",
+    // borderWidth: 2,
   },
   wrong: {
     color: Colors.red,

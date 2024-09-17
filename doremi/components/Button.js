@@ -3,7 +3,7 @@ import { React } from "react";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import { Colors } from "./ComStyle";
 
-export default function Button({ title, theme, onPress, ...props }) {
+export default function Button({ title, theme, onPress, disabled, ...props }) {
   if (theme == "primary") {
     return (
       <View style={[styles.buttonContainer]}>
