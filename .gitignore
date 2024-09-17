@@ -2,3 +2,4 @@
 doremi/package-lock.json
 doremi/eslint.config.mjs
 .vscode/settings.json
+package-lock.json
