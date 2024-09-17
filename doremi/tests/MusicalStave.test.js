@@ -1,22 +1,32 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { render } from "@testing-library/react-native";
-import MusicalStave, { Chip, Bar } from "../components/MusicalStave";
-import { song1 } from "../components/Data";
+import MusicalStave, { Note, Chip, BarNotes } from "../components/MusicalStave";
+import { songs } from "../components/Data";
 
-// test("渲染小节", () => {
-//   const data = ["1e", "b2"];
-//   const tree = render(<Bar barData={data} />).toJSON();
+const nx = {
+  presign: "",
+  note: "1",
+  overtones: "e",
+  dot: "",
+  octave: -2,
+  index: 0,
+};
+// test("渲染音符", () => {
+//   const tree = render(<Note noteObject={nx} />).toJSON();
 //   expect(tree).toMatchSnapshot();
 // });
+const bx = [nx, [nx, nx]];
+// test("渲染小节", () => {
+//   const tree = render(<BarNotes barData={bx} />).toJSON();
+//   expect(tree).toMatchSnapshot();
+// });
+
+const cx = [bx, bx];
 // test("渲染碎片", () => {
-//   const data = [
-//     ["1", "2"],
-//     ["3", "4"],
-//   ];
-//   const tree = render(<Chip chipData={data} />).toJSON();
+//   const tree = render(<Chip chipData={cx} />).toJSON();
 //   expect(tree).toMatchSnapshot();
 // });
 test("渲染简谱", () => {
-  const tree = render(<MusicalStave staveDoc={song1} />).toJSON();
+  const tree = render(<MusicalStave staveDoc={songs.song1} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

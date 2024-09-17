@@ -4,11 +4,12 @@ import Voice from "@react-native-voice/voice";
 import VoiceIndicator from "./VoiceIndicator";
 import { solfa } from "./Data";
 
+// @param {}
 export default function SpeechRecognition({
-  noteString = "",
+  number=0,
+  noteString = [],
   correct,
   miss,
-  children,
 }) {
   const lang = "zh-CN";
   const note = parseInt(noteString[noteString.length - 1]);
@@ -32,6 +33,7 @@ export default function SpeechRecognition({
     setVolume(e.value);
     return null;
   };
+  
 
   const onSpeechStart = (e) => {
     if (e) {
@@ -126,18 +128,21 @@ export default function SpeechRecognition({
         setIsAvailable(false);
       });
     return reload;
-  }, [noteString]);
+  }, [number]);
 
   useEffect(() => {
     return cleanup;
   }, []);
 
-  const feedback = (
+  if(isAvailable){
+    return (
     <VoiceIndicator
       volume={volume}
       heard={speechResult && solfa[speechResult]}
-    />
+    />)
+  }
+  const feedback = (
   );
 
-  return isAvailable ? feedback : children;
+  return isAvailable ? feedback : ;
 }

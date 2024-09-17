@@ -26,8 +26,7 @@ import { Svg_Complete } from "../../components/SvgIcons";
 import { Colors, Styles } from "../../components/ComStyle";
 import TestVoice from "../../components/TestVoice";
 import { router } from "expo-router";
-
-const solfa = ["do", "re", "mi", "fa", "sol", "la", "si"];
+import { solfa } from "../../components/Data";
 
 function Question({ note }) {
   return (
@@ -207,7 +206,6 @@ export default function App() {
           {/* 语音识别和反馈 */}
           <View style={styles.speech}>
             <SpeechRecognition
-              solfa={solfa}
               noteString={noteString}
               correct={handleCorrect}
               miss={handleMiss}>

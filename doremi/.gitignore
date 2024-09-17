@@ -38,4 +38,4 @@ yarn-error.*
 
 .DS_Store
 package-lock.json
-eslint.config.mjs
+# eslint.config.mjs

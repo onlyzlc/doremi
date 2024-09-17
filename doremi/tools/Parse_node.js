@@ -1,3 +1,24 @@
+const fs = require("fs");
+const path = require("path");
+fs.readdirSync("./input").forEach((fileName) => {
+  const inputFile = path.join("./input", fileName);
+  const outputFile = path.join("./output", fileName.replace("txt", "json"));
+  fs.readFile(inputFile, "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    // console.log(data);
+    const content = JSON.stringify(parse(data));
+    fs.writeFile(outputFile, content, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
+  });
+});
+
 // 解析整个简谱
 function parse(rowData = "") {
   if (typeof rowData != "string") return false;
@@ -82,8 +103,6 @@ function parse(rowData = "") {
   // 正则表达式:匹配以横线-开头的行
   // 按横线分割为片段
   const sections = rowData.split("---");
-  // 将字符串数组形式的简谱转换为结构化的简谱,每个item一个对象
-  console.log("sections:", sections);
 
   // 旋律部分解析
   let body = [];
@@ -109,10 +128,10 @@ function parse(rowData = "") {
     // 作者
     body: body,
   };
-  console.log("parse输出:", stave);
-  console.log("============================================");
+  // console.log("parse输出:", stave);
+  // console.log("============================================");
 
   return stave;
 }
 
-export { parse };
+// export { parse };

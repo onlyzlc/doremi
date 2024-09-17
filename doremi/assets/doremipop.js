@@ -1,14 +1,8 @@
-import * as React from "react"
-import Svg, { Defs, Path, G, Circle } from "react-native-svg"
+import * as React from "react";
+import Svg, { Defs, Path, G, Circle } from "react-native-svg";
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 const doremipop = (props) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={492}
-    height={386}
-    fill="none"
-    {...props}
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" fill="none" {...props}>
     <Defs></Defs>
     <Path fill="none" d="M71 56h361v278H71z" />
     <G filter="url(#a)">
@@ -45,5 +39,5 @@ const doremipop = (props) => (
     />
     <Path d="M71 56h361v278H71z" />
   </Svg>
-)
-export default doremipop
+);
+export default doremipop;

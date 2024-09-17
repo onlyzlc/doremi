@@ -15,7 +15,7 @@ export default function Solfege() {
         <View style={Styles.titleBar}>
           <H1 title="唱名记忆"></H1>
         </View>
-        <Doremipop width="100%" />
+        <Doremipop viewBox="50 50 400 300" />
         <View style={Styles.section}>
           <MenuCard
             title="唱名基础练习"
@@ -26,6 +26,11 @@ export default function Solfege() {
           <MenuCard
             title="未知歌曲1"
             onPress={() => router.navigate("/exams/song1")}>
+            <Text>⭐</Text>
+          </MenuCard>
+          <MenuCard
+            title="未知歌曲2"
+            onPress={() => router.navigate("/exams/song2")}>
             <Text>⭐</Text>
           </MenuCard>
         </View>
