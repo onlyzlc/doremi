@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import MusicalStave from "../../components/MusicalStave";
-import { View, Text } from "react-native";
+// import MusicalStave, { BarNotes, BarLine } from "../../components/MusicalStave";
+import { View, Text, StyleSheet } from "react-native";
 import { H1 } from "../../components/Header";
 import { Colors, Styles } from "../../components/ComStyle";
 import Button from "../../components/Button";
 import SolfegeRecognition from "../../components/SolfegeRecognition";
+import { BarLine, BarNotes } from "../../components/MusicalStave";
+import DownBeat from "../../components/Downbeat";
 const data = {
   song1: import("../../data/song1.json"),
   song2: import("../../data/song2.json"),
@@ -25,11 +27,16 @@ export default function Song() {
   const [missNotes, setMissNotes] = useState([]);
   const [timer, setTimer] = useState(null);
   const [status, setStatus] = useState("init");
+  // 读取简谱
   useEffect(() => {
     data[songName].then((json) => setStaveJson(json));
-    return () => clearInterval(timer);
   }, []);
+  // 关闭定时
+  useEffect(() => {
+    return () => clearInterval(timer);
+  }, [timer]);
 
+  // 结构谱拍平，以便查找
   const flatStave = useMemo(() => {
     return staveJson.body.flat(Infinity);
   }, [staveJson]);
@@ -51,14 +58,27 @@ export default function Song() {
   }
 
   const targetNote = flatStave.find(({ index }) => index == pointer);
-
   return (
     <View>
       <View style={Styles.titleBar}>
         <H1 title="唱谱" />
       </View>
       <View style={Styles.section}>
-        <MusicalStave stave={staveJson} pointer={pointer} />
+        <DownBeat />
+      </View>
+      <View style={[Styles.section, styles.stave]}>
+        {staveJson.body.map((item, index) => {
+          return (
+            <View style={styles.bar} key={"b" + index}>
+              <BarNotes
+                barData={item}
+                pointer={pointer}
+                missNotes={missNotes}
+              />
+              <BarLine />
+            </View>
+          );
+        })}
       </View>
       <View style={Styles.section}>
         {status == "playing" && (
@@ -69,9 +89,21 @@ export default function Song() {
             miss={handleMiss}></SolfegeRecognition>
         )}
       </View>
-      <View>
+      {/* <View>
         {status != "playing" && <Button title="开始" onPress={start} />}
-      </View>
+      </View> */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  stave: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  bar: {
+    flexDirection: "row",
+    flexBasis: "50%",
+    marginVertical: 16,
+  },
+});

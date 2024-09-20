@@ -45,12 +45,23 @@ function Dots({ number = 0 }) {
   return dots;
 }
 
-// times:  1=1拍, 0.5=半拍...
+/**
+ * 渲染一个音符，包括音符的音阶、倍音符、升降符、附点、减时线，以及音符状态
+ * @param {Object} noteObject 音符对象(不含时值)
+ * @param {Boolean} isLastBeat 用于判断是否为当前时值里的最后一个音符（以便去掉不必要的减时线长）
+ * @param {Number} times 拍数， 0.5=半拍
+ * @param {String} status 音符显示状态
+ *    "default" : 默认
+ *    "miss":    唱错的
+ *    "pointing" :当前要唱的
+ * @returns 音符组件
+ */
 export function Note({
   noteObject = {},
   status = "",
   times = 1,
   isLastBeat = false,
+  ...props
 }) {
   const { presign, note, overtones, dot, octave, index } = noteObject;
   // 音符数字样式
@@ -60,6 +71,7 @@ export function Note({
       style={[
         beatBlock.default,
         status && beatBlock[status],
+        props.style,
         { flexGrow: times, flexBasis: 16 },
       ]}>
       {/* 上部(高音点,升降符,数字) */}
@@ -85,7 +97,7 @@ export function Note({
       </View>
       {/* 下部(减时线,低音点) */}
       <View style={styles.noteBottom}>
-        {/* 减时线 */}
+        {/* 减时线 (对同一时值最后一个音符的宽度减少, 使其更美观*/}
         {times < 1 && (
           <UnderLine times={times} width={isLastBeat ? 16 : "auto"} />
         )}
@@ -101,17 +113,20 @@ export function Note({
 }
 
 let lineIndex = 0;
-export function BarNotes({ barData, times = 1, pointer = 0 }) {
+export function BarNotes({ barData, times = 1, pointer = 0, missNotes = [] }) {
   if (typeof barData !== "object") return;
   const listItems = barData.map((beat, index, curArr) => {
     if (Object.hasOwn(beat, "note")) {
+      let status = "";
+      if (pointer == beat.index) status = "pointing";
+      else if (missNotes.includes(beat.index)) status = "miss";
       return (
         <Note
           key={beat.index}
           noteObject={beat}
           times={times}
           isLastBeat={index == curArr.length - 1}
-          status={pointer == beat.index ? "pointing" : ""}
+          status={status}
         />
       );
     } else if (typeof beat === "object" && beat.length > 0) {
@@ -128,38 +143,8 @@ export function BarNotes({ barData, times = 1, pointer = 0 }) {
   return <>{listItems}</>;
 }
 
-function BarLine() {
+export function BarLine() {
   return <View style={styles.barLine} />;
-}
-
-let barIndex = 0;
-// 输入: [ [ {}, {}, {}, {} ], [ ... ] ]
-// export function Chip({ chipData }) {
-//   // console.log("Chip输入:", chipData);
-//   if (typeof chipData !== "object") return;
-//   const listItems = chipData.map((bar) => (
-//     <View style={styles.bar} key={"b" + barIndex++}>
-//       <BarNotes barData={bar} />
-//       <BarLine />
-//     </View>
-//   ));
-//   return <View style={styles.noteLine}>{listItems}</View>;
-// }
-
-// let chipIndex = 0;
-export default function MusicalStave({ stave, pointer = 0 }) {
-  // console.log("渲染输入:", stave);
-  if (typeof stave !== "object") return;
-  const listItems = stave.body.map((item) => {
-    // return item.N && <Chip key={"c" + chipIndex++} chipData={item.N} />;
-    return (
-      <View style={styles.bar} key={"b" + barIndex++}>
-        <BarNotes barData={item} pointer={pointer} />
-        <BarLine />
-      </View>
-    );
-  });
-  return <View style={styles.stave}>{listItems}</View>;
 }
 
 /** 样式 **/
@@ -175,8 +160,8 @@ const noteStyles = StyleSheet.create({
   pointing: {
     // fontSize: 24,
   },
-  wrong: {
-    color: Colors.foreground,
+  miss: {
+    color: Colors.red,
   },
 });
 // 音符外框动态样式
@@ -189,21 +174,10 @@ const beatBlock = StyleSheet.create({
     backgroundColor: "rgb(255, 192, 60)",
     // borderWidth: 2,
   },
-  wrong: {
-    color: Colors.red,
-  },
+  miss: {},
 });
 
 const styles = StyleSheet.create({
-  stave: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  bar: {
-    flexDirection: "row",
-    flexBasis: "50%",
-    marginVertical: 16,
-  },
   noteLine: {
     flexDirection: "row",
     paddingVertical: 16,

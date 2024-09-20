@@ -2,7 +2,7 @@
 import { React, useEffect, useState } from "react";
 import Voice from "@react-native-voice/voice";
 import VoiceIndicator from "./VoiceIndicator";
-import { solfa, homophone } from "./Data";
+import { solfa, homophone } from "../data/pronunciations";
 import { Text } from "react-native";
 
 // @param {}
@@ -19,7 +19,7 @@ export default function SolfegeRecognition({
   const [isStarted, setIsStarted] = useState(false);
   // 识别结果, 记0~6索引号
   const [speechResult, setSpeechResult] = useState(4);
-  // 音量变化使得组件频繁执行
+  // 音量变化使得组件频繁渲染
   const [volume, setVolume] = useState(0);
   const onVolumeChanged = (e) => {
     setVolume(e.value);
@@ -44,16 +44,6 @@ export default function SolfegeRecognition({
     console.error("语音服务错误", e.error);
   };
 
-  const bind = () => {
-    Voice.removeAllListeners();
-    console.log("绑定.");
-    Voice.onSpeechStart = onSpeechStart;
-    Voice.onSpeechEnd = onSpeechEnd;
-    Voice.onSpeechResults = handleSpeechResult;
-    Voice.onSpeechVolumeChanged = onVolumeChanged;
-    Voice.onSpeechError = onSpeechError;
-  };
-
   const reload = () => {
     console.log("reload");
     if (isAvailable) {
@@ -67,7 +57,7 @@ export default function SolfegeRecognition({
 
   // todo: 引导开启语音识别服务
   const handleServiceDisabled = () => {};
-  const handleSpeechResult = (e) => {
+  const handleSpeechResult = (e, number, note) => {
     // 取最后一句识别结果
     let lastWords = e.value[e.value.length - 1];
     lastWords = lastWords[lastWords.length - 1];
@@ -89,14 +79,13 @@ export default function SolfegeRecognition({
           .catch((err) => console.error(err));
         return;
       } else {
-        console.log("唱错第%d个音符", number);
         miss(number);
       }
     } else {
       console.log("不能匹配");
     }
   };
-  // number 变化时，重新绑定事件
+  // number或note 变化时，重新绑定事件
   useEffect(() => {
     console.log("********************重载********************");
     setSpeechResult(null);
@@ -108,7 +97,15 @@ export default function SolfegeRecognition({
         } else {
           throw new Error("语音识别服务禁用", { cause: "ServiceDisabled" });
         }
-        bind();
+        Voice.removeAllListeners();
+        console.log("绑定.");
+        Voice.onSpeechStart = onSpeechStart;
+        Voice.onSpeechEnd = onSpeechEnd;
+        Voice.onSpeechResults = (e) => {
+          handleSpeechResult(e, number, note);
+        };
+        Voice.onSpeechVolumeChanged = onVolumeChanged;
+        Voice.onSpeechError = onSpeechError;
       })
       .then(() => {
         if (!isStarted) return Voice.start(lang);
@@ -122,7 +119,7 @@ export default function SolfegeRecognition({
         setIsAvailable(false);
       });
     return reload;
-  }, [number]);
+  }, [number, note]);
 
   useEffect(() => {
     return cleanup;
