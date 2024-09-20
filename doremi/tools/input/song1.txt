@@ -1,3 +1,11 @@
+Dt: 数鸭子
+Ds: 简单儿歌
+Dv: Version 20230218
+Da[作词]: 王嘉桢
+Da[作曲]: 胡小环
+P: 1=C 4/4 qpm=60
+Rp: font_lyrics=Roman,CommonSerif/600/0.95
+===
 N: X X (XX) X | (XX) (XX) X 0 | (XX) (XX) (XX) X | (XX) (XX) X 0 |
   Lc[1.]: 门前大桥下，游过一群鸭。快来快来数一数，二四六七八。
   ---

@@ -22,6 +22,22 @@ fs.readdirSync("./input").forEach((fileName) => {
 // 解析整个简谱
 function parse(rowData = "") {
   if (typeof rowData != "string") return false;
+
+  // 解析音乐属性
+  function parseProps(rowData = "") {
+    const reg =
+      /^P: *(?<key>1=[#b$%]?[A-G]\d?) +(?<time>\d\/\d(T|S|s)?) +(?<tempo>(hpm|qpm|spm|h.pm|q.pm|s.pm)=\d+)/m;
+    const propsStr = rowData.match(reg);
+    // const props = { time: 4, tempo: 60, key: "C4" };
+    if (propsStr) {
+      const props = propsStr.groups;
+      console.log(props);
+      return props;
+    } else {
+      return {};
+    }
+  }
+
   // 解析音符
   let noteIndex = 0;
   function parseNote(noteString = "") {
@@ -100,32 +116,22 @@ function parse(rowData = "") {
     return noteLine;
   }
 
-  // 正则表达式:匹配以横线-开头的行
+  // // 章节
+  // const chapters = rowData.split("===")
+
   // 按横线分割为片段
   const sections = rowData.split("---");
-
   // 旋律部分解析
   let body = [];
   sections.forEach((sec) => {
-    const noteLine = sec.trim().match(/^N:.+/m);
-    if (noteLine) {
-      body = body.concat(parseNoteline(noteLine[0]));
+    const noteLines = sec.trim().match(/^N:.+/m);
+    if (noteLines) {
+      body = body.concat(parseNoteline(noteLines[0]));
     }
   });
-  // const body = sections.reduce((list, sec) => {
-  //   // 仅支持单声部(添加修饰符g后,将匹配多行,否则仅匹配第一个)
-  //   const noteLine = sec.trim().match(/^N:.+/m);
-  //   console.log("noteLine:", noteLine);
-  //   if (noteLine) {
-  //     return list.concat(parseNoteline(noteLine[0]));
-
-  //   }
-  // });
 
   const stave = {
-    // 调号
-    // 拍号
-    // 作者
+    ...parseProps(rowData),
     length: noteIndex - 1,
     body: body,
   };
