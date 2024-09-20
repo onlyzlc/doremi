@@ -24,12 +24,12 @@ export default function Solfege() {
         <Text style={[Fonts.secondary, Styles.sectionTitle]}>简谱测试</Text>
         <MenuCard
           title="未知歌曲1"
-          onPress={() => router.navigate("/exams/song1")}>
+          onPress={() => router.navigate("/exams?song=song1")}>
           <Text>⭐</Text>
         </MenuCard>
         <MenuCard
           title="未知歌曲2"
-          onPress={() => router.navigate("/exams/song2")}>
+          onPress={() => router.navigate("/exams?song=song2")}>
           <Text>⭐</Text>
         </MenuCard>
       </View>
