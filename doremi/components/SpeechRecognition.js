@@ -2,7 +2,7 @@
 import { React, useEffect, useState } from "react";
 import Voice from "@react-native-voice/voice";
 import VoiceIndicator from "./VoiceIndicator";
-import { solfa } from "./Data";
+import { solfa } from "../data/pronunciations";
 
 export default function SpeechRecognition({
   noteString = "",

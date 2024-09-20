@@ -4,7 +4,7 @@ import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { H1 } from "../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
-import { solfa, homophone } from "../../components/Data";
+import { solfa, homophone } from "../../data/pronunciations";
 import { Colors, Styles } from "../../components/ComStyle";
 
 export default function StartPage() {

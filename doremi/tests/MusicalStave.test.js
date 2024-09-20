@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { render } from "@testing-library/react-native";
 import MusicalStave, { Note, Chip, BarNotes } from "../components/MusicalStave";
-import { songs } from "../components/Data";
+import { songs } from "../data/pronunciations";
 
 const nx = {
   presign: "",

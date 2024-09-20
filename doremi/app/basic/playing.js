@@ -26,7 +26,7 @@ import { Svg_Complete } from "../../components/SvgIcons";
 import { Colors, Styles } from "../../components/ComStyle";
 import TestVoice from "../../components/TestVoice";
 import { router } from "expo-router";
-import { solfa } from "../../components/Data";
+import { solfa } from "../../data/pronunciations";
 
 function Question({ note }) {
   return (
