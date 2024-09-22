@@ -63,7 +63,7 @@ export function Note({
   isLastBeat = false,
   ...props
 }) {
-  const { presign, note, overtones, dot, octave, index } = noteObject;
+  const { presign, noteNumber, overtones, dot, octave, noteIndex } = noteObject;
   // 音符数字样式
 
   return (
@@ -84,7 +84,7 @@ export function Note({
         )}
         {/* 音符数字 */}
         <Text style={[noteStyles.default, status && noteStyles[status]]}>
-          {note}
+          {noteNumber}
         </Text>
         {/* 升降符 */}
         <Text style={styles.presign}>{presign}</Text>
@@ -113,16 +113,21 @@ export function Note({
 }
 
 let lineIndex = 0;
-export function BarNotes({ barData, times = 1, pointer = 0, missNotes = [] }) {
+export function BarNotes({
+  barData,
+  times = 1,
+  pointer = 0,
+  correctNotes = [],
+}) {
   if (typeof barData !== "object") return;
   const listItems = barData.map((beat, index, curArr) => {
-    if (Object.hasOwn(beat, "note")) {
+    if (Object.hasOwn(beat, "noteNumber")) {
       let status = "";
-      if (pointer == beat.index) status = "pointing";
-      else if (missNotes.includes(beat.index)) status = "miss";
+      if (pointer == beat.noteIndex) status = "pointing";
+      else if (!correctNotes.includes(beat.noteIndex)) status = "miss";
       return (
         <Note
-          key={beat.index}
+          key={beat.noteIndex}
           noteObject={beat}
           times={times}
           isLastBeat={index == curArr.length - 1}

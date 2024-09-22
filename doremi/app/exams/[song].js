@@ -14,27 +14,32 @@ const data = {
 };
 
 export default function Song() {
-  function handleCorrect() {}
-  function handleMiss(number) {
-    setMissNotes([...missNotes, number]);
-    console.log("miss:", number);
-  }
   const songName = useLocalSearchParams().song;
   const [staveJson, setStaveJson] = useState({ length: 0, body: [] });
   // 指针存放当前测试的音符的序号
   const [pointer, setPointer] = useState(-1);
   // 记录唱错的每个音符的序号
-  const [missNotes, setMissNotes] = useState([]);
+  const [correctNotes, setCorrectNotes] = useState([]);
   const [timer, setTimer] = useState(null);
-  const [status, setStatus] = useState("init");
+  const length = staveJson.length;
+  function handleCorrect() {
+    setCorrectNotes([...correctNotes, targetNote.noteIndex]);
+  }
+  function handleMiss() {}
   // 读取简谱
   useEffect(() => {
     data[songName].then((json) => setStaveJson(json));
-  }, []);
+  }, [songName]);
   // 关闭定时
   useEffect(() => {
     return () => clearInterval(timer);
   }, [timer]);
+  useEffect(() => {
+    console.log("correctNotes:", correctNotes);
+    if (pointer >= length) {
+      clearInterval(timer);
+    }
+  }, [pointer]);
 
   // 结构谱拍平，以便查找
   const flatStave = useMemo(() => {
@@ -42,30 +47,30 @@ export default function Song() {
   }, [staveJson]);
 
   const start = () => {
-    setStatus("playing");
     setTimer(
       setInterval(() => {
         setPointer((p) => p + 1);
-      }, 2000)
+      }, 3000)
     );
   };
 
-  console.log("pointer:", pointer);
-  if (pointer >= staveJson.length) {
-    clearInterval(timer);
-    setPointer(-1);
-    setStatus("init");
-  }
+  // p<0 未开始 && isPause
+  // 0<=p<l 进行中 && isPause
+  // p>=0 已结束
 
-  const targetNote = flatStave.find(({ index }) => index == pointer);
+  const targetNote = flatStave.find(({ noteIndex }) => noteIndex == pointer);
   return (
     <View>
       <View style={Styles.titleBar}>
         <H1 title="唱谱" />
+        <Text>{pointer}</Text>
       </View>
-      <View style={Styles.section}>
-        <DownBeat />
-      </View>
+      {pointer < 0 && (
+        <View style={Styles.section}>
+          <DownBeat start={start} time={2} />
+        </View>
+      )}
+
       <View style={[Styles.section, styles.stave]}>
         {staveJson.body.map((item, index) => {
           return (
@@ -73,22 +78,23 @@ export default function Song() {
               <BarNotes
                 barData={item}
                 pointer={pointer}
-                missNotes={missNotes}
+                correctNotes={correctNotes}
               />
               <BarLine />
             </View>
           );
         })}
       </View>
-      <View style={Styles.section}>
-        {status == "playing" && (
+
+      {pointer >= 0 && pointer < length && (
+        <View style={Styles.section}>
           <SolfegeRecognition
-            number={pointer}
-            note={targetNote && targetNote.note}
+            noteIndex={pointer}
+            noteNumber={targetNote && targetNote.noteNumber}
             correct={handleCorrect}
             miss={handleMiss}></SolfegeRecognition>
-        )}
-      </View>
+        </View>
+      )}
       {/* <View>
         {status != "playing" && <Button title="开始" onPress={start} />}
       </View> */}

@@ -7,13 +7,12 @@ import { Text } from "react-native";
 
 // @param {}
 export default function SolfegeRecognition({
-  number = 0,
-  note = 0,
+  noteIndex = 0,
+  noteNumber = 0,
   correct,
   miss,
 }) {
   const lang = "zh-CN";
-  // const note = parseInt(noteString[number]);
 
   const [isAvailable, setIsAvailable] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
@@ -31,12 +30,14 @@ export default function SolfegeRecognition({
       console.error("Speech start error:", e);
     } else {
       console.log("Speech start");
+      setIsStarted(true);
     }
   };
   const onSpeechEnd = (e) => {
     if (e) {
       console.error("Speech stop error:", e);
     } else {
+      setIsStarted(false);
       console.log("Speech stop");
     }
   };
@@ -45,7 +46,6 @@ export default function SolfegeRecognition({
   };
 
   const reload = () => {
-    console.log("reload");
     if (isAvailable) {
       Voice.removeAllListeners();
     }
@@ -57,60 +57,54 @@ export default function SolfegeRecognition({
 
   // todo: 引导开启语音识别服务
   const handleServiceDisabled = () => {};
-  const handleSpeechResult = (e, number, note) => {
+  const handleSpeechResult = (e) => {
     // 取最后一句识别结果
     let lastWords = e.value[e.value.length - 1];
     lastWords = lastWords[lastWords.length - 1];
-    console.log("识别结果:" + lastWords);
 
     // 匹配doremi同音汉字, 得出用户可能说的唱名, 以索引号记录, 可识别的记索引号, 不识别的记-1
     const matched = homophone.findIndex((words) =>
       new RegExp(`[${words}]`).test(lastWords)
     );
 
+    console.log("题目:%d, 识别结果:%s", noteNumber, lastWords);
+    // 测试模式
     if (matched != -1) {
       // 能识别发音，判断是否匹配当前测试唱名
       setSpeechResult(matched);
       setVolume(0);
-      if (matched + 1 == note) {
+      if (matched + 1 == noteNumber) {
         console.log("正确");
-        Voice.destroy()
-          .then(correct)
-          .catch((err) => console.error(err));
-        return;
+        correct();
       } else {
-        miss(number);
+        console.log("错误");
+        miss();
       }
     } else {
       console.log("不能匹配");
     }
   };
+
   // number或note 变化时，重新绑定事件
   useEffect(() => {
-    console.log("********************重载********************");
+    console.log("===================");
+    console.log("题:", noteNumber);
     setSpeechResult(null);
-    Voice.isAvailable()
+    Voice.destroy()
+      .then(Voice.isAvailable)
       .then((rsl) => {
         setIsAvailable(rsl);
-        if (rsl) {
-          console.log("语音识别服务可用");
-        } else {
+        if (!rsl) {
           throw new Error("语音识别服务禁用", { cause: "ServiceDisabled" });
         }
-        Voice.removeAllListeners();
-        console.log("绑定.");
         Voice.onSpeechStart = onSpeechStart;
         Voice.onSpeechEnd = onSpeechEnd;
-        Voice.onSpeechResults = (e) => {
-          handleSpeechResult(e, number, note);
-        };
+        Voice.onSpeechResults = handleSpeechResult;
         Voice.onSpeechVolumeChanged = onVolumeChanged;
         Voice.onSpeechError = onSpeechError;
+        console.log("重新绑定,noteNumber:", noteNumber);
       })
-      .then(() => {
-        if (!isStarted) return Voice.start(lang);
-      })
-      .then(() => setIsStarted(true))
+      .then(() => Voice.start(lang))
       .catch((err) => {
         console.log(err);
         if (err.cause && err.cause === "ServiceDisabled") {
@@ -119,7 +113,7 @@ export default function SolfegeRecognition({
         setIsAvailable(false);
       });
     return reload;
-  }, [number, note]);
+  }, [noteIndex, noteNumber]);
 
   useEffect(() => {
     return cleanup;

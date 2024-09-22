@@ -44,10 +44,10 @@ function parse(rowData = "") {
     // (?<presign>[#b=]*) 捕获音符左侧的升降号; (?<note>[0-9XYZ\-]):捕获音符;
     // (?<overtones>[ed]*) 捕获倍音记号; (?<dot>\.?) 捕获附点(若有多个点只取一个)
     const noteContent = noteString.match(
-      /(?<presign>(^##|^bb|^#|^b|^=)?)(?<note>[0-9XYZ-])(?<overtones>[ed]*)(?<dot>\.?)/
+      /(?<presign>(^##|^bb|^#|^b|^=)?)(?<noteNumber>[0-9XYZ-])(?<overtones>[ed]*)(?<dot>\.?)/
     );
     if (noteContent) {
-      const { presign, note, overtones, dot } = noteContent.groups;
+      const { presign, noteNumber, overtones, dot } = noteContent.groups;
       let octave = 0;
       for (let i = 0; i < overtones.length; i++) {
         // 升8度,降8度
@@ -57,7 +57,7 @@ function parse(rowData = "") {
       return {
         ...noteContent.groups,
         octave: octave,
-        index: noteIndex++,
+        nodeIndex: noteIndex++,
       };
     } else {
       throw new Error(`音符(${noteString})解析错误`);

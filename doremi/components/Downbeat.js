@@ -4,10 +4,13 @@ import { Colors } from "./ComStyle";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import React, { useEffect, useState } from "react";
 
-function Dot({ delay = 0 }) {
+function Dot({ delay = 0, onTimeout }) {
   const [show, setShow] = useState(true);
   useEffect(() => {
-    const timer = setTimeout(() => setShow(false), delay);
+    const timer = setTimeout(() => {
+      onTimeout();
+      setShow(false);
+    }, delay);
     return () => {
       clearTimeout(timer);
       setShow(true);
@@ -22,21 +25,30 @@ function Dot({ delay = 0 }) {
   );
 }
 
-export default function DownBeat({ tempo = 60, signature = 4 }) {
+export default function DownBeat({ tempo = 60, time = 4, start }) {
   // 每拍时长(毫秒)
   const dur = 60000 / tempo;
+
   // 生成一个序列再渲染的方式
-  // const dots = Array.from({ length: signature }, (v, i) => i);
+  // const dots = Array.from({ length: time }, (v, i) => i);
   // return (
   //   <View style={styles.container}>
   //     {dots.map((i) => (
-  //       <Dot delay={dur * (signature - i)} key={i} />
+  //       <Dot delay={dur * (time - i)} key={i} />
   //     ))}
   //   </View>
   // );
   const dots = [];
-  for (let i = 0; i < signature; i++) {
-    dots.push(<Dot delay={dur * (signature - i)} key={i} />);
+  for (let i = 0; i < time; i++) {
+    dots.push(
+      <Dot
+        delay={dur * (time - i)}
+        key={i}
+        onTimeout={() => {
+          if (i == 0) start();
+        }}
+      />
+    );
   }
   return <View style={styles.container}>{dots}</View>;
 }

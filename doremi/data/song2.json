@@ -4,36 +4,36 @@
     [
       {
         "presign": "",
-        "note": "5",
+        "noteNumber": "1",
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "index": 0
+        "noteIndex": 0
       },
       {
         "presign": "",
-        "note": "4",
+        "noteNumber": "2",
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "index": 1
+        "noteIndex": 1
       },
       [
         {
           "presign": "",
-          "note": "3",
+          "noteNumber": "3",
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "index": 2
+          "noteIndex": 2
         },
         {
           "presign": "",
-          "note": "2",
+          "noteNumber": "4",
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "index": 3
+          "noteIndex": 3
         }
       ]
     ]

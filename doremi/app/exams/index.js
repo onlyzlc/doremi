@@ -25,7 +25,7 @@ export default function StartPage() {
       setTimer(
         setTimeout(() => {
           setPointer((p) => p + 1);
-        }, 3000)
+        }, 1000)
       );
     } else {
       setPointer(0);
