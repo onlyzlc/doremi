@@ -124,7 +124,11 @@ export function BarNotes({
     if (Object.hasOwn(beat, "noteNumber")) {
       let status = "";
       if (pointer == beat.noteIndex) status = "pointing";
-      else if (!correctNotes.includes(beat.noteIndex)) status = "miss";
+      else if (
+        pointer > beat.noteIndex &&
+        !correctNotes.includes(beat.noteIndex)
+      )
+        status = "miss";
       return (
         <Note
           key={beat.noteIndex}

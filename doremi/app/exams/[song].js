@@ -72,11 +72,13 @@ export default function Song() {
       )}
 
       <View style={[Styles.section, styles.stave]}>
-        {staveJson.body.map((item, index) => {
+        {staveJson.body.map((bar, index) => {
+          // console.log("bar:", bar);
+
           return (
             <View style={styles.bar} key={"b" + index}>
               <BarNotes
-                barData={item}
+                barData={bar}
                 pointer={pointer}
                 correctNotes={correctNotes}
               />
