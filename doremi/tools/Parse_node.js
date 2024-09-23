@@ -57,7 +57,7 @@ function parse(rowData = "") {
       return {
         ...noteContent.groups,
         octave: octave,
-        nodeIndex: noteIndex++,
+        noteIndex: noteIndex++,
       };
     } else {
       throw new Error(`音符(${noteString})解析错误`);

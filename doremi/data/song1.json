@@ -11,7 +11,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 0
+        "noteIndex": 0
       },
       {
         "presign": "",
@@ -19,7 +19,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 1
+        "noteIndex": 1
       },
       [
         {
@@ -28,7 +28,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 2
+          "noteIndex": 2
         },
         {
           "presign": "",
@@ -36,7 +36,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 3
+          "noteIndex": 3
         }
       ],
       {
@@ -45,7 +45,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 4
+        "noteIndex": 4
       }
     ],
     [
@@ -56,7 +56,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 5
+          "noteIndex": 5
         },
         {
           "presign": "",
@@ -64,7 +64,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 6
+          "noteIndex": 6
         }
       ],
       [
@@ -74,7 +74,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 7
+          "noteIndex": 7
         },
         {
           "presign": "",
@@ -82,7 +82,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 8
+          "noteIndex": 8
         }
       ],
       {
@@ -91,7 +91,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 9
+        "noteIndex": 9
       },
       {
         "presign": "",
@@ -99,7 +99,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 10
+        "noteIndex": 10
       }
     ],
     [
@@ -110,7 +110,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 11
+          "noteIndex": 11
         },
         {
           "presign": "",
@@ -118,7 +118,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 12
+          "noteIndex": 12
         }
       ],
       [
@@ -128,7 +128,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 13
+          "noteIndex": 13
         },
         {
           "presign": "",
@@ -136,7 +136,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 14
+          "noteIndex": 14
         }
       ],
       [
@@ -146,7 +146,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 15
+          "noteIndex": 15
         },
         {
           "presign": "",
@@ -154,7 +154,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 16
+          "noteIndex": 16
         }
       ],
       {
@@ -163,7 +163,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 17
+        "noteIndex": 17
       }
     ],
     [
@@ -174,7 +174,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 18
+          "noteIndex": 18
         },
         {
           "presign": "",
@@ -182,7 +182,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 19
+          "noteIndex": 19
         }
       ],
       [
@@ -192,7 +192,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 20
+          "noteIndex": 20
         },
         {
           "presign": "",
@@ -200,7 +200,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 21
+          "noteIndex": 21
         }
       ],
       {
@@ -209,7 +209,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 22
+        "noteIndex": 22
       },
       {
         "presign": "",
@@ -217,7 +217,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 23
+        "noteIndex": 23
       }
     ],
     [
@@ -228,7 +228,7 @@
           "overtones": "e",
           "dot": ".",
           "octave": 1,
-          "nodeIndex": 24
+          "noteIndex": 24
         },
         [
           {
@@ -237,7 +237,7 @@
             "overtones": "eee",
             "dot": "",
             "octave": 3,
-            "nodeIndex": 25
+            "noteIndex": 25
           }
         ]
       ],
@@ -248,7 +248,7 @@
           "overtones": "ddd",
           "dot": "",
           "octave": -3,
-          "nodeIndex": 26
+          "noteIndex": 26
         },
         {
           "presign": "",
@@ -256,7 +256,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 27
+          "noteIndex": 27
         }
       ],
       [
@@ -266,7 +266,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 28
+          "noteIndex": 28
         },
         {
           "presign": "",
@@ -274,7 +274,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 29
+          "noteIndex": 29
         }
       ],
       [
@@ -284,7 +284,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 30
+          "noteIndex": 30
         },
         {
           "presign": "",
@@ -292,7 +292,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 31
+          "noteIndex": 31
         }
       ]
     ],
@@ -304,7 +304,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 32
+          "noteIndex": 32
         },
         {
           "presign": "",
@@ -312,7 +312,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 33
+          "noteIndex": 33
         }
       ],
       [
@@ -322,7 +322,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 34
+          "noteIndex": 34
         },
         {
           "presign": "",
@@ -330,7 +330,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 35
+          "noteIndex": 35
         }
       ],
       {
@@ -339,7 +339,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 36
+        "noteIndex": 36
       },
       {
         "presign": "",
@@ -347,7 +347,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 37
+        "noteIndex": 37
       }
     ],
     [
@@ -357,7 +357,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 38
+        "noteIndex": 38
       },
       {
         "presign": "",
@@ -365,7 +365,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 39
+        "noteIndex": 39
       },
       [
         {
@@ -374,7 +374,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 40
+          "noteIndex": 40
         },
         {
           "presign": "",
@@ -382,7 +382,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 41
+          "noteIndex": 41
         }
       ],
       {
@@ -391,7 +391,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 42
+        "noteIndex": 42
       }
     ],
     [
@@ -402,7 +402,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 43
+          "noteIndex": 43
         },
         {
           "presign": "",
@@ -410,7 +410,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 44
+          "noteIndex": 44
         }
       ],
       [
@@ -420,7 +420,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 45
+          "noteIndex": 45
         },
         {
           "presign": "",
@@ -428,7 +428,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 46
+          "noteIndex": 46
         }
       ],
       {
@@ -437,7 +437,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 47
+        "noteIndex": 47
       },
       {
         "presign": "",
@@ -445,7 +445,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 48
+        "noteIndex": 48
       }
     ],
     [
@@ -456,7 +456,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 49
+          "noteIndex": 49
         },
         {
           "presign": "",
@@ -464,7 +464,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 50
+          "noteIndex": 50
         }
       ],
       [
@@ -474,7 +474,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 51
+          "noteIndex": 51
         },
         {
           "presign": "",
@@ -482,7 +482,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 52
+          "noteIndex": 52
         }
       ],
       [
@@ -492,7 +492,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 53
+          "noteIndex": 53
         },
         {
           "presign": "",
@@ -500,7 +500,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 54
+          "noteIndex": 54
         }
       ],
       {
@@ -509,7 +509,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 55
+        "noteIndex": 55
       }
     ],
     [
@@ -520,7 +520,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 56
+          "noteIndex": 56
         },
         {
           "presign": "",
@@ -528,7 +528,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 57
+          "noteIndex": 57
         }
       ],
       [
@@ -538,7 +538,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 58
+          "noteIndex": 58
         },
         {
           "presign": "",
@@ -546,7 +546,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 59
+          "noteIndex": 59
         }
       ],
       {
@@ -555,7 +555,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 60
+        "noteIndex": 60
       },
       {
         "presign": "",
@@ -563,7 +563,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 61
+        "noteIndex": 61
       }
     ],
     [
@@ -573,7 +573,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 62
+        "noteIndex": 62
       },
       [
         {
@@ -582,7 +582,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 63
+          "noteIndex": 63
         },
         {
           "presign": "",
@@ -590,7 +590,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 64
+          "noteIndex": 64
         }
       ],
       {
@@ -599,7 +599,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 65
+        "noteIndex": 65
       },
       [
         {
@@ -608,7 +608,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 66
+          "noteIndex": 66
         },
         {
           "presign": "",
@@ -616,7 +616,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 67
+          "noteIndex": 67
         }
       ]
     ],
@@ -628,7 +628,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 68
+          "noteIndex": 68
         },
         {
           "presign": "",
@@ -636,7 +636,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 69
+          "noteIndex": 69
         }
       ],
       [
@@ -646,7 +646,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 70
+          "noteIndex": 70
         },
         {
           "presign": "",
@@ -654,7 +654,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 71
+          "noteIndex": 71
         }
       ],
       {
@@ -663,7 +663,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 72
+        "noteIndex": 72
       },
       {
         "presign": "",
@@ -671,7 +671,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 73
+        "noteIndex": 73
       }
     ],
     [
@@ -681,7 +681,7 @@
         "overtones": "e",
         "dot": "",
         "octave": 1,
-        "nodeIndex": 74
+        "noteIndex": 74
       },
       [
         {
@@ -690,7 +690,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 75
+          "noteIndex": 75
         },
         {
           "presign": "",
@@ -698,7 +698,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 76
+          "noteIndex": 76
         }
       ],
       {
@@ -707,7 +707,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 77
+        "noteIndex": 77
       },
       {
         "presign": "",
@@ -715,7 +715,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 78
+        "noteIndex": 78
       }
     ],
     [
@@ -726,7 +726,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 79
+          "noteIndex": 79
         },
         {
           "presign": "",
@@ -734,7 +734,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 80
+          "noteIndex": 80
         }
       ],
       [
@@ -744,7 +744,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 81
+          "noteIndex": 81
         },
         {
           "presign": "",
@@ -752,7 +752,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 82
+          "noteIndex": 82
         }
       ],
       {
@@ -761,7 +761,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 83
+        "noteIndex": 83
       },
       {
         "presign": "",
@@ -769,7 +769,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 84
+        "noteIndex": 84
       }
     ],
     [
@@ -779,7 +779,7 @@
         "overtones": "e",
         "dot": "",
         "octave": 1,
-        "nodeIndex": 85
+        "noteIndex": 85
       },
       [
         {
@@ -788,7 +788,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 86
+          "noteIndex": 86
         },
         {
           "presign": "",
@@ -796,7 +796,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 87
+          "noteIndex": 87
         }
       ],
       {
@@ -805,7 +805,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 88
+        "noteIndex": 88
       },
       {
         "presign": "",
@@ -813,7 +813,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 89
+        "noteIndex": 89
       }
     ],
     [
@@ -824,7 +824,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 90
+          "noteIndex": 90
         },
         {
           "presign": "",
@@ -832,7 +832,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 91
+          "noteIndex": 91
         }
       ],
       [
@@ -842,7 +842,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 92
+          "noteIndex": 92
         },
         {
           "presign": "",
@@ -850,7 +850,7 @@
           "overtones": "",
           "dot": "",
           "octave": 0,
-          "nodeIndex": 93
+          "noteIndex": 93
         }
       ],
       {
@@ -859,7 +859,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 94
+        "noteIndex": 94
       },
       {
         "presign": "",
@@ -867,7 +867,7 @@
         "overtones": "",
         "dot": "",
         "octave": 0,
-        "nodeIndex": 95
+        "noteIndex": 95
       }
     ]
   ]
