@@ -132,7 +132,7 @@ function parse(rowData = "") {
 
   const stave = {
     ...parseProps(rowData),
-    length: noteIndex - 1,
+    length: noteIndex,
     body: body,
   };
   // console.log("parse输出:", stave);
