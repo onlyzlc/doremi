@@ -59,21 +59,27 @@ export default function StartPage() {
               status={pointer == index && "pointing"}
               style={{ flex: "" }}
             />
-            <MaterialIcons name="arrow-downward" size={16} color="#ECD1EF" />
             {pointer == index && (
-              <Animated.View
-                entering={FadeIn}
-                exiting={FadeOut}
-                style={{
-                  borderRadius: 24,
-                  width: 48,
-                  height: 48,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: Colors.secondary,
-                }}>
-                <Text>{solfa[item.note - 1]}</Text>
-              </Animated.View>
+              <>
+                <MaterialIcons
+                  name="arrow-downward"
+                  size={16}
+                  color="#ECD1EF"
+                />
+                <Animated.View
+                  entering={FadeIn}
+                  exiting={FadeOut}
+                  style={{
+                    borderRadius: 24,
+                    width: 48,
+                    height: 48,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: Colors.secondary,
+                  }}>
+                  <Text>{solfa[item.noteNumber - 1]}</Text>
+                </Animated.View>
+              </>
             )}
           </View>
         ))}
