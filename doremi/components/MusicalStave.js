@@ -145,6 +145,7 @@ export function BarNotes({
           barData={beat}
           times={times * 0.5}
           pointer={pointer}
+          correctNotes={correctNotes}
         />
       );
     }
