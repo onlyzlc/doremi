@@ -87,6 +87,10 @@ export default function SolfegeRecognition({
 
   // number或note 变化时，重新绑定事件
   useEffect(() => {
+    if (!/[1-7]/.test(noteNumber)) {
+      correct();
+      return reload;
+    }
     console.log("===================");
     console.log("题:", noteNumber);
     setSpeechResult(null);
