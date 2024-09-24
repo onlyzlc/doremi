@@ -12,24 +12,6 @@ export const Colors = {
 };
 
 export const Fonts = {
-  h1: {
-    fontSize: 32,
-    fontWeight: 600,
-    textAlign: "left",
-    // color: Colors.main,
-  },
-  h2: {
-    fontSize: 24,
-    fontWeight: 400,
-    textAlign: "left",
-    // color: Colors.main,
-  },
-  h3: {
-    fontSize: 16,
-    fontWeight: 400,
-    textAlign: "left",
-    // color: Colors.main,
-  },
   main: {
     fontSize: 16,
     fontWeight: 400,
