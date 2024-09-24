@@ -26,11 +26,23 @@ function parse(rowData = "") {
   // 解析音乐属性
   function parseProps(rowData = "") {
     const reg =
-      /^P: *(?<key>1=[#b$%]?[A-G]\d?) +(?<time>\d\/\d(T|S|s)?) +(?<tempo>(hpm|qpm|spm|h.pm|q.pm|s.pm)=\d+)/m;
+      /^P: *1=(?<key>[#b$%]?[A-G]\d?) +(?<beats>\d)\/(?<beatType>\d)(T|S|s)? +(?<unit_r>hpm|qpm|spm|h.pm|q.pm|s.pm)=(?<speed_r>\d+)/m;
     const propsStr = rowData.match(reg);
-    // const props = { time: 4, tempo: 60, key: "C4" };
+    // "1=C 4/4 qpm=60"
+    // => { key: "C", beats: "4", beatType: "4", unit: "qpm", speed: "60" };
     if (propsStr) {
       const props = propsStr.groups;
+      const unitMap = new Map([
+        ["hpm", 1 / 2],
+        ["qpm", 1 / 4],
+        ["spm", 1 / 8],
+        ["h.pm", 3 / 4],
+        ["q.pm", 3 / 8],
+        ["s.pm", 3 / 16],
+      ]);
+      // 每分钟拍数(每拍时值beatType决定)
+      props.beatSpeed =
+        props.speed_r * unitMap.get(props.unit_r) * props.beatType;
       console.log(props);
       return props;
     } else {

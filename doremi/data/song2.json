@@ -1,4 +1,10 @@
 {
+  "key": "C",
+  "beats": "4",
+  "beatType": "4",
+  "unit_r": "qpm",
+  "speed_r": "60",
+  "beatSpeed": 60,
   "length": 4,
   "body": [
     [
