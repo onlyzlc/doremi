@@ -22,7 +22,6 @@ export default function Song() {
     unit_r: "",
     speed_r: "",
     beatSpeed: 0,
-    length: 0,
     body: [],
   });
   // 指针存放当前测试的音符的序号
@@ -30,30 +29,32 @@ export default function Song() {
   // 记录唱错的每个音符的序号
   const [correctNotes, setCorrectNotes] = useState([]);
   const [timer, setTimer] = useState(null);
-  function handleCorrect() {
-    setCorrectNotes([...correctNotes, targetNote.noteIndex]);
-  }
-  function handleMiss() {}
-  // 读取简谱
+
   useEffect(() => {
     data[songName].then((json) => setStaveJson(json));
   }, [songName]);
+  // 结构谱拍平，以便查找
+  const flatStave = useMemo(() => {
+    return staveJson.body.flat(Infinity);
+  }, [staveJson]);
+  const len = flatStave.length;
+  const solfaArr = flatStave.filter((item) => /[1-7]/.test(item.noteNumber));
   // 关闭定时
   useEffect(() => {
     return () => clearInterval(timer);
   }, [timer]);
   useEffect(() => {
     // console.log("correctNotes:", correctNotes);
-    if (pointer >= length) {
+    if (pointer >= len) {
       clearInterval(timer);
     }
   }, [pointer]);
 
-  // 结构谱拍平，以便查找
-  const flatStave = useMemo(() => {
-    return staveJson.body.flat(Infinity);
-  }, [staveJson]);
-
+  function handleCorrect() {
+    setCorrectNotes([...correctNotes, targetNote.noteIndex]);
+  }
+  function handleMiss() {}
+  // 读取简谱
   const start = () => {
     setTimer(
       setInterval(() => {
@@ -62,27 +63,31 @@ export default function Song() {
     );
   };
 
-  // p<0 未开始 && isPause
-  // 0<=p<l 进行中 && isPause
-  // p>=0 已结束
-  const { key, beats, beatType, unit_r, speed_r, beatSpeed, length } =
-    staveJson;
-  // console.log(key, beats, beatType, unit_r, speed_r, beatSpeed, length);
+  const replay = () => {
+    clearInterval(timer);
+    setPointer(-1);
+    setCorrectNotes([]);
+  };
 
+  const { key, beats, beatType, unit_r, speed_r, beatSpeed } = staveJson;
+  // console.log(key, beats, beatType, unit_r, speed_r, beatSpeed);
   // 1=C 4/4 qpm=60
   const propsStr = `1=${key} ${beats}/${beatType} ${unit_r}=${speed_r}`;
   const targetNote = flatStave.find(({ noteIndex }) => noteIndex == pointer);
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View style={{ alignContent: "center", paddingTop: 48 }}>
         <H2 title="唱谱测试1" style={{ textAlign: "center" }} />
       </View>
 
-      <Text style={styles.musicProps}>{propsStr}</Text>
+      <View style={Styles.section}>
+        <Text style={styles.musicProps}>{propsStr}</Text>
+      </View>
 
       {pointer < 0 && (
         <View style={Styles.section}>
-          <DownBeat tempo={beatSpeed} start={start} time={beats} />
+          <DownBeat tempo={beatSpeed} ending={start} time={beats} />
         </View>
       )}
 
@@ -101,7 +106,7 @@ export default function Song() {
         })}
       </View>
 
-      {pointer >= 0 && pointer < length && (
+      {pointer >= 0 && pointer < len && (
         <View style={Styles.section}>
           <SolfegeRecognition
             noteIndex={pointer}
@@ -110,21 +115,38 @@ export default function Song() {
             miss={handleMiss}></SolfegeRecognition>
         </View>
       )}
-      {/* <View>
-        {status != "playing" && <Button title="开始" onPress={start} />}
-      </View> */}
+
+      {pointer >= len && (
+        <View
+          style={[
+            Styles.section,
+            {
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            },
+          ]}>
+          <Text>
+            {Math.round((100 * correctNotes.length) / solfaArr.length)}%
+          </Text>
+          <Button title="重新开始" onPress={replay}></Button>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   stave: {
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
+    alignContent: "flex-start",
   },
   bar: {
-    flexDirection: "row",
     flexBasis: "50%",
+
+    flexDirection: "row",
     marginVertical: 16,
   },
   musicProps: {

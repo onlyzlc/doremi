@@ -3,7 +3,7 @@ import { React, useEffect, useState } from "react";
 import Voice from "@react-native-voice/voice";
 import VoiceIndicator from "./VoiceIndicator";
 import { solfa, homophone } from "../data/pronunciations";
-import { Text } from "react-native";
+import { Platform, Text } from "react-native";
 
 // @param {}
 export default function SolfegeRecognition({
@@ -12,6 +12,7 @@ export default function SolfegeRecognition({
   correct,
   miss,
 }) {
+  // if (Platform.OS == "web") return;
   const lang = "zh-CN";
 
   const [isAvailable, setIsAvailable] = useState(false);
@@ -88,11 +89,10 @@ export default function SolfegeRecognition({
   // number或note 变化时，重新绑定事件
   useEffect(() => {
     if (!/[1-7]/.test(noteNumber)) {
-      correct();
       return reload;
     }
     console.log("===================");
-    console.log("题:", noteNumber);
+    // console.log("题:", noteNumber);
     setSpeechResult(null);
     Voice.destroy()
       .then(Voice.isAvailable)
@@ -106,7 +106,7 @@ export default function SolfegeRecognition({
         Voice.onSpeechResults = handleSpeechResult;
         Voice.onSpeechVolumeChanged = onVolumeChanged;
         Voice.onSpeechError = onSpeechError;
-        console.log("重新绑定,noteNumber:", noteNumber);
+        // console.log("重新绑定,noteNumber:", noteNumber);
       })
       .then(() => Voice.start(lang))
       .catch((err) => {

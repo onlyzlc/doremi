@@ -8,8 +8,8 @@ function Dot({ delay = 0, onTimeout }) {
   const [show, setShow] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
-      onTimeout();
       setShow(false);
+      onTimeout();
     }, delay);
     return () => {
       clearTimeout(timer);
@@ -25,7 +25,7 @@ function Dot({ delay = 0, onTimeout }) {
   );
 }
 
-export default function DownBeat({ tempo = 60, time = 4, start }) {
+export default function DownBeat({ tempo = 60, time = 4, ending }) {
   // 每拍时长(毫秒)
   const dur = 60000 / tempo;
 
@@ -45,7 +45,7 @@ export default function DownBeat({ tempo = 60, time = 4, start }) {
         delay={dur * (time - i)}
         key={i}
         onTimeout={() => {
-          if (i == 0) start();
+          if (i == 0) ending();
         }}
       />
     );
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     gap: 32,
+    height: 12,
   },
   dot: {
     width: 12,

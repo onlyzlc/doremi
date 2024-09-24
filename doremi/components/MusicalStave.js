@@ -126,7 +126,8 @@ export function BarNotes({
       if (pointer == beat.noteIndex) status = "pointing";
       else if (
         pointer > beat.noteIndex &&
-        !correctNotes.includes(beat.noteIndex)
+        !correctNotes.includes(beat.noteIndex) &&
+        /[1-7]/.test(beat.noteNumber)
       )
         status = "miss";
       return (
