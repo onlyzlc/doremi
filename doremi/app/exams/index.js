@@ -52,7 +52,7 @@ export default function StartPage() {
         }}>
         {example.body[0].map((item, index) => (
           <View
-            key={item.index}
+            key={item.noteIndex}
             style={{ alignItems: "center", width: 30, rowGap: 8 }}>
             <Note
               noteObject={item}

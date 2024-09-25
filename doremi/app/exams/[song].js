@@ -8,9 +8,11 @@ import Button from "../../components/Button";
 import SolfegeRecognition from "../../components/SolfegeRecognition";
 import { BarLine, BarNotes } from "../../components/MusicalStave";
 import DownBeat from "../../components/Downbeat";
+import Stars from "../../components/Stars";
+import { save } from "../../components/Storage";
 const data = {
-  song1: import("../../data/song1.json"),
-  song2: import("../../data/song2.json"),
+  song1: import("../../data/song/song1.json"),
+  song2: import("../../data/song/song2.json"),
 };
 
 export default function Song() {
@@ -26,27 +28,29 @@ export default function Song() {
   });
   // 指针存放当前测试的音符的序号
   const [pointer, setPointer] = useState(-1);
-  // 记录唱错的每个音符的序号
+  // 记录唱对的每个音符的序号
   const [correctNotes, setCorrectNotes] = useState([]);
   const [timer, setTimer] = useState(null);
 
+  // 加载简谱
   useEffect(() => {
     data[songName].then((json) => setStaveJson(json));
+    return () => clearInterval(timer);
   }, [songName]);
-  // 结构谱拍平，以便查找
+
+  // 拍平，以便查找和计算
   const flatStave = useMemo(() => {
     return staveJson.body.flat(Infinity);
   }, [staveJson]);
   const len = flatStave.length;
+  // 1-7 要测试的所有音符
   const solfaArr = flatStave.filter((item) => /[1-7]/.test(item.noteNumber));
-  // 关闭定时
-  useEffect(() => {
-    return () => clearInterval(timer);
-  }, [timer]);
+
   useEffect(() => {
     // console.log("correctNotes:", correctNotes);
     if (pointer >= len) {
       clearInterval(timer);
+      save(songName, [correctRate, starValue]);
     }
   }, [pointer]);
 
@@ -74,7 +78,8 @@ export default function Song() {
   // 1=C 4/4 qpm=60
   const propsStr = `1=${key} ${beats}/${beatType} ${unit_r}=${speed_r}`;
   const targetNote = flatStave.find(({ noteIndex }) => noteIndex == pointer);
-
+  const correctRate = Math.round((100 * correctNotes.length) / solfaArr.length);
+  const starValue = Math.floor((5 * correctNotes.length) / solfaArr.length);
   return (
     <View style={{ flex: 1 }}>
       <View style={{ alignContent: "center", paddingTop: 48 }}>
@@ -126,9 +131,10 @@ export default function Song() {
               justifyContent: "space-between",
             },
           ]}>
-          <Text>
-            {Math.round((100 * correctNotes.length) / solfaArr.length)}%
-          </Text>
+          <View style={styles.grades}>
+            <Stars value={starValue} size={24} />
+            <Text>正确率：{correctRate}%</Text>
+          </View>
           <Button title="重新开始" onPress={replay}></Button>
         </View>
       )}
@@ -151,5 +157,9 @@ const styles = StyleSheet.create({
   },
   musicProps: {
     fontSize: 16,
+  },
+  grades: {
+    flexDirection: "column",
+    justifyContent: "center",
   },
 });

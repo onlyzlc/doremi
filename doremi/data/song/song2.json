@@ -1,11 +1,10 @@
 {
   "key": "C",
-  "beats": "4",
-  "beatType": "4",
+  "beats": "2",
+  "beatType": "2",
   "unit_r": "qpm",
   "speed_r": "60",
   "beatSpeed": 60,
-  "length": 4,
   "body": [
     [
       {
@@ -35,7 +34,7 @@
         },
         {
           "presign": "",
-          "noteNumber": "4",
+          "noteNumber": "3",
           "overtones": "",
           "dot": "",
           "octave": 0,

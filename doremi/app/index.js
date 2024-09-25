@@ -1,5 +1,5 @@
 import { Link, router, Stack } from "expo-router";
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import Button from "../components/Button";
 import { H1 } from "../components/Header";
@@ -7,7 +7,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Doremipop from "../assets/doremipop";
 import { Colors, Fonts, Styles } from "../components/ComStyle";
 import MenuCard from "../components/MenuCard";
+import { read } from "../components/Storage";
+import Stars from "../components/Stars";
+import songs from "../data/song/index.json";
+
 export default function Solfege() {
+  const [examsResult, setExamsResult] = useState([]);
+  const songList = songs.exams;
+  useEffect(() => {
+    songList.forEach((song) => setExamsResult([...examsResult, read(song)]));
+  }, []);
   return (
     <View>
       {/* <Link href={"/basic"}>唱名基础练习</Link> */}
@@ -22,16 +31,17 @@ export default function Solfege() {
           <Text>⭐⭐⭐</Text>
         </MenuCard>
         <Text style={[Fonts.secondary, Styles.sectionTitle]}>简谱测试</Text>
-        <MenuCard
-          title="未知歌曲1"
-          onPress={() => router.navigate("/exams?song=song1")}>
-          <Text>⭐</Text>
-        </MenuCard>
-        <MenuCard
-          title="未知歌曲2"
-          onPress={() => router.navigate("/exams?song=song2")}>
-          <Text>⭐</Text>
-        </MenuCard>
+        {songList.map((song, index) => {
+          const result = examsResult[index];
+          return (
+            <MenuCard
+              key={index}
+              title={song}
+              onPress={() => router.navigate(`/exams?song=${song}`)}>
+              {result > 0 ? <Stars value={result[1]} /> : <Text>暂无评分</Text>}
+            </MenuCard>
+          );
+        })}
       </View>
     </View>
   );
