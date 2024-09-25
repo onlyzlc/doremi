@@ -12,11 +12,10 @@ export default function SolfegeRecognition({
   correct,
   miss,
 }) {
-  // if (Platform.OS == "web") return;
+  if (Platform.OS == "web") return;
   const lang = "zh-CN";
 
   const [isAvailable, setIsAvailable] = useState(false);
-  const [isStarted, setIsStarted] = useState(false);
   // 识别结果, 记0~6索引号
   const [speechResult, setSpeechResult] = useState(4);
   // 音量变化使得组件频繁渲染

@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.onlyzlc.doremi"
@@ -21,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.onlyzlc.doremi"
     },
     "web": {
       "bundler": "metro",
@@ -32,6 +35,9 @@
         "projectId": "e1958fac-61d8-4c3a-b0f8-4501f888e40e"
       }
     },
-    "plugins": ["@react-native-voice/voice", "expo-router"]
+    "plugins": [
+      "@react-native-voice/voice",
+      "expo-router"
+    ]
   }
 }
