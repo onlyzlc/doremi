@@ -1,21 +1,21 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { React, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { H1 } from "../components/Header";
 import Doremipop from "../assets/doremipop";
 import { Fonts, Styles } from "../components/ComStyle";
 import MenuCard from "../components/MenuCard";
-import { read } from "../components/Storage";
+import { readArch } from "../components/Storage";
 import Stars from "../components/Stars";
 import songs from "../data/song/index.json";
 
 export default function Solfege() {
-  const [examsResult, setExamsResult] = useState([]);
+  const [examsResult, setExamsResult] = useState({});
   const songList = songs.exams;
-  // useEffect(() => {
-  //   console.log("songlist:", songs);
-  //   songList.forEach((song) => setExamsResult([...examsResult, read(song)]));
-  // }, []);
+  useEffect(() => {
+    readArch().then((arch) => setExamsResult(arch.exams)).catch;
+    return () => setExamsResult([]);
+  }, []);
   return (
     <View>
       {/* <Link href={"/basic"}>唱名基础练习</Link> */}
@@ -31,13 +31,14 @@ export default function Solfege() {
         </MenuCard>
         <Text style={[Fonts.secondary, Styles.sectionTitle]}>简谱测试</Text>
         {songList.map((song, index) => {
-          const result = read(song);
+          console.log("%s=%o", song, examsResult[song]);
+          const stars = !examsResult[song] ? null : examsResult[song].stars;
           return (
             <MenuCard
               key={index}
               title={song}
               onPress={() => router.navigate(`/exams?song=${song}`)}>
-              {result > 0 ? <Stars value={result[1]} /> : <Text>暂无评分</Text>}
+              <Stars value={stars} />
             </MenuCard>
           );
         })}

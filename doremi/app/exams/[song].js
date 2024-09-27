@@ -9,7 +9,8 @@ import SolfegeRecognition from "../../components/SolfegeRecognition";
 import { BarLine, BarNotes } from "../../components/MusicalStave";
 import DownBeat from "../../components/Downbeat";
 import Stars from "../../components/Stars";
-import { save } from "../../components/Storage";
+import { read, save, saveExamsResult } from "../../components/Storage";
+import { rate2Stars } from "../../components/tools";
 const data = {
   song1: import("../../data/song/song1.json"),
   song2: import("../../data/song/song2.json"),
@@ -50,7 +51,8 @@ export default function Song() {
     // console.log("correctNotes:", correctNotes);
     if (pointer >= len) {
       clearInterval(timer);
-      save(songName, [correctRate, starValue]);
+      // 存档
+      saveExamsResult(songName, correctRate);
     }
   }, [pointer]);
 
@@ -79,7 +81,7 @@ export default function Song() {
   const propsStr = `1=${key} ${beats}/${beatType} ${unit_r}=${speed_r}`;
   const targetNote = flatStave.find(({ noteIndex }) => noteIndex == pointer);
   const correctRate = Math.round((100 * correctNotes.length) / solfaArr.length);
-  const starValue = Math.floor((5 * correctNotes.length) / solfaArr.length);
+  const starValue = rate2Stars(correctRate);
   return (
     <View style={{ flex: 1 }}>
       <View style={{ alignContent: "center", paddingTop: 48 }}>
