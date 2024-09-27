@@ -27,24 +27,20 @@ export default function Button({ title, theme, onPress, disabled, ...props }) {
 const styles = StyleSheet.create({
   buttonContainer: {
     minWidth: 120,
-    height: 68,
-    marginHorizontal: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 3,
+    minHeight: 60,
   },
   button: {
     borderRadius: 40,
-    width: "100%",
-    height: "100%",
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: Colors.cantrol,
+    backgroundColor: Colors.secBackground,
   },
   buttonLabel: {
-    color: Colors.foreground,
+    color: Colors.main,
     fontSize: 16,
+    textAlign: "center",
   },
   buttonIcon: {
     paddingLeft: 8,
