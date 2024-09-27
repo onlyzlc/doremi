@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { React, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { H1 } from "../components/Header";
@@ -42,6 +42,9 @@ export default function Solfege() {
             </MenuCard>
           );
         })}
+      </View>
+      <View style={Styles.section}>
+        <Link href="/ctest">组件测试页</Link>
       </View>
     </View>
   );

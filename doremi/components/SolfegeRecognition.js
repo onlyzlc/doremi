@@ -12,7 +12,7 @@ export default function SolfegeRecognition({
   correct,
   miss,
 }) {
-  if (Platform.OS == "web") return;
+  // if (Platform.OS == "web") return;
   const lang = "zh-CN";
 
   const [isAvailable, setIsAvailable] = useState(false);
@@ -30,14 +30,12 @@ export default function SolfegeRecognition({
       console.error("Speech start error:", e);
     } else {
       console.log("Speech start");
-      setIsStarted(true);
     }
   };
   const onSpeechEnd = (e) => {
     if (e) {
       console.error("Speech stop error:", e);
     } else {
-      setIsStarted(false);
       console.log("Speech stop");
     }
   };
@@ -119,6 +117,11 @@ export default function SolfegeRecognition({
   }, [noteIndex, noteNumber]);
 
   useEffect(() => {
+    if (Platform.OS == "android") {
+      Voice.getSpeechRecognitionServices()
+        .then((rsl) => console.log("语音服务:", rsl))
+        .catch((err) => console.error(err));
+    }
     return cleanup;
   }, []);
 
