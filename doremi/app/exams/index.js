@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import Button from "../../components/Button";
-import { Link, router, useLocalSearchParams } from "expo-router";
+import { Link, router, useGlobalSearchParams } from "expo-router";
 import { H1 } from "../../components/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 import { solfa, homophone } from "../../data/pronunciations";
@@ -17,7 +17,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 export default function StartPage() {
-  const targetSong = useLocalSearchParams().song;
+  const targetSong = useGlobalSearchParams().song;
   const [pointer, setPointer] = useState(-1);
   const [timer, setTimer] = useState(null);
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function StartPage() {
       style={{
         display: "flex",
         alignItems: "center",
-        rowGap: 16,
+        gap: 16,
         flex: 1,
         justifyContent: "center",
       }}>
@@ -54,11 +54,7 @@ export default function StartPage() {
           <View
             key={item.noteIndex}
             style={{ alignItems: "center", width: 30, rowGap: 8 }}>
-            <Note
-              noteObject={item}
-              status={pointer == index && "pointing"}
-              style={{ flex: "" }}
-            />
+            <Note noteObject={item} status={pointer == index && "pointing"} />
             {pointer == index && (
               <>
                 <MaterialIcons
